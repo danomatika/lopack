@@ -7,116 +7,116 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		264A5747192B001271356218 /* liboscframework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E372B396642001271356218 /* liboscframework.a */; };
-		746B4D390910001271356218 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B8C455D7C30001271356218 /* Main.cpp */; };
+		1F1727BB1AF0001272805169 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BC60AD1511001272805169 /* Main.cpp */; };
+		396C08343196001272805169 /* liboscframework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA63C8341D5001272805169 /* liboscframework.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		09346602202B001271356218 /* PBXContainerItemProxy */ = {
+		67051DF60BF0001272805169 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 564834B430C6001271356218 /* oscframework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0D365CF57C47001271356218;
+			containerPortal = 22EA47F414BA001272805169 /* oscframework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 565C53761447001272805169;
 			remoteInfo = liboscframework.a;
 		};
-		189C6461296C001271356218 /* PBXContainerItemProxy */ = {
+		6F2027C04547001272805169 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 564834B430C6001271356218 /* oscframework.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 530A3FBA675B001271356218;
+			containerPortal = 22EA47F414BA001272805169 /* oscframework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 38BC556E6828001272805169;
 			remoteInfo = liboscframework.a;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		267C25705F81001271356218 /* oftests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = oftests; sourceTree = BUILT_PRODUCTS_DIR; };
-		564834B430C6001271356218 /* oscframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = oscframework.xcodeproj; sourceTree = SOURCE_ROOT; };
-		6B8C455D7C30001271356218 /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		22EA47F414BA001272805169 /* oscframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = oscframework.xcodeproj; sourceTree = SOURCE_ROOT; };
+		5880574250E4001272805169 /* oftests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = oftests; sourceTree = BUILT_PRODUCTS_DIR; };
+		73BC60AD1511001272805169 /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		517C4DD3101E001271356218 /* Frameworks */ = {
+		49604C894481001272805169 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				264A5747192B001271356218 /* liboscframework.a in Frameworks */,
+				396C08343196001272805169 /* liboscframework.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E6F2A3B08F2001271356218 /* Products */ = {
+		006A589B4056001272805169 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E372B396642001271356218 /* liboscframework.a */,
+				5FA63C8341D5001272805169 /* liboscframework.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		244670664CE8001271356218 /* Products */ = {
+		015E6E6B6DBD001272805169 /* oftests */ = {
 			isa = PBXGroup;
 			children = (
-				267C25705F81001271356218 /* oftests */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		31601F370F6B001271356218 /* Projects */ = {
-			isa = PBXGroup;
-			children = (
-				564834B430C6001271356218 /* oscframework.xcodeproj */,
-			);
-			name = Projects;
-			sourceTree = "<group>";
-		};
-		3DEB1716276F001271356218 /* oftests */ = {
-			isa = PBXGroup;
-			children = (
-				76885EBC2080001271356218 /* src */,
-				244670664CE8001271356218 /* Products */,
-				31601F370F6B001271356218 /* Projects */,
+				536335DB6602001272805169 /* src */,
+				121E12B80F8E001272805169 /* Products */,
+				6819780E0D33001272805169 /* Projects */,
 			);
 			name = oftests;
 			sourceTree = "<group>";
 		};
-		4F3965E816C9001271356218 /* tests */ = {
+		121E12B80F8E001272805169 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6B8C455D7C30001271356218 /* Main.cpp */,
+				5880574250E4001272805169 /* oftests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3C7D51277EDB001272805169 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				73BC60AD1511001272805169 /* Main.cpp */,
 			);
 			path = tests;
 			sourceTree = "<group>";
 		};
-		76885EBC2080001271356218 /* src */ = {
+		536335DB6602001272805169 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				4F3965E816C9001271356218 /* tests */,
+				3C7D51277EDB001272805169 /* tests */,
 			);
 			name = src;
 			path = ../src;
 			sourceTree = "<group>";
 		};
+		6819780E0D33001272805169 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				22EA47F414BA001272805169 /* oscframework.xcodeproj */,
+			);
+			name = Projects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1EBB397D6B8A001271356218 /* oftests */ = {
+		30C646921D9B001272805169 /* oftests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 75B613054075001271356218 /* Build configuration list for PBXNativeTarget "oftests" */;
+			buildConfigurationList = 724311537FEC001272805169 /* Build configuration list for PBXNativeTarget "oftests" */;
 			buildPhases = (
-				02302023675A001271356218 /* Resources */,
-				03A34F3A2133001271356218 /* Sources */,
-				517C4DD3101E001271356218 /* Frameworks */,
+				60B747AB2F30001272805169 /* Resources */,
+				1ECC07FE4F89001272805169 /* Sources */,
+				49604C894481001272805169 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7AA834242B58001271356218 /* PBXTargetDependency */,
+				69496A404CFB001272805169 /* PBXTargetDependency */,
 			);
 			name = oftests;
 			productInstallPath = "$(HOME)/bin";
 			productName = oftests;
-			productReference = 267C25705F81001271356218 /* oftests */;
+			productReference = 5880574250E4001272805169 /* oftests */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -127,33 +127,33 @@
 			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "oftests" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
-			mainGroup = 3DEB1716276F001271356218 /* oftests */;
+			mainGroup = 015E6E6B6DBD001272805169 /* oftests */;
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 1E6F2A3B08F2001271356218 /* Products */;
-					ProjectRef = 564834B430C6001271356218 /* oscframework.xcodeproj */;
+					ProductGroup = 006A589B4056001272805169 /* Products */;
+					ProjectRef = 22EA47F414BA001272805169 /* oscframework.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				1EBB397D6B8A001271356218 /* oftests */,
+				30C646921D9B001272805169 /* oftests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3E372B396642001271356218 /* liboscframework.a */ = {
+		5FA63C8341D5001272805169 /* liboscframework.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = liboscframework.a;
-			remoteRef = 09346602202B001271356218 /* PBXContainerItemProxy */;
+			remoteRef = 6F2027C04547001272805169 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		02302023675A001271356218 /* Resources */ = {
+		60B747AB2F30001272805169 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -163,51 +163,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		03A34F3A2133001271356218 /* Sources */ = {
+		1ECC07FE4F89001272805169 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				746B4D390910001271356218 /* Main.cpp in Sources */,
+				1F1727BB1AF0001272805169 /* Main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7AA834242B58001271356218 /* PBXTargetDependency */ = {
+		69496A404CFB001272805169 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = liboscframework.a;
-			targetProxy = 189C6461296C001271356218 /* PBXContainerItemProxy */;
+			targetProxy = 67051DF60BF0001272805169 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0C9C07414518001271356218 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../bin;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = oftests;
-			};
-			name = Debug;
-		};
-		1B6332C1539D001271356218 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../bin;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = oftests;
-			};
-			name = Release;
-		};
-		5E0D4A990FED001271356218 /* Debug */ = {
+		04F12B83343B001272805169 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
@@ -236,7 +211,20 @@
 			};
 			name = Debug;
 		};
-		6F60287752E2001271356218 /* Release */ = {
+		0EE17B9D36C6001272805169 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = ../bin;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = oftests;
+			};
+			name = Release;
+		};
+		30AA14BC44BF001272805169 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
@@ -263,23 +251,35 @@
 			};
 			name = Release;
 		};
+		708736A72541001272805169 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = ../bin;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = oftests;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "oftests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5E0D4A990FED001271356218 /* Debug */,
-				6F60287752E2001271356218 /* Release */,
+				04F12B83343B001272805169 /* Debug */,
+				30AA14BC44BF001272805169 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		75B613054075001271356218 /* Build configuration list for PBXNativeTarget "oftests" */ = {
+		724311537FEC001272805169 /* Build configuration list for PBXNativeTarget "oftests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0C9C07414518001271356218 /* Debug */,
-				1B6332C1539D001271356218 /* Release */,
+				708736A72541001272805169 /* Debug */,
+				0EE17B9D36C6001272805169 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
