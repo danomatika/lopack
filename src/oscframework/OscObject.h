@@ -39,7 +39,7 @@ class OscObject
 {
     public:
 
-        OscObject(std::string rootAddress="") : oscRootAddress("/"+rootAddress) {}
+        OscObject(std::string rootAddress="") : oscRootAddress(rootAddress) {}
 
         /* ***** PROCESS OSC MESSAGES ***** */
 
