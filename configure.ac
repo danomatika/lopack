@@ -59,7 +59,7 @@ AC_CONFIG_SUBDIRS([])
 #########################################
 ##### Output files #####
 
-AC_CONFIG_HEADERS([src/oscframework/config.h])
+AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES([
 	Makefile
 	src/Makefile
