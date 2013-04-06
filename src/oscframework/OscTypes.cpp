@@ -132,7 +132,6 @@ const std::string ReceivedMessage::asString(unsigned int at) const
 {
 	if(!isString(at))
     	throw TypeException();
-        
     
     return std::string(&(arg(at)->s));
 }
@@ -165,8 +164,192 @@ const Blob ReceivedMessage::asBlob(unsigned int at) const
 {
 	lo_blob b = (lo_blob) arg(at);
     
-    
 	return Blob(lo_blob_dataptr(b), lo_blob_datasize(b));
+}
+
+const bool ReceivedMessage::tryBool(bool *dest, unsigned int at) const
+{
+    if(isBool(at))
+    {
+        *dest = asBool(at);
+        return true;
+    }
+    else if(isInt32(at))
+    {
+        *dest = (bool) asInt32(at);
+        return true;
+    }
+    else if(isInt64(at))
+    {
+        *dest = (bool) asInt64(at);
+        return true;
+    }
+    else if(isFloat(at))
+    {
+        *dest = (bool) asFloat(at);
+        return true;
+    }
+    else if(isDouble(at))
+    {
+        *dest = (bool) asDouble(at);
+        return true;
+    }
+    return false;
+}
+
+const bool ReceivedMessage::tryChar(char *dest, unsigned int at) const
+{
+    if(isChar(at))
+    {
+        *dest = asChar(at);
+        return true;
+    }
+    else if(isInt32(at))
+    {
+        *dest = (char) asInt32(at);
+        return true;
+    }
+    else if(isInt64(at))
+    {
+        *dest = (char) asInt64(at);
+        return true;
+    }
+    return false;
+}
+
+const bool ReceivedMessage::tryNumber(int *dest, unsigned int at) const
+{
+    if(isBool(at))
+    {
+        *dest = (int) asBool(at);
+        return true;
+    }
+    else if(isInt32(at))
+    {
+        *dest = asInt32(at);
+        return true;
+    }
+    else if(isInt64(at))
+    {
+        *dest = asInt64(at);
+        return true;
+    }
+    else if(isFloat(at))
+    {
+        *dest = (int) asFloat(at);
+        return true;
+    }
+    else if(isDouble(at))
+    {
+        *dest = (int) asDouble(at);
+        return true;
+    }
+    return false;
+}
+
+const bool ReceivedMessage::tryNumber(unsigned int *dest, unsigned int at) const
+{
+    if(isBool(at))
+    {
+        *dest = (unsigned int) asBool(at);
+        return true;
+    }
+    else if(isInt32(at))
+    {
+        *dest = (unsigned int) asInt32(at);
+        return true;
+    }
+    else if(isInt64(at))
+    {
+        *dest = (unsigned int) asInt64(at);
+        return true;
+    }
+    else if(isFloat(at))
+    {
+        *dest = (unsigned int) asFloat(at);
+        return true;
+    }
+    else if(isDouble(at))
+    {
+        *dest = (unsigned int) asDouble(at);
+        return true;
+    }
+    return false;
+}
+
+const bool ReceivedMessage::tryNumber(float *dest, unsigned int at) const
+{
+    if(isBool(at))
+    {
+        *dest = (float) asBool(at);
+        return true;
+    }
+    else if(isInt32(at))
+    {
+        *dest = (float) asInt32(at);
+        return true;
+    }
+    else if(isInt64(at))
+    {
+        *dest = (float) asInt64(at);
+        return true;
+    }
+    else if(isFloat(at))
+    {
+        *dest = asFloat(at);
+        return true;
+    }
+    else if(isDouble(at))
+    {
+        *dest = (float) asDouble(at);
+        return true;
+    }
+    return false;
+}
+
+const bool ReceivedMessage::tryNumber(double *dest, unsigned int at) const
+{
+    if(isBool(at))
+    {
+        *dest = (double) asBool(at);
+        return true;
+    }
+    else if(isInt32(at))
+    {
+        *dest = (double) asInt32(at);
+        return true;
+    }
+    else if(isInt64(at))
+    {
+        *dest = (double) asInt64(at);
+        return true;
+    }
+    else if(isFloat(at))
+    {
+        *dest = (double) asFloat(at);
+        return true;
+    }
+    else if(isDouble(at))
+    {
+        *dest = asDouble(at);
+        return true;
+    }
+    return false;
+}
+
+const bool ReceivedMessage::tryString(std::string *dest, unsigned int at) const
+{
+    if(isString(at))
+    {
+        *dest = asString(at);
+        return true;
+    }
+    else if(isSymbol(at))
+    {
+        *dest = (std::string) asSymbol(at).value;
+        return true;
+    }
+    return false;
 }
 
 const void ReceivedMessage::printArg(unsigned at) const

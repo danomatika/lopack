@@ -279,6 +279,15 @@ class ReceivedMessage
         const MidiMessage asMidiMessage(unsigned int at) const;
         const TimeTag asTimeTag(unsigned int at) const;
         const Blob asBlob(unsigned int at) const;
+
+        /// try to get an argument as a given type, fail silently
+        const bool tryBool(bool *dest, unsigned int at) const; // include numbers
+        const bool tryChar(char *dest, unsigned int at) const; // includes ints
+        const bool tryNumber(int *dest, unsigned int at) const;
+        const bool tryNumber(unsigned int *dest, unsigned int at) const;
+        const bool tryNumber(float *dest, unsigned int at) const;
+        const bool tryNumber(double *dest, unsigned int at) const;
+        const bool tryString(std::string *dest, unsigned int at) const; // includes Symbol
         
         /// pretty print an argument at a given index to std::cout
         const void printArg(unsigned at) const;

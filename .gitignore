@@ -1,4 +1,28 @@
+
+# folders
 bin
-obj
 lib
+obj
+
+# autotools files
 autom4te.cache
+.deps
+Makefile
+config.log
+config.status
+src/config.h
+src/stamp-h1
+
+# build
+*.o
+*.a
+src/tests/oftests
+
+# OSX
+.DS_Store
+*xcuserdata
+*.xcworkspace
+
+# temp files
+*~
+

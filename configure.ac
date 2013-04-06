@@ -1,7 +1,7 @@
 #########################################
 ##### Prelude #####
 
-AC_INIT([oscframework], [0.1.0], [danomatika@gmail.com])
+AC_INIT([oscframework], [0.1.1], [danomatika@gmail.com])
 AC_CONFIG_SRCDIR([src/oscframework/oscframework.h])
 AC_CONFIG_AUX_DIR([config])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
@@ -21,6 +21,9 @@ AC_PROG_RANLIB
 
 # using c++ compiler and linker
 AC_LANG_CPLUSPLUS
+
+# allow non-POSIX libs
+AM_PROG_AR
 
 # check for headers
 AC_HEADER_STDC
