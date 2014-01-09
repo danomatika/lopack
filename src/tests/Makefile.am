@@ -11,7 +11,7 @@ oftests_LDADD = -L../oscframework -loscframework
 
 # include paths
 oftests_CPPFLAGS = $(CXXFLAGS) \
-        $(LO_CFLAGS) -I$(top_srcdir)/src
+		$(LO_CFLAGS) -I$(top_srcdir)/src
 
 # libs to link
 oftests_LDFLAGS = $(LO_LIBS)
