@@ -18,10 +18,10 @@ This is an automake project, so build the lib & test with:
 
 Run the test with:
 
-   cd src/tests
-   ./oftests
+    cd src/tests
+    ./oftests
 
 or
 
-   src/tests/oftests
+    src/tests/oftests
 
