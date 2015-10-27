@@ -2,7 +2,7 @@
 
 	main.cpp
 
-	oftest: a test for oscframework
+	lptest: lopack test program
   
 	Copyright (C) 2010 Dan Wilcox <danomatika@gmail.com>
 

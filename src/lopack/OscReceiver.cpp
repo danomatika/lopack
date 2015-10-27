@@ -2,7 +2,7 @@
 
 	OscReceiver.cpp
 
-	lopack: a C++ wrapper for liblo
+	lopack: an oscpack-inspired C++ wrapper for liblo
   
 	Copyright (C) 2009, 2010 Dan Wilcox <danomatika@gmail.com>
 
