@@ -32,6 +32,7 @@ namespace osc {
 ///
 /// subclass and implement the processing function to receive incoming messages
 class OscObject {
+	
 	public:
 
 		OscObject(std::string rootAddress="") : oscRootAddress(rootAddress) {}

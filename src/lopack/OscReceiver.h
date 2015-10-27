@@ -45,8 +45,8 @@ class ReceiveException : public std::runtime_error {
 /// \brief a threaded osc receiver
 ///
 /// set the processing function to match messages or add OscObjects
-class OscReceiver
-{
+class OscReceiver {
+	
 	public:
 
 		OscReceiver(std::string rootAddress="");
