@@ -31,10 +31,8 @@
 #define OSC_OSC_TYPES_H
 
 #include <string>
-
 #include <lo/lo.h>
-
-#include "Exception.h"
+#include <math.h>
 
 namespace osc {
 
@@ -99,22 +97,28 @@ struct TimeTag
 		lo_timetag tag;		///< the liblo timetag structure (holds the same data)
 	};
 
-	// constructor, sets immediate time
-	explicit TimeTag() : tag(LO_TT_IMMEDIATE) {}
+	// constructor, sets immediate time (now)
+	TimeTag();
 	
+	/// constructor to set time ahead by a number of milliseconds
+	TimeTag(unsigned int ms);
+
 	/// constructor to set time
 	explicit TimeTag(uint32_t sec_, uint32_t frac_) : sec(sec_), frac(frac_) {}
 	
-	// comparison operator
-	inline bool operator==(const TimeTag& tag) const
-	{
-		return (sec == tag.sec) && (frac == tag.frac);
-	}
+	// comparison operator, returns true if the timestamps are equal
+	bool operator==(const TimeTag& tag) const;
+
+	// subtraction operator, returns difference bewteen timestamps in seconds
+	double operator-(const TimeTag& tag) const;
 	
 	/// set the current time (not immediate)
 	void now();
+
+	/// add the number of milliseconds to the current timestamp
+	void add(unsigned int ms);
 	
-	/// get the difference between this timetag and another one: this tag - given tag in seconds
+	/// get the difference between this timetag and another in seconds
 	double diff(const TimeTag& tag) const;
 };
 
@@ -181,21 +185,21 @@ struct EndMessage
 /* ***** MESSAGE PARSING EXCEPTIONS ***** */
 
 /// bad type exception
-class TypeException : public Exception
+class TypeException : public std::runtime_error
 {
 	public:
 		TypeException(
 			const char* w="argument is of different type then requested")
-			: Exception(w) {}
+			: std::runtime_error(w) {}
 };
 
 /// bad argument index exception
-class ArgException : public Exception
+class ArgException : public std::runtime_error
 {
 	public:
 		ArgException(
 			const char* w="argument index out of range")
-			: Exception(w) {}
+			: std::runtime_error(w) {}
 };
 
 /* ***** RECEIVED MESSAGE ***** */

@@ -4,7 +4,7 @@
 
 	oscframework: a C++ wrapper for liblo
   
-	Copyright (C) 2010  Dan Wilcox <danomatika@gmail.com>
+	Copyright (C) 2010 Dan Wilcox <danomatika@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,14 +17,11 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
-#ifndef OSC_FRAMEWORK_H
-#define OSC_FRAMEWORK_H
+#pragma once
 
 #include "OscObject.h"
 #include "OscReceiver.h"
 #include "OscSender.h"
-
-#endif // OSC_FRAMEWORK_H

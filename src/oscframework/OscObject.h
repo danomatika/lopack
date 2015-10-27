@@ -4,7 +4,7 @@
 
 	oscframework: a C++ wrapper for liblo
   
-	Copyright (C) 2009, 2010  Dan Wilcox <danomatika@gmail.com>
+	Copyright (C) 2009, 2010 Dan Wilcox <danomatika@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,43 +17,38 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
-#ifndef VISUAL_OSC_OBJECT_H
-#define VISUAL_OSC_OBJECT_H
+#pragma once
 
 #include <vector>
-
 #include "OscTypes.h"
 
 namespace osc {
 
-/**
-	\class  OscObject
-	\brief  derive this class to add to an OscListener
-
-	set the processing function to match messages
-**/
-class OscObject
-{
+/// \class OscObject
+/// \brief derive this class to add to an OscListener
+///
+/// subclass and implement the processing function to receive incoming messages
+class OscObject {
 	public:
 
 		OscObject(std::string rootAddress="") : oscRootAddress(rootAddress) {}
 
-		/* ***** PROCESS OSC MESSAGES ***** */
+		/// \section Message Processing
 
 		/// process attached objects, then call processOscMessage
 		/// returns true if message handled
 		bool processOsc(const ReceivedMessage& message, const MessageSource& source);
 
-		/* ***** ADD OTHER OBJECTS ***** */
+		/// \section Objects
 
 		/// attach/remove an OscObject to this one
 		void addOscObject(OscObject* object);
 		void removeOscObject(OscObject* object);
 
-		/* ***** UTIL ***** */
+		/// \section Util
 
 		/// get/set the root address of this object
 		inline void setOscRootAddress(std::string rootAddress) {oscRootAddress = rootAddress;}
@@ -70,9 +65,7 @@ class OscObject
 
 	private:
 
-		std::vector<OscObject*> _objectList;
+		std::vector<OscObject*> _objectList; //< currently nested objects
 };
 
 } // namespace
-
-#endif // VISUAL_OSC_OBJECT_H

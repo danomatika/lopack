@@ -22,18 +22,42 @@
 ==============================================================================*/
 #include "OscTypes.h"
 
-#include <string>
 #include <exception>
-
 #include <lo/lo.h>
 
 namespace osc {
 
 /* ***** TIME TAG ***** */
 
+TimeTag::TimeTag() {
+	now();
+}
+
+TimeTag::TimeTag(unsigned int ms)
+{
+	now();
+	add(ms);
+}
+
+bool TimeTag::operator==(const TimeTag& tag) const
+{
+	return (sec == tag.sec) && (frac == tag.frac);
+}
+
+double TimeTag::operator-(const TimeTag& tag) const
+{
+	return lo_timetag_diff(this->tag, tag.tag);
+}
+
 void TimeTag::now()
 {
 	lo_timetag_now(&tag);
+}
+
+void TimeTag::add(unsigned int ms)
+{
+	tag.sec += ms / 1000; // seconds
+	tag.frac += ((ms%1000)*0.001) / 0.00000000023283064365; // 1/2^32nds of a second
 }
 	
 double TimeTag::diff(const TimeTag& tag) const

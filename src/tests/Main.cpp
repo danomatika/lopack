@@ -4,7 +4,7 @@
 
 	oftest: a test for oscframework
   
-	Copyright (C) 2010  Dan Wilcox <danomatika@gmail.com>
+	Copyright (C) 2010 Dan Wilcox <danomatika@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
 #include <oscframework/oscframework.h>
@@ -30,26 +30,23 @@ using namespace osc;
 void testTimeTag();
 void testSender();
 
-class TestReceiver : public OscReceiver
-{
+class TestReceiver : public OscReceiver {
+
 	public:
+		
 		TestReceiver() : OscReceiver(), bDone(false) {}
 		
-		void poll()
-		{
+		void poll() {
 			bDone = false;
 			
 			// poll for messages until "/quit" is received
-			while(!bDone)
-			{
+			while(!bDone) {
 				int num = handleMessages(0);
-				if(num > 0)
-				{
+				if(num > 0) {
 					cout << "TestReceiver: received " << num << " bytes" << endl;
 				}
-				else
-				{
-					cout << "TestReceiver: still waiting ..." << endl;    
+				else {
+					cout << "TestReceiver: still waiting ..." << endl;
 				}
 			}
 		}
@@ -57,18 +54,17 @@ class TestReceiver : public OscReceiver
 		bool bDone;
 		
 	protected:
-		bool process(const ReceivedMessage& message, const MessageSource& source)
-		{
+
+		bool process(const ReceivedMessage& message, const MessageSource& source) {
 			cout << "TestReceiver: received message " << message.path() << " " << message.types() << endl;
 
-			if(message.checkPathAndTypes("/test3", "TFcNIihfdsSmtb"))
-			{
+			if(message.checkPathAndTypes("/test3", "TFcNIihfdsSmtb")) {
 				cout << "/test3 parsing all mesage types" << " " << message.typeTag(0) << endl
 					 << " bool T: " << message.asBool(0) << endl
 					 << " bool F: " << message.asBool(1) << endl
 					 << " char: '" << message.asChar(2) << "'" << endl
-					 << " nil" << endl			// message arg 3
-					 << " infinitum" << endl	// message arg 4
+					 << " nil" << endl       // message arg 3
+					 << " infinitum" << endl // message arg 4
 					 << " int32: " << message.asInt32(5) << endl
 					 << " int64: " << message.asInt64(6) << endl
 					 << " float: " << message.asFloat(7) << endl
@@ -82,15 +78,13 @@ class TestReceiver : public OscReceiver
 				return true;
 			}
 			
-			for(unsigned int i = 0; i < message.numArgs(); ++i)
-			{
+			for(unsigned int i = 0; i < message.numArgs(); ++i) {
 				cout << "arg " << i << " '" << message.typeTag(i) << "' ";
 				message.printArg(i);
 				cout << endl;
 			}
 			
-			if(message.path() == "/quit")
-			{
+			if(message.path() == "/quit") {
 				bDone = true;
 			}
  
@@ -98,13 +92,12 @@ class TestReceiver : public OscReceiver
 		}
 };
 
-int main(int argc, char *argv[])
-{
-	cout << "starting oscframework test" << endl;
+int main(int argc, char *argv[]) {
 
-	cout << "testing timetag" << endl;
+	cout << endl;
+	cout << "TIMETAG TEST" << endl;
 	testTimeTag();
-	cout << "done" << endl << endl;
+	cout << "DONE" << endl << endl;
 
 	TestReceiver receiver;
 	
@@ -112,39 +105,43 @@ int main(int argc, char *argv[])
 	
 	usleep(2000);
 	
-	cout << "running receiver without thread" << endl;
+	cout << "RECEIVER TEST (NO THREAD)" << endl;
 	testSender();
 	receiver.poll();
-	cout << "done" << endl;
+	cout << "DONE" << endl << endl;
 
-	cout << "running receiver with thread" << endl;
+	cout << "RECEIVER TEST (THREAD)" << endl;
 	receiver.start();
 	testSender();
 	usleep(1000);
 	receiver.stop();
-	cout << "done " << endl << endl;
+	cout << "DONE" << endl << endl;
 
-	cout << "exited cleanly" << endl;
 	return 0;
 }
 
-void testTimeTag()
-{
+void testTimeTag() {
 	TimeTag tagA;
-	cout << "tagA is " << tagA.sec << " " << tagA.frac << endl;
+	cout << "tagA is " << tagA.sec << " " << tagA.frac << " (now)"<< endl;
 
-	cout << "sleeping 5 seconds ..." << endl;
-	usleep(5000);
+	cout << "sleeping 20 microseconds ..." << endl;
+	usleep(20000);
 
 	TimeTag tagB;
-	cout << "tagB is " << tagB.sec << " " << tagB.frac << endl;
+	cout << "tagB is " << tagB.sec << " " << tagB.frac << " (now)" << endl;
 
-	// check difference (sleep is not so accurate, so difference will be ~ 5 secs)
-	cout << "tagB-tagA = " << tagB.diff(tagA) << endl;
+	// check difference (usleep is not so accurate, so difference will be ~ 5 usecs)
+	cout << "tagB-tagA = " << tagB-tagA << "s" << endl;
+
+	tagB.now();
+	TimeTag tagC(25); // timestamp ahead 25 ms
+	cout << "tagC is " << tagC.sec << " " << tagC.frac << endl;
+
+	// check difference, should be now - now+25ms = 25ms or 0.025s
+	cout << "tagC-tagB = " << tagC-tagB << "s" << endl; 
 }
 
-void testSender()
-{
+void testSender() {
 	OscSender sender;
 	
 	sender.setup("127.0.0.1", 9990);
@@ -169,19 +166,19 @@ void testSender()
 	
 	// send a message with all types to be parsed on server
 	sender << osc::BeginMessage("/test3")
-		<< true					// bool true
-		<< false				// bool false
-		<< 'c'					// char
-		<< Nil()				// nil
-		<< Infinitum()			// infinitum
-		<< (int32_t) 100		// int32
-		<< (int64_t) 200		// int32
-		<< (float) 123.45		// float
-		<< (double) 678.90		// double
-		<< "a string"			// string
-		<< Symbol("a symbol") 	// symbol (NULL-terminated C-string)
-		<< m					// midi message
-		<< TimeTag()			// time tag (right now)
+		<< true                 // bool true
+		<< false                // bool false
+		<< 'c'                  // char
+		<< Nil()                // nil
+		<< Infinitum()          // infinitum
+		<< (int32_t) 100        // int32
+		<< (int64_t) 200        // int32
+		<< (float) 123.45       // float
+		<< (double) 678.90      // double
+		<< "a string"           // string
+		<< Symbol("a symbol")   // symbol (NULL-terminated C-string)
+		<< m                    // midi message
+		<< TimeTag()            // time tag (right now)
 		<< Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1)) // binary blob data
 		<< osc::EndMessage();
 	sender.send();
