@@ -16,14 +16,16 @@ RELEASE_CXXFLAGS="-g -O2"
 ##### Check for programs/libs #####
 
 # check progs
-AC_PROG_CC
-AC_PROG_RANLIB
+AC_PROG_CXX
+AM_PROG_AR # allow non-POSIX libs
+
+# libtool
+AC_PROG_LIBTOOL
+LT_INIT
+AC_SUBST([LIBTOOL_DEPS])
 
 # using c++ compiler and linker
 AC_LANG_CPLUSPLUS
-
-# allow non-POSIX libs
-AM_PROG_AR
 
 # check for headers
 AC_HEADER_STDC
@@ -62,6 +64,7 @@ AC_CONFIG_SUBDIRS([])
 #########################################
 ##### Output files #####
 
+AC_CONFIG_MACRO_DIRS([m4])
 AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES([
 	Makefile
@@ -74,11 +77,13 @@ AC_OUTPUT
 #########################################
 ##### Print a summary for the user #####
 
-#AC_MSG_RESULT([
-#	oscframework $VERSION is now configured
-#
-#	Source directory:     $srcdir
-#	Installation prefix:  $prefix
-#	C++ compiler:         $CXX $CXXFLAGS
-#	Debug build:          $enable_debug
-#])
+AC_MSG_RESULT([
+	$PACKAGE $VERSION is now configured
+
+	Source directory:     $srcdir
+	Installation prefix:  $prefix
+	C++ compiler:         $CXX $CXXFLAGS
+	Static lib:           $enable_static
+	Shared lib:           $enable_shared
+	Debug build:          $enable_debug
+])

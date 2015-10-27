@@ -26,7 +26,6 @@ project "oscframework"
 		-- MacPorts
 		includedirs { "/opt/local/include" }
 		libdirs { "/opt/local/lib" }
-		--links { "lo", "pthread" }
 
 	configuration "Debug"
 		defines { "DEBUG" }

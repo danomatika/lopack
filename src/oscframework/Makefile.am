@@ -1,20 +1,27 @@
 # oscframework
 
-# the library to build, dont install just link to execs
-noinst_LIBRARIES = liboscframework.a
+# the library to build
+lib_LTLIBRARIES = liboscframework.la
 
-# libs sources, headers here because we dont want to install them
-dist_liboscframework_a_SOURCES = \
-		Log.h Exception.h \
+# lib headers to install
+otherincludedir = $(includedir)/$(PACKAGE)
+otherinclude_HEADERS = \
 		oscframework.h \
-		OscReceiver.h OscReceiver.cpp \
-		OscObject.h OscObject.cpp \
-		OscSender.h OscSender.cpp \
-		OscTypes.h OscTypes.cpp
+		OscReceiver.h \
+		OscObject.h \
+		OscSender.h \
+		OscTypes.h
+
+# libs sources
+liboscframework_la_SOURCES = \
+		Log.h \
+		OscReceiver.cpp \
+		OscObject.cpp \
+		OscSender.cpp \
+		OscTypes.cpp
 
 # include paths
 AM_CPPFLAGS = $(CXXFLAGS) $(LO_CFLAGS)
 
 # libs to link
 AM_LDFLAGS = $(LO_LIBS)
-
