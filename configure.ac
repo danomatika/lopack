@@ -1,8 +1,8 @@
 #########################################
 ##### Prelude #####
 
-AC_INIT([oscframework], [0.1.1], [danomatika@gmail.com])
-AC_CONFIG_SRCDIR([src/oscframework/oscframework.h])
+AC_INIT([lopack], [0.2.0], [danomatika@gmail.com])
+AC_CONFIG_SRCDIR([src/lopack/lopack.h])
 AC_CONFIG_AUX_DIR([config])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
@@ -69,8 +69,8 @@ AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES([
 	Makefile
 	src/Makefile
-	src/oscframework/Makefile
-	src/tests/Makefile
+	src/lopack/Makefile
+	src/lptest/Makefile
 ])
 AC_OUTPUT
 

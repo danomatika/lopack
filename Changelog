@@ -1,0 +1,34 @@
+2015-10-27 Dan Wilcox <danomatika@gmail.com>
+
+	2.0.0
+
+	* renamed library to lopack
+	* added libtool support for building & installing static & shared libs
+	* configure & makefiles updated to build on Linux
+	* fixed OscReceiver segfault on lo_server error
+	* removed Exception class, inherit from std::runtime_error instead
+	* TimeTag constructor now sets now timestamp in default constructor
+	* added TimeTag subtraction operator and methods to set time ahead
+	* whitespace fixs and overall code formatting update
+	* renamed test program to lptest
+	* added readme
+
+2014-01-09 Dan Wilcox <danomatika@gmail.com>
+
+	0.1.1
+
+	* added OscMessage argument type try functions
+
+2013-04-06 Dan Wilcox <danomatika@gmail.com>
+
+	0.1.0
+
+	* OscReceiver::setup now returns a bool
+	* fixed OscObject constructor prepending root address with a "/"
+	* added gitignore & licenses
+	* moved config.h to src & removed from lib makefiles
+	* folder reorganization
+
+2010-04-15 Dan Wilcox <danomatika@gmail.com>
+
+	0.1.0-alpha: initial commit

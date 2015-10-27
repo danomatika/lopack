@@ -2,7 +2,7 @@
 
 	OscObject.h
 
-	oscframework: a C++ wrapper for liblo
+	lopack: a C++ wrapper for liblo
   
 	Copyright (C) 2009, 2010 Dan Wilcox <danomatika@gmail.com>
 

@@ -1,22 +1,22 @@
-# oscframework
+# lopack library
 
 # the library to build
-lib_LTLIBRARIES = liboscframework.la
+lib_LTLIBRARIES = liblopack.la
 
 # lib headers to install
 otherincludedir = $(includedir)/$(PACKAGE)
-otherinclude_HEADERS = oscframework.h \
+otherinclude_HEADERS = lopack.h \
                        OscReceiver.h \
                        OscObject.h \
                        OscSender.h \
                        OscTypes.h
 
-# libs sources
-liboscframework_la_SOURCES = Log.h \
-                             OscReceiver.cpp \
-                             OscObject.cpp \
-                             OscSender.cpp \
-                             OscTypes.cpp
+# libs sources, headers listed here will not be installed
+liblopack_la_SOURCES = Log.h \
+                       OscReceiver.cpp \
+                       OscObject.cpp \
+                       OscSender.cpp \
+                       OscTypes.cpp
 
 # include paths
 AM_CPPFLAGS = $(CXXFLAGS) $(LO_CFLAGS)

@@ -1,0 +1,309 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52150962250520E32D4A00B2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74D8147D2F3D09181209126B /* main.cpp */; };
+		13317B56659C66E359A56DA2 /* liblopack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 366746CA2BA1677F026A7DFB /* liblopack.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1C5452745618642166D20ECB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BC52F65465727EE25FC79E9 /* lopack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65C57F7826CC26AF539429B1;
+			remoteInfo = "liblopack.a";
+		};
+		659661796710777537E751FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BC52F65465727EE25FC79E9 /* lopack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FC832881A1F7383457136B3;
+			remoteInfo = "liblopack.a";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7BAB475F457E5F13167A625B /* TestReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestReceiver.h"; path = "TestReceiver.h"; sourceTree = "<group>"; };
+		74D8147D2F3D09181209126B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "main.cpp"; path = "main.cpp"; sourceTree = "<group>"; };
+		244E09BD0301626B10934D97 /* lptest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "lptest"; path = "lptest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BC52F65465727EE25FC79E9 /* lopack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "lopack.xcodeproj"; path = "lopack.xcodeproj"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		03F83A3063A452D520560198 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13317B56659C66E359A56DA2 /* liblopack.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		435F459B46B47622452670BA /* lptest */ = {
+			isa = PBXGroup;
+			children = (
+				47066A530BE30F7B7F620C8E /* src */,
+				5FD33B524359302A286869B0 /* Products */,
+				5EEB21207A3F6B744DB075E3 /* Projects */,
+			);
+			name = "lptest";
+			sourceTree = "<group>";
+		};
+		47066A530BE30F7B7F620C8E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6428226731FB06B15F933CAE /* lptest */,
+			);
+			name = "src";
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		6428226731FB06B15F933CAE /* lptest */ = {
+			isa = PBXGroup;
+			children = (
+				7BAB475F457E5F13167A625B /* TestReceiver.h */,
+				74D8147D2F3D09181209126B /* main.cpp */,
+			);
+			name = "lptest";
+			path = lptest;
+			sourceTree = "<group>";
+		};
+		5FD33B524359302A286869B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				244E09BD0301626B10934D97 /* lptest */,
+			);
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		5EEB21207A3F6B744DB075E3 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				1BC52F65465727EE25FC79E9 /* lopack.xcodeproj */,
+			);
+			name = "Projects";
+			sourceTree = "<group>";
+		};
+		30281A6B06F1414748541004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				366746CA2BA1677F026A7DFB /* liblopack.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7C8E502D794D4D8E29A80C20 /* lptest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 601506AE30D51A637CB360D2 /* Build configuration list for PBXNativeTarget "lptest" */;
+			buildPhases = (
+				35E03C8A116E5BC647DE5F2C /* Resources */,
+				5BED607E03265919232D782D /* Sources */,
+				03F83A3063A452D520560198 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				586B6AD97BA6785E6E080175 /* PBXTargetDependency */,
+			);
+			name = "lptest";
+			productInstallPath = "$(HOME)/bin";
+			productName = "lptest";
+			productReference = 244E09BD0301626B10934D97 /* lptest */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "lptest" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 435F459B46B47622452670BA /* lptest */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 30281A6B06F1414748541004 /* Products */;
+					ProjectRef = 1BC52F65465727EE25FC79E9 /* lopack.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				7C8E502D794D4D8E29A80C20 /* lptest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		366746CA2BA1677F026A7DFB /* liblopack.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "../src/lopack/liblopack.a";
+			remoteRef = 1C5452745618642166D20ECB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		35E03C8A116E5BC647DE5F2C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5BED607E03265919232D782D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52150962250520E32D4A00B2 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+/* End PBXVariantGroup section */
+
+/* Begin PBXTargetDependency section */
+		586B6AD97BA6785E6E080175 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "liblopack.a";
+			targetProxy = 659661796710777537E751FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2063597E106D1E9244C22899 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = ../src/lptest;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = "lptest";
+			};
+			name = "Debug";
+		};
+		610C0BA8670058B0265A65FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				CONFIGURATION_BUILD_DIR = ../src/lptest;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = "lptest";
+			};
+			name = "Release";
+		};
+		642145F5718633E524846BEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
+				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../src",
+					"/usr/local/include",
+					"/opt/local/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/usr/local/lib",
+					"/opt/local/lib",
+				);
+				OBJROOT = "../obj/Debug/lptest";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-llo",
+					"-lpthread",
+				);
+				PREBINDING = NO;
+				SYMROOT = "../src/lptest";
+			};
+			name = "Debug";
+		};
+		7BC21AF16B5B54FC198169B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
+				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../src",
+					"/usr/local/include",
+					"/opt/local/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/usr/local/lib",
+					"/opt/local/lib",
+				);
+				OBJROOT = "../obj/Release/lptest";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-llo",
+					"-lpthread",
+				);
+				PREBINDING = NO;
+				SYMROOT = "../src/lptest";
+			};
+			name = "Release";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		601506AE30D51A637CB360D2 /* Build configuration list for PBXNativeTarget "lptest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2063597E106D1E9244C22899 /* Debug */,
+				610C0BA8670058B0265A65FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Debug";
+		};
+		1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "lptest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				642145F5718633E524846BEE /* Debug */,
+				7BC21AF16B5B54FC198169B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Debug";
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

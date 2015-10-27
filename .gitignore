@@ -20,7 +20,7 @@ src/stamp-h1
 *.lo
 *.a
 *.la
-src/tests/oftests
+src/lptest/lptest
 
 # OSX
 .DS_Store

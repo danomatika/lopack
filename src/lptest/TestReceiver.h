@@ -20,7 +20,7 @@
 	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
-#include <oscframework/oscframework.h>
+#include <lopack/lopack.h>
 #include <iostream>
 #include <unistd.h>
 

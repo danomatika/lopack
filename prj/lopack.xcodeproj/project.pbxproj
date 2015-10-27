@@ -1,0 +1,258 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A5F38941C2D690E4DF407E5 /* OscObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45811A1C566F4642225B3367 /* OscObject.cpp */; };
+		1EB65E44652F05606CAB595F /* OscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 667B1D407B215AD422357B84 /* OscReceiver.cpp */; };
+		70A055953F562A1C36261311 /* OscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EA29DF101A51907CE66EAC /* OscSender.cpp */; };
+		487B12391B3E194338183F99 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B348807A477FCE6B805128 /* OscTypes.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1EFE3E6248C074DF70FE403C /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Log.h"; path = "Log.h"; sourceTree = "<group>"; };
+		45811A1C566F4642225B3367 /* OscObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "OscObject.cpp"; path = "OscObject.cpp"; sourceTree = "<group>"; };
+		712B7D6F090939FF2E920890 /* OscObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OscObject.h"; path = "OscObject.h"; sourceTree = "<group>"; };
+		667B1D407B215AD422357B84 /* OscReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "OscReceiver.cpp"; path = "OscReceiver.cpp"; sourceTree = "<group>"; };
+		77F378927A8B5B5A18971FE4 /* OscReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OscReceiver.h"; path = "OscReceiver.h"; sourceTree = "<group>"; };
+		53EA29DF101A51907CE66EAC /* OscSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "OscSender.cpp"; path = "OscSender.cpp"; sourceTree = "<group>"; };
+		6DA37CCF257D50C22FF45626 /* OscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OscSender.h"; path = "OscSender.h"; sourceTree = "<group>"; };
+		08B348807A477FCE6B805128 /* OscTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "OscTypes.cpp"; path = "OscTypes.cpp"; sourceTree = "<group>"; };
+		5A8E50012D9B387A751D765F /* OscTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OscTypes.h"; path = "OscTypes.h"; sourceTree = "<group>"; };
+		08FE0EC755F57956199D1F22 /* lopack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "lopack.h"; path = "lopack.h"; sourceTree = "<group>"; };
+		65C57F7826CC26AF539429B1 /* liblopack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "liblopack.a"; path = "liblopack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4CEF133E03252F605CEB7D15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D2A2A414914762462A17128 /* lopack */ = {
+			isa = PBXGroup;
+			children = (
+				1C82463C158578B340607EA2 /* src */,
+				21D079DC639F07D2122F514B /* Products */,
+			);
+			name = "lopack";
+			sourceTree = "<group>";
+		};
+		1C82463C158578B340607EA2 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				449E6E42578F2C22149C23B6 /* lopack */,
+			);
+			name = "src";
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		449E6E42578F2C22149C23B6 /* lopack */ = {
+			isa = PBXGroup;
+			children = (
+				1EFE3E6248C074DF70FE403C /* Log.h */,
+				45811A1C566F4642225B3367 /* OscObject.cpp */,
+				712B7D6F090939FF2E920890 /* OscObject.h */,
+				667B1D407B215AD422357B84 /* OscReceiver.cpp */,
+				77F378927A8B5B5A18971FE4 /* OscReceiver.h */,
+				53EA29DF101A51907CE66EAC /* OscSender.cpp */,
+				6DA37CCF257D50C22FF45626 /* OscSender.h */,
+				08B348807A477FCE6B805128 /* OscTypes.cpp */,
+				5A8E50012D9B387A751D765F /* OscTypes.h */,
+				08FE0EC755F57956199D1F22 /* lopack.h */,
+			);
+			name = "lopack";
+			path = lopack;
+			sourceTree = "<group>";
+		};
+		21D079DC639F07D2122F514B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65C57F7826CC26AF539429B1 /* liblopack.a */,
+			);
+			name = "Products";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2FC832881A1F7383457136B3 /* lopack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 182B6DF936BB3E9359422E97 /* Build configuration list for PBXNativeTarget "lopack" */;
+			buildPhases = (
+				5EC8472A28BC72326DDE1122 /* Resources */,
+				763072866E33152B48FC18FE /* Sources */,
+				4CEF133E03252F605CEB7D15 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "lopack";
+			productName = "lopack";
+			productReference = 65C57F7826CC26AF539429B1 /* liblopack.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "lopack" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 4D2A2A414914762462A17128 /* lopack */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FC832881A1F7383457136B3 /* liblopack.a */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5EC8472A28BC72326DDE1122 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		763072866E33152B48FC18FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A5F38941C2D690E4DF407E5 /* OscObject.cpp in Sources */,
+				1EB65E44652F05606CAB595F /* OscReceiver.cpp in Sources */,
+				70A055953F562A1C36261311 /* OscSender.cpp in Sources */,
+				487B12391B3E194338183F99 /* OscTypes.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		43862D2C25F1138740B75346 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = ../src/lopack;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = "lopack";
+			};
+			name = "Debug";
+		};
+		44CF1C3176872D384D544790 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				CONFIGURATION_BUILD_DIR = ../src/lopack;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = "lopack";
+			};
+			name = "Release";
+		};
+		1EA718221FCB74D579446D0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
+				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include",
+					"/opt/local/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/usr/local/lib",
+					"/opt/local/lib",
+				);
+				OBJROOT = "../obj/Debug/lopack";
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = NO;
+				SYMROOT = "../src/lopack";
+			};
+			name = "Debug";
+		};
+		5197478D10121C3D05C352CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
+				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include",
+					"/opt/local/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/usr/local/lib",
+					"/opt/local/lib",
+				);
+				OBJROOT = "../obj/Release/lopack";
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = NO;
+				SYMROOT = "../src/lopack";
+			};
+			name = "Release";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		182B6DF936BB3E9359422E97 /* Build configuration list for PBXNativeTarget "liblopack.a" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43862D2C25F1138740B75346 /* Debug */,
+				44CF1C3176872D384D544790 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Debug";
+		};
+		1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "lopack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EA718221FCB74D579446D0A /* Debug */,
+				5197478D10121C3D05C352CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Debug";
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

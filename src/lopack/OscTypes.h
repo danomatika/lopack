@@ -2,7 +2,7 @@
 
 	OscTypes.h
 
-	oscframework: a C++ wrapper for liblo
+	lopack: a C++ wrapper for liblo
   
 	Copyright (C) 2010 Dan Wilcox <danomatika@gmail.com>
 	

@@ -7,25 +7,25 @@ example: http://opende.svn.sourceforge.net/viewvc/opende/trunk/build/premake4.lu
 http://bitbucket.org/anders/lightweight/src/tip/premake4.lua
 
 ]]
-solution "oscframework"
+solution "lopack"
 	configurations { "Debug", "Release" }
 	objdir "../obj"
  
--- oscframework library
-project "oscframework"
+-- lopack library
+project "lopack"
 	kind "StaticLib"
 	language "C++"
-	targetdir "../lib"
-	files { "../src/oscframework/**.h", "../src/oscframework/**.cpp" }
+	targetdir "../src/lopack"
+	files { "../src/lopack/**.h", "../src/lopack/**.cpp" }
 	
 	configuration "linux"
 		buildoptions { "`pkg-config --cflags liblo`" }
 		linkoptions { "`pkg-config --libs liblo`" }
 	
 	configuration "macosx"
-		-- MacPorts
-		includedirs { "/opt/local/include" }
-		libdirs { "/opt/local/lib" }
+		-- Homebrew & MacPorts
+		includedirs { "/usr/local/include", "/opt/local/include"}
+		libdirs { "/usr/local/lib", "/opt/local/lib" }
 
 	configuration "Debug"
 		defines { "DEBUG" }
@@ -36,23 +36,23 @@ project "oscframework"
 		flags { "Optimize" } 
 
 -- test executable
-project "oftests"
+project "lptest"
 	kind "ConsoleApp"
 	language "C++"
-	targetdir "../bin"
-	files { "../src/tests/**.h", "../src/tests/**.cpp" }
+	targetdir "../src/lptest"
+	files { "../src/lptest/**.h", "../src/lptest/**.cpp" }
 
 	includedirs { "../src" }
-	links { "oscframework" }
+	links { "lopack" }
 
 	configuration "linux"
 		buildoptions { "`pkg-config --cflags liblo`" }
 		linkoptions { "`pkg-config --libs liblo`" }
 
 	configuration 'macosx'
-		-- MacPorts
-		includedirs { "/opt/local/include"}
-		libdirs { "/opt/local/lib" }
+		-- Homebrew & MacPorts
+		includedirs { "/usr/local/include", "/opt/local/include"}
+		libdirs { "/usr/local/lib", "/opt/local/lib" }
 		links { "lo", "pthread" }
 
 	configuration "Debug"
@@ -62,4 +62,3 @@ project "oftests"
 	configuration "Release"
 		defines { "NDEBUG" }
 		flags { "Optimize" }
-		
