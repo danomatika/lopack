@@ -4,7 +4,7 @@
 
 	oscframework: a C++ wrapper for liblo
   
-	Copyright (C) 2010  Dan Wilcox <danomatika@gmail.com>
+	Copyright (C) 2010 Dan Wilcox <danomatika@gmail.com>
 	
 	types influenced by oscpack:
 
@@ -24,11 +24,10 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 	
 ==============================================================================*/
-#ifndef OSC_OSC_TYPES_H
-#define OSC_OSC_TYPES_H
+#pragma once
 
 #include <string>
 #include <lo/lo.h>
@@ -36,44 +35,37 @@
 
 namespace osc {
 
-/* ***** OSC TYPES ***** */
+/// \section Osc Types
 
 /// Nil value
-struct Nil
-{
+struct Nil {
 	explicit Nil() {}
 };
 
 /// Infinitum value
-struct Infinitum
-{
+struct Infinitum {
 	explicit Infinitum() {}
 };
 
 /// a 4 byte MIDI packet
-struct MidiMessage
-{
-	union
-	{
-		uint8_t bytes[4];	///< 4 midi bytes
-		uint32_t value;		///< midi bytes as an int32
+struct MidiMessage {
+	union {
+		uint8_t bytes[4]; //< 4 midi bytes
+		uint32_t value; //< midi bytes as an int32
 	};
 	
 	/// constructor
 	explicit MidiMessage() : value(0) {}
 	
 	/// constructor to set the byte values, set flip = true to reverse the byte order
-	explicit MidiMessage(uint8_t bytes_[4], bool flip=false)
-	{
-		if(flip)
-		{
+	explicit MidiMessage(uint8_t bytes_[4], bool flip=false) {
+		if(flip) {
 			bytes[0] = bytes_[3];
 			bytes[1] = bytes_[2];
 			bytes[2] = bytes_[1];
 			bytes[3] = bytes_[0];
 		}
-		else
-		{
+		else {
 			bytes[0] = bytes_[0];
 			bytes[1] = bytes_[1];
 			bytes[2] = bytes_[2];
@@ -81,23 +73,20 @@ struct MidiMessage
 		}
 	}
 
-	operator uint32_t() const {return value;}	///< operator to grab the values implicitly
+	operator uint32_t() const {return value;} //< operator to grab the values implicitly
 };
 
 /// an OSC TimeTag value
-struct TimeTag
-{
-	union 
-	{
-		struct
-		{
-			uint32_t sec;	///< the number of seconds since Jan 1 1900 UTC
-			uint32_t frac;	///< the fractions of a second offset from above, in 1/2^32nds of a second    
+struct TimeTag {
+	union {
+		struct {
+			uint32_t sec;  //< the number of seconds since Jan 1 1900 UTC
+			uint32_t frac; //< the fractions of a second offset from above, in 1/2^32nds of a second    
 		};
-		lo_timetag tag;		///< the liblo timetag structure (holds the same data)
+		lo_timetag tag; //< the liblo timetag structure (holds the same data)
 	};
 
-	// constructor, sets immediate time (now)
+	/// constructor, sets immediate time (now)
 	TimeTag();
 	
 	/// constructor to set time ahead by a number of milliseconds
@@ -106,10 +95,10 @@ struct TimeTag
 	/// constructor to set time
 	explicit TimeTag(uint32_t sec_, uint32_t frac_) : sec(sec_), frac(frac_) {}
 	
-	// comparison operator, returns true if the timestamps are equal
+	/// comparison operator, returns true if the timestamps are equal
 	bool operator==(const TimeTag& tag) const;
 
-	// subtraction operator, returns difference bewteen timestamps in seconds
+	/// subtraction operator, returns difference bewteen timestamps in seconds
 	double operator-(const TimeTag& tag) const;
 	
 	/// set the current time (not immediate)
@@ -122,10 +111,9 @@ struct TimeTag
 	double diff(const TimeTag& tag) const;
 };
 
-// standard C, NULL terminated, string. Used in systems which distinguish strings and symbols. 
-struct Symbol
-{
-	const char* value;	///< the C-string
+/// standard C, NULL terminated, string. Used in systems which distinguish strings and symbols./
+struct Symbol {
+	const char* value; //< the C-string
 
 	/// constructor
 	explicit Symbol() : value(NULL) {}
@@ -134,14 +122,13 @@ struct Symbol
 	explicit Symbol(const char* value_) : value(value_) {}
 	explicit Symbol(const std::string value_) : value(value_.c_str()) {}
 
-	operator const char*() const {return value;} ///< operator to grab the string implicitly
+	operator const char*() const {return value;} //< operator to grab the string implicitly
 };
 
-// a binary area of memory
-struct Blob
-{
-	const void* data;	///< pointer to the data
-	uint32_t size;		///< size of the data
+/// a binary area of memory
+struct Blob {
+	const void* data; //< pointer to the data
+	uint32_t size;    //< size of the data
 	
 	/// constructor
 	explicit Blob() : data(NULL), size(0) {}
@@ -150,12 +137,12 @@ struct Blob
 	explicit Blob(const void* data_, uint32_t size_) : data(data_), size(size_) {}
 };
 
-/* ***** STREAM MANIPULATORS ***** */
+/// \section Stream Manipulators
 
 /// start a message bundle
-struct BeginBundle
-{
-	TimeTag timetag; ///< the timetag of this bundle
+struct BeginBundle {
+
+	TimeTag timetag; //< the timetag of this bundle
 	
 	/// use immediate time tag
 	explicit BeginBundle() : timetag() {}
@@ -168,25 +155,23 @@ struct BeginBundle
 struct EndBundle {};
 
 /// start a message
-struct BeginMessage
-{
-	const std::string addressPattern; ///< the message address
+struct BeginMessage {
+
+	const std::string addressPattern; //< the message address
 
 	/// set the message target address
 	explicit BeginMessage(const std::string addressPattern_) : addressPattern(addressPattern_) {}
 };
 
 /// end a message
-struct EndMessage
-{
+struct EndMessage {
 	explicit EndMessage() {}
 };
 
-/* ***** MESSAGE PARSING EXCEPTIONS ***** */
+/// \section Message Parsing Exceptions
 
 /// bad type exception
-class TypeException : public std::runtime_error
-{
+class TypeException : public std::runtime_error {
 	public:
 		TypeException(
 			const char* w="argument is of different type then requested")
@@ -194,71 +179,66 @@ class TypeException : public std::runtime_error
 };
 
 /// bad argument index exception
-class ArgException : public std::runtime_error
-{
+class ArgException : public std::runtime_error {
 	public:
 		ArgException(
 			const char* w="argument index out of range")
 			: std::runtime_error(w) {}
 };
 
-/* ***** RECEIVED MESSAGE ***** */
+/// \section Received Message
 
-/**
-	\class	RecievedMessage
-	\brief	a received osc message with built in message parsing
-*/
-class ReceivedMessage
-{
+/// \class RecievedMessage
+/// \brief a received osc message with built in message parsing
+class ReceivedMessage {
+
 	public:
 		
-		/**
-			\brief	constructor
-			\param	path	osc address the message was sent to
-			\param	types	a string types for the message arguments
-			\param	argv	an array of liblo arguments
-			\param	argc	the number of arguments
-			\param	msg		the liblo message
-		*/
+		/// constructor:
+		/// path  osc address the message was sent to
+		/// types a string of types for the message arguments
+		/// argv  an array of liblo arguments
+		/// argc  the number of arguments
+		/// msg   the liblo message
 		ReceivedMessage(std::string path, std::string types, lo_arg** argv, unsigned int argc, lo_message msg);
 	
-		/// \return true if the message matches the given path and argument type string
+		/// returns true if the message matches the given path and argument type string
 		const bool checkPathAndTypes(std::string path, std::string types) const;
 		
 		/// get the message path
-		inline const std::string path() const		{return m_path;}
+		inline const std::string path() const {return m_path;}
 		
 		/// get the argument type string
-		inline const std::string types() const		{return m_types;}
+		inline const std::string types() const {return m_types;}
 		
 		/// get the raw liblo message
-		inline const lo_message rawMessage() const	{return m_rawmsg;}
+		inline const lo_message rawMessage() const {return m_rawmsg;}
 		
 		/// get the raw liblo argument at a given index
 		/// throws an exception on bad index
 		const lo_arg* arg(unsigned int at) const;
 		
 		/// get the number of arguments in the message
-		inline const unsigned int numArgs() const	{return m_argc;}
+		inline const unsigned int numArgs() const {return m_argc;}
 		
 		/// get thje type tag of a given argument index
 		const char typeTag(unsigned int at) const;
 		
-		// check if an argument at a given index is of a certain type
+		/// check if an argument at a given index is of a certain type
 		/// throws an exception on bad index
 		const bool isBool(unsigned int at) const;
 		const bool isChar(unsigned int at) const;
 		const bool isNil(unsigned int at) const;
 		const bool isInfinitum(unsigned int at) const;
 		
-		const bool isInt(unsigned int at) const;	///< either int32 or int64
+		const bool isInt(unsigned int at) const; //< either int32 or int64
 		const bool isInt32(unsigned int at) const;
 		const bool isInt64(unsigned int at) const;
 		
 		const bool isFloat(unsigned int at) const;
 		const bool isDouble(unsigned int at) const;
 		
-		const bool isText(unsigned int at) const;	///< either string or symbol
+		const bool isText(unsigned int at) const; //< either string or symbol
 		const bool isString(unsigned int at) const;
 		const bool isSymbol(unsigned int at) const;
 		
@@ -301,35 +281,31 @@ class ReceivedMessage
 		
 	private:
 	
-		const std::string 	m_path;		///< osc message path
-		const std::string 	m_types;	///< argument type string
-		lo_arg** 			m_argv;		///< liblo argument list
-		const unsigned int 	m_argc;		///< number of arguments
-		lo_message 			m_rawmsg;	///< liblo message
+		const std::string  m_path;   //< osc message path
+		const std::string  m_types;  //< argument type string
+		lo_arg**           m_argv;   //< liblo argument list
+		const unsigned int m_argc;   //< number of arguments
+		lo_message         m_rawmsg; //< liblo message
 };
 
-/* ***** MESSAGE SOURCE ***** */
+/// \section Message Source
 
-/**
-	\class	MessageSource
-	\brief	a class containing the host address of a message sender
-*/
-class MessageSource
-{
+/// \class MessageSource
+/// \brief a class containing the host address of a message sender
+class MessageSource {
+
 	public:
 		
 		/// constructor
 		MessageSource(lo_address address);
 		
-		const std::string getHostname() const;	///< get the hostname
-		const std::string getPort() const;		///< get the port
-		const std::string getUrl() const;		///< get the url of the host
+		const std::string getHostname() const; //< get the hostname
+		const std::string getPort() const;     //< get the port
+		const std::string getUrl() const;      //< get the url of the host
 	
 	private:
 		
-		lo_address m_address;	///< liblo host address
+		lo_address m_address; //< liblo host address
 };
 
 } // namespace
-
-#endif // OSC_OSC_TYPES_H

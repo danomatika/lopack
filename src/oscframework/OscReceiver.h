@@ -4,7 +4,7 @@
 
 	oscframework: a C++ wrapper for liblo
   
-	Copyright (C) 2009, 2010  Dan Wilcox <danomatika@gmail.com>
+	Copyright (C) 2009, 2010 Dan Wilcox <danomatika@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,35 +17,34 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
-#ifndef OSC_OSC_RECEIVER_H
-#define OSC_OSC_RECEIVER_H
+#pragma once
 
 #include "OscObject.h"
 
 namespace osc {
 
-class ReceiveException : public std::runtime_error
-{
+/// \class ReceiveException
+/// \brief an OscReceiver exception
+///
+/// thrown by errors causes during OscReceiver set up (port in use) or running
+/// (data type problems)
+class ReceiveException : public std::runtime_error {
 	public:
-	
 		ReceiveException(
 			std::string w="liblo receive error")
 			: std::runtime_error(w) {}
-	
 		ReceiveException(
 			const char* w="liblo receive error")
 			: std::runtime_error(w) {}
 };
 
-/**
-	\class  OscReceiver
-	\brief  a threaded osc receiver
-
-	set the processing function to match messages or add OscObjects
-**/
+/// \class OscReceiver
+/// \brief a threaded osc receiver
+///
+/// set the processing function to match messages or add OscObjects
 class OscReceiver
 {
 	public:
@@ -56,13 +55,11 @@ class OscReceiver
 		/// calls setup automatically
 		OscReceiver(unsigned int port, std::string rootAddress="");
 
-		/* ***** SETUP ***** */
-
 		/// setup the udp socket using the given port
-		/// returns false if socket cannot be setup
+		/// returns false if socket cannot be set up
 		bool setup(unsigned int port);
 
-		/* ***** THREAD CONTROL ***** */
+		/// \section Thread Control
 
 		/// start the listening thread, opens connection
 		void start();
@@ -70,24 +67,25 @@ class OscReceiver
 		/// stop the listening thread, closes connection
 		void stop();
 		
-		/* ***** MANUAL POLLING ***** */
+		/// \section Manual Polling
 		
-		/**
-			\brief	manually check for incoming messages, nonblocking
-			\param	timeoutMS	number of milliseconds to wait for a message, 0 returns immediately
-			\return	number of bytes received
-			
-			note: the address must be set using setup(), this cannot be called
-			while the thread is running
-		*/
+		/// manually check for incoming messages, nonblocking
+		/// timeoutMS is the number of ms to wait for a message, 0 = immediately
+		/// number of bytes received
+		///
+		/// note: the address must be set using setup(), this cannot be called
+		/// while the thread is running
 		int handleMessages(int timeoutMS=0);
 
-		/* ***** ATTACH OSC OBJECTS ***** */
+		/// \section Objects
 
+		/// add an OscObject to send received messages to
 		void addOscObject(OscObject* object);
+
+		/// remove an OscObject
 		void removeOscObject(OscObject* object);
 
-		/* ***** UTIL ***** */
+		/// \section Util
 
 		/// is the thread running?
 		bool isListening() {return true;}
@@ -112,23 +110,21 @@ class OscReceiver
 
 	private:
 
-		// virtual callback from oscpack
+		/// virtual callback from oscpack
 		bool processMessage(const ReceivedMessage& message, const MessageSource& source);
 
-		/* ***** STATIC CALLBACKS ***** */
-		
+		// static liblo callbacks
 		static void errorCB(int num, const char* msg, const char* where);
 
 		static int messageCB(const char* path, const char* types, lo_arg** argv,
 							 int argc, lo_message msg, void* user_data);
 		
-		lo_server_thread m_serverThread;
+		lo_server_thread m_serverThread; //< liblo server thread handle
 
-		bool m_bIsRunning, m_bIgnoreMessages;
+		bool m_bIsRunning; //< should the thread be running?
+		bool m_bIgnoreMessages; //< ignore incoming messages?
 
-		std::vector<OscObject*> _objectList;    /// list of osc objects
+		std::vector<OscObject*> _objectList; //< osc objects to send messages to
 };
 
 } // namespace
-
-#endif // OSC_OSC_RECEIVER_H

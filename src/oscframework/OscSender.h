@@ -4,7 +4,7 @@
 
 	oscframework: a C++ wrapper for liblo
   
-	Copyright (C) 2009, 2010  Dan Wilcox <danomatika@gmail.com>
+	Copyright (C) 2009, 2010 Dan Wilcox <danomatika@gmail.com>
 	
 	interface inspired by oscpack:
 	
@@ -24,54 +24,46 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
-#ifndef OSC_OSC_SENDER_H
-#define OSC_OSC_SENDER_H
+#pragma once
 
 #include "OscTypes.h"
 
 namespace osc {
 
-class SendException : public std::runtime_error
-{
+class SendException : public std::runtime_error {
 	public:
 		SendException(
 			const char* w="call to send when setup or BeginMessage have not been called or message is in progress")
 			: std::runtime_error(w) {}
 };
 
-class BundleNotInProgressException : public std::runtime_error
-{
+class BundleNotInProgressException : public std::runtime_error {
 	public:
 		BundleNotInProgressException(
 			const char* w="call to EndBundle when bundle is not in progress")
 			: std::runtime_error(w) {}
 };
 
-class MessageInProgressException : public std::runtime_error
-{
+class MessageInProgressException : public std::runtime_error {
 	public:
 		MessageInProgressException(
 			const char* w="opening or closing bundle or message while message is in progress")
 			: std::runtime_error(w) {}
 };
 
-class MessageNotInProgressException : public std::runtime_error
-{
+class MessageNotInProgressException : public std::runtime_error {
 	public:
 		MessageNotInProgressException(
 			const char* w="call to EndMessage when message is not in progress")
 			: std::runtime_error(w) {}
 };
 
-/**
-	\class  OscSender
-	\brief  send OSC packets through buffer using << stream
-**/
-class OscSender
-{
+/// \class OscSender
+/// \brief send OSC packets through buffer using << stream
+class OscSender {
 	public:
 
 		OscSender();
@@ -88,7 +80,7 @@ class OscSender
 		std::string getAddr();
 		std::string getPort();
 		
-		/* ***** STREAM ACCESS ***** */
+		/// \section Stream Access
 		
 		OscSender& operator<<(const BeginMessage& var);
 		OscSender& operator<<(const EndMessage& var);
@@ -112,6 +104,7 @@ class OscSender
 		OscSender& operator<<(const TimeTag& var);
 		OscSender& operator<<(const Blob& var);
 		
+		/// is a message currently in progress?
 		inline bool isMessageInProgress() {return m_bMessageInProgress;}
 		
 		// print the contents of the current message, if there is one
@@ -119,14 +112,12 @@ class OscSender
 
 	private:
 		
-		lo_address	m_address;
-		lo_message	m_message;
+		lo_address	m_address; //< host address to send to
+		lo_message	m_message; //< temp message object
+
+		std::string m_path; //< temp osc address path
 		
-		std::string m_path;
-		
-		bool m_bMessageInProgress;
+		bool m_bMessageInProgress; //< is a message currently being built?
 };
 
 } // namespace
-
-#endif // OSC_OSC_SENDER_H

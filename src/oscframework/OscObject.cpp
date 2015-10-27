@@ -39,7 +39,7 @@ bool OscObject::processOsc(const ReceivedMessage& message, const MessageSource& 
 		}
 		else { // bad object, so erase it
 			objectIter = _objectList.erase(objectIter);
-			LOG_WARN << "OscObject: removed NULL object" <<std::endl;
+			LOG_WARN << "OscObject: removed NULL object" << std::endl;
 		}
 	}
 	return processOscMessage(message, source);
@@ -58,7 +58,6 @@ void OscObject::removeOscObject(OscObject* object) {
 		LOG_WARN << "OscObject: Cannot remove NULL object" << std::endl;
 		return;
 	}
-
 	// find object in list and remove it
 	std::vector<OscObject*>::iterator iter;
 	iter = find(_objectList.begin(), _objectList.end(), object);

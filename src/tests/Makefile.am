@@ -4,7 +4,7 @@
 noinst_PROGRAMS = oftests
 
 # bin sources, headers here because we dont want to install them
-oftests_SOURCES = Main.cpp
+oftests_SOURCES = main.cpp TestReceiver.h
 
 # local libraries needed to build (builddir)
 oftests_LDADD = -L../oscframework -loscframework
@@ -15,4 +15,3 @@ oftests_CPPFLAGS = $(CXXFLAGS) \
 
 # libs to link
 oftests_LDFLAGS = $(LO_LIBS)
-

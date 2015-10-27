@@ -1,6 +1,6 @@
 /*==============================================================================
 
-	Main.cpp
+	main.cpp
 
 	oftest: a test for oscframework
   
@@ -20,77 +20,10 @@
 	along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ==============================================================================*/
-#include <oscframework/oscframework.h>
-#include <iostream>
-#include <unistd.h>
-
-using namespace std;
-using namespace osc;
+#include "TestReceiver.h"
 
 void testTimeTag();
 void testSender();
-
-class TestReceiver : public OscReceiver {
-
-	public:
-		
-		TestReceiver() : OscReceiver(), bDone(false) {}
-		
-		void poll() {
-			bDone = false;
-			
-			// poll for messages until "/quit" is received
-			while(!bDone) {
-				int num = handleMessages(0);
-				if(num > 0) {
-					cout << "TestReceiver: received " << num << " bytes" << endl;
-				}
-				else {
-					cout << "TestReceiver: still waiting ..." << endl;
-				}
-			}
-		}
-		
-		bool bDone;
-		
-	protected:
-
-		bool process(const ReceivedMessage& message, const MessageSource& source) {
-			cout << "TestReceiver: received message " << message.path() << " " << message.types() << endl;
-
-			if(message.checkPathAndTypes("/test3", "TFcNIihfdsSmtb")) {
-				cout << "/test3 parsing all mesage types" << " " << message.typeTag(0) << endl
-					 << " bool T: " << message.asBool(0) << endl
-					 << " bool F: " << message.asBool(1) << endl
-					 << " char: '" << message.asChar(2) << "'" << endl
-					 << " nil" << endl       // message arg 3
-					 << " infinitum" << endl // message arg 4
-					 << " int32: " << message.asInt32(5) << endl
-					 << " int64: " << message.asInt64(6) << endl
-					 << " float: " << message.asFloat(7) << endl
-					 << " double: " << message.asDouble(8) << endl
-					 << " string: \"" << message.asString(9) << '"' << endl
-					 << " symbol: \"" << message.asSymbol(10) << '"' << endl
-					 << " midi: " << hex << message.asMidiMessage(11) << dec << endl
-					 << " timetag: " << message.asTimeTag(12).sec << " " << message.asTimeTag(12).frac << endl
-					 << " blob: \"" << std::string((char*) message.asBlob(13).data) << '"' << endl;
-			
-				return true;
-			}
-			
-			for(unsigned int i = 0; i < message.numArgs(); ++i) {
-				cout << "arg " << i << " '" << message.typeTag(i) << "' ";
-				message.printArg(i);
-				cout << endl;
-			}
-			
-			if(message.path() == "/quit") {
-				bDone = true;
-			}
- 
-			return true;
-		}
-};
 
 int main(int argc, char *argv[]) {
 
@@ -100,10 +33,9 @@ int main(int argc, char *argv[]) {
 	cout << "DONE" << endl << endl;
 
 	TestReceiver receiver;
-	
 	receiver.setup(9990);
 	
-	usleep(2000);
+	usleep(2000000); // 2 seconds
 	
 	cout << "RECEIVER TEST (NO THREAD)" << endl;
 	testSender();
@@ -113,7 +45,7 @@ int main(int argc, char *argv[]) {
 	cout << "RECEIVER TEST (THREAD)" << endl;
 	receiver.start();
 	testSender();
-	usleep(1000);
+	usleep(1000000); // 1 second
 	receiver.stop();
 	cout << "DONE" << endl << endl;
 
@@ -124,7 +56,7 @@ void testTimeTag() {
 	TimeTag tagA;
 	cout << "tagA is " << tagA.sec << " " << tagA.frac << " (now)"<< endl;
 
-	cout << "sleeping 20 microseconds ..." << endl;
+	cout << "sleeping 20 milliseconds ..." << endl;
 	usleep(20000);
 
 	TimeTag tagB;

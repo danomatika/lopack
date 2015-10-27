@@ -7,7 +7,9 @@ obj
 # autotools files
 autom4te.cache
 .deps
+.libs
 Makefile
+libtool
 config.log
 config.status
 src/config.h
@@ -15,7 +17,9 @@ src/stamp-h1
 
 # build
 *.o
+*.lo
 *.a
+*.la
 src/tests/oftests
 
 # OSX

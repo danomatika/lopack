@@ -104,7 +104,7 @@ OscSender& OscSender::operator<<(const char var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_char(m_message, var);	
+	lo_message_add_char(m_message, var);
 	return *this;	
 }
 
@@ -112,7 +112,7 @@ OscSender& OscSender::operator<<(const Nil& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_nil(m_message);	
+	lo_message_add_nil(m_message);
 	return *this;	
 }
 
@@ -120,7 +120,7 @@ OscSender& OscSender::operator<<(const Infinitum& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_infinitum(m_message);	
+	lo_message_add_infinitum(m_message);
 	return *this;	
 }
 
@@ -128,7 +128,7 @@ OscSender& OscSender::operator<<(const int32_t var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_int32(m_message, var);	
+	lo_message_add_int32(m_message, var);
 	return *this;	
 }
 
@@ -136,7 +136,7 @@ OscSender& OscSender::operator<<(const int64_t var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_int64(m_message, var);	
+	lo_message_add_int64(m_message, var);
 	return *this;
 }
 
@@ -144,7 +144,7 @@ OscSender& OscSender::operator<<(float var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_float(m_message, var);	
+	lo_message_add_float(m_message, var);
 	return *this;
 }
 
@@ -152,7 +152,7 @@ OscSender& OscSender::operator<<(double var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_double(m_message, var);	
+	lo_message_add_double(m_message, var);
 	return *this;
 }
 
@@ -160,7 +160,7 @@ OscSender& OscSender::operator<<(const char* var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_string(m_message, var);	
+	lo_message_add_string(m_message, var);
 	return *this;
 }
 
@@ -168,7 +168,7 @@ OscSender& OscSender::operator<<(const std::string var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_string(m_message, var.c_str());	
+	lo_message_add_string(m_message, var.c_str());
 	return *this;
 }
 
@@ -176,7 +176,7 @@ OscSender& OscSender::operator<<(const Symbol& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_symbol(m_message, var.value);	
+	lo_message_add_symbol(m_message, var.value);
 	return *this;
 }
 
@@ -192,7 +192,7 @@ OscSender& OscSender::operator<<(const TimeTag& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_timetag(m_message, var.tag);	
+	lo_message_add_timetag(m_message, var.tag);
 	return *this;
 }
 
