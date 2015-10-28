@@ -1,13 +1,13 @@
 2015-10-27 Dan Wilcox <danomatika@gmail.com>
 
-	2.0.1
+	0.2.1
 
 	* statically link local libtool lib w/ lptest 
 	* added uninstall-hook to remove lopack include folder
 
 2015-10-27 Dan Wilcox <danomatika@gmail.com>
 
-	2.0.0
+	0.2.0
 
 	* renamed library to lopack
 	* added libtool support for building & installing static & shared libs
