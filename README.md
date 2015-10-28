@@ -44,6 +44,10 @@ or
 
     src/lptest/lptest
 
+Install via:
+
+    make install
+
 Developing
 ----------
 
