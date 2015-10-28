@@ -36,6 +36,6 @@
 	* moved config.h to src & removed from lib makefiles
 	* folder reorganization
 
-2010-04-15 Dan Wilcox <danomatika@gmail.com>
+2010-04-20 Dan Wilcox <danomatika@gmail.com>
 
 	0.1.0-alpha: initial commit
