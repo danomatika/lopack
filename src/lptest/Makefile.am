@@ -6,11 +6,11 @@ noinst_PROGRAMS = lptest
 # bin sources, headers here because we dont want to install them
 lptest_SOURCES = main.cpp TestReceiver.h
 
-# local libraries needed to build (builddir)
-lptest_LDADD = -L../lopack -llopack
-
 # include paths
 lptest_CPPFLAGS = $(CXXFLAGS) $(LO_CFLAGS) -I$(top_srcdir)/src
 
-# libs to link
-lptest_LDFLAGS = $(LO_LIBS)
+# libs to link, set static to statically link local libtool lib
+lptest_LDFLAGS = $(LO_LIBS) -static
+
+# local libraries needed to build (builddir), set path to .la for libtool libs
+lptest_LDADD = $(top_builddir)/src/lopack/liblopack.la

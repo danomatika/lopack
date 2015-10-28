@@ -1,7 +1,7 @@
 #########################################
 ##### Prelude #####
 
-AC_INIT([lopack], [0.2.0], [danomatika@gmail.com])
+AC_INIT([lopack], [0.2.1], [danomatika@gmail.com])
 AC_CONFIG_SRCDIR([src/lopack/lopack.h])
 AC_CONFIG_AUX_DIR([config])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])

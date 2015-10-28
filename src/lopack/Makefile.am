@@ -23,3 +23,7 @@ AM_CPPFLAGS = $(CXXFLAGS) $(LO_CFLAGS)
 
 # libs to link
 AM_LDFLAGS = $(LO_LIBS)
+
+# make sure to remove include folder
+uninstall-hook:
+	if test -d ${includedir}/${PACKAGE}; then rmdir ${includedir}/${PACKAGE}; fi
