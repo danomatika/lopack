@@ -45,7 +45,7 @@ bool OscObject::processOsc(const ReceivedMessage& message, const MessageSource& 
 	return processOscMessage(message, source);
 }
 
-void OscObject::addOscObject(OscObject* object) {
+void OscObject::addOscObject(OscObject *object) {
 	if(object == NULL) {
 		LOG_WARN << "OscObject: Cannot add NULL object" << std::endl;
 		return;
@@ -53,7 +53,7 @@ void OscObject::addOscObject(OscObject* object) {
 	_objectList.push_back(object);
 }
 
-void OscObject::removeOscObject(OscObject* object) {
+void OscObject::removeOscObject(OscObject *object) {
 	if(object == NULL) {
 		LOG_WARN << "OscObject: Cannot remove NULL object" << std::endl;
 		return;

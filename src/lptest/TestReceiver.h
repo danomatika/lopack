@@ -71,7 +71,7 @@ class TestReceiver : public OscReceiver {
 					 << " symbol: \"" << message.asSymbol(10) << '"' << endl
 					 << " midi: " << hex << message.asMidiMessage(11) << dec << endl
 					 << " timetag: " << message.asTimeTag(12).sec << " " << message.asTimeTag(12).frac << endl
-					 << " blob: \"" << std::string((char*) message.asBlob(13).data) << '"' << endl;
+					 << " blob: \"" << std::string((char *) message.asBlob(13).data) << '"' << endl;
 				return true;
 			}
 			

@@ -113,13 +113,13 @@ struct TimeTag {
 
 /// standard C, NULL terminated, string. Used in systems which distinguish strings and symbols./
 struct Symbol {
-	const char* value; //< the C-string
+	const char *value; //< the C-string
 
 	/// constructor
 	explicit Symbol() : value(NULL) {}
 	
 	/// constructors to set the string
-	explicit Symbol(const char* value_) : value(value_) {}
+	explicit Symbol(const char *value_) : value(value_) {}
 	explicit Symbol(const std::string value_) : value(value_.c_str()) {}
 
 	operator const char*() const {return value;} //< operator to grab the string implicitly
@@ -127,14 +127,14 @@ struct Symbol {
 
 /// a binary area of memory
 struct Blob {
-	const void* data; //< pointer to the data
+	const void *data; //< pointer to the data
 	uint32_t size;    //< size of the data
 	
 	/// constructor
 	explicit Blob() : data(NULL), size(0) {}
 	
 	/// constructor to set the data pointer and data size
-	explicit Blob(const void* data_, uint32_t size_) : data(data_), size(size_) {}
+	explicit Blob(const void *data_, uint32_t size_) : data(data_), size(size_) {}
 };
 
 /// \section Stream Manipulators
@@ -174,7 +174,7 @@ struct EndMessage {
 class TypeException : public std::runtime_error {
 	public:
 		TypeException(
-			const char* w="argument is of different type then requested")
+			const char *w="argument is of different type then requested")
 			: std::runtime_error(w) {}
 };
 
@@ -182,7 +182,7 @@ class TypeException : public std::runtime_error {
 class ArgException : public std::runtime_error {
 	public:
 		ArgException(
-			const char* w="argument index out of range")
+			const char *w="argument index out of range")
 			: std::runtime_error(w) {}
 };
 
@@ -200,7 +200,7 @@ class ReceivedMessage {
 		/// argv  an array of liblo arguments
 		/// argc  the number of arguments
 		/// msg   the liblo message
-		ReceivedMessage(std::string path, std::string types, lo_arg** argv, unsigned int argc, lo_message msg);
+		ReceivedMessage(std::string path, std::string types, lo_arg **argv, unsigned int argc, lo_message msg);
 	
 		/// returns true if the message matches the given path and argument type string
 		const bool checkPathAndTypes(std::string path, std::string types) const;
@@ -216,7 +216,7 @@ class ReceivedMessage {
 		
 		/// get the raw liblo argument at a given index
 		/// throws an exception on bad index
-		const lo_arg* arg(unsigned int at) const;
+		const lo_arg *arg(unsigned int at) const;
 		
 		/// get the number of arguments in the message
 		inline const unsigned int numArgs() const {return m_argc;}
@@ -283,7 +283,7 @@ class ReceivedMessage {
 	
 		const std::string  m_path;   //< osc message path
 		const std::string  m_types;  //< argument type string
-		lo_arg**           m_argv;   //< liblo argument list
+		lo_arg           **m_argv;   //< liblo argument list
 		const unsigned int m_argc;   //< number of arguments
 		lo_message         m_rawmsg; //< liblo message
 };

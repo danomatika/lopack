@@ -36,28 +36,28 @@ namespace osc {
 class SendException : public std::runtime_error {
 	public:
 		SendException(
-			const char* w="call to send when setup or BeginMessage have not been called or message is in progress")
+			const char *w="call to send when setup or BeginMessage have not been called or message is in progress")
 			: std::runtime_error(w) {}
 };
 
 class BundleNotInProgressException : public std::runtime_error {
 	public:
 		BundleNotInProgressException(
-			const char* w="call to EndBundle when bundle is not in progress")
+			const char *w="call to EndBundle when bundle is not in progress")
 			: std::runtime_error(w) {}
 };
 
 class MessageInProgressException : public std::runtime_error {
 	public:
 		MessageInProgressException(
-			const char* w="opening or closing bundle or message while message is in progress")
+			const char *w="opening or closing bundle or message while message is in progress")
 			: std::runtime_error(w) {}
 };
 
 class MessageNotInProgressException : public std::runtime_error {
 	public:
 		MessageNotInProgressException(
-			const char* w="call to EndMessage when message is not in progress")
+			const char *w="call to EndMessage when message is not in progress")
 			: std::runtime_error(w) {}
 };
 
@@ -96,7 +96,7 @@ class OscSender {
 		OscSender& operator<<(const float var);
 		OscSender& operator<<(const double var);
 		
-		OscSender& operator<<(const char* var);
+		OscSender& operator<<(const char *var);
 		OscSender& operator<<(const std::string var);
 		OscSender& operator<<(const Symbol& var);
 		

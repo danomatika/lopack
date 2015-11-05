@@ -100,7 +100,7 @@ int OscReceiver::handleMessages(int timeoutMS) {
 
 /// OBJECTS
 
-void OscReceiver::addOscObject(OscObject* object) {
+void OscReceiver::addOscObject(OscObject *object) {
 	if(object == NULL) {
 		LOG_WARN << "OscReceiver: Cannot add NULL object" << std::endl;
 		return;
@@ -108,7 +108,7 @@ void OscReceiver::addOscObject(OscObject* object) {
 	_objectList.push_back(object);
 }
 
-void OscReceiver::removeOscObject(OscObject* object) {
+void OscReceiver::removeOscObject(OscObject *object) {
 	if(object == NULL) {
 		LOG_WARN << "OscReceiver: Cannot remove NULL object" << std::endl;
 		return;
@@ -160,7 +160,7 @@ bool OscReceiver::processMessage(const ReceivedMessage& message, const MessageSo
 
 // STATIC CALLBACKS
 
-void OscReceiver::errorCB(int num, const char* msg, const char* where) {
+void OscReceiver::errorCB(int num, const char *msg, const char *where) {
 	std::stringstream stream;
 	stream << "OscReceiver: liblo server thread error " << num;
 	if(msg) {stream << ": " << msg;}     // might be NULL
@@ -168,9 +168,9 @@ void OscReceiver::errorCB(int num, const char* msg, const char* where) {
 	throw ReceiveException(stream.str());
 }
 
-int OscReceiver::messageCB(const char* path, const char* types, lo_arg** argv,
-						   int argc, lo_message msg, void* user_data) {
-	OscReceiver* receiver = (OscReceiver*) user_data;
+int OscReceiver::messageCB(const char *path, const char *types, lo_arg **argv,
+						   int argc, lo_message msg, void *user_data) {
+	OscReceiver *receiver = (OscReceiver *)user_data;
 	return receiver->processMessage(ReceivedMessage((std::string) path, (std::string) types, argv, argc, msg),
 	                                MessageSource(lo_message_get_source(msg)));
 }

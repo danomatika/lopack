@@ -156,7 +156,7 @@ OscSender& OscSender::operator<<(double var) {
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const char* var) {
+OscSender& OscSender::operator<<(const char *var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
@@ -184,7 +184,7 @@ OscSender& OscSender::operator<<(const MidiMessage& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_midi(m_message, (uint8_t*) var.bytes);	
+	lo_message_add_midi(m_message, (uint8_t *)var.bytes);	
 	return *this;
 }
 
@@ -200,7 +200,7 @@ OscSender& OscSender::operator<<(const Blob& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_blob blob = lo_blob_new(var.size, (void*) var.data);
+	lo_blob blob = lo_blob_new(var.size, (void *)var.data);
 	lo_message_add_blob(m_message, blob);
 	lo_blob_free(blob);
 	return *this;

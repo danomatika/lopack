@@ -37,7 +37,7 @@ class ReceiveException : public std::runtime_error {
 			std::string w="liblo receive error")
 			: std::runtime_error(w) {}
 		ReceiveException(
-			const char* w="liblo receive error")
+			const char *w="liblo receive error")
 			: std::runtime_error(w) {}
 };
 
@@ -80,10 +80,10 @@ class OscReceiver {
 		/// \section Objects
 
 		/// add an OscObject to send received messages to
-		void addOscObject(OscObject* object);
+		void addOscObject(OscObject *object);
 
 		/// remove an OscObject
-		void removeOscObject(OscObject* object);
+		void removeOscObject(OscObject *object);
 
 		/// \section Util
 
@@ -114,10 +114,10 @@ class OscReceiver {
 		bool processMessage(const ReceivedMessage& message, const MessageSource& source);
 
 		// static liblo callbacks
-		static void errorCB(int num, const char* msg, const char* where);
+		static void errorCB(int num, const char *msg, const char *where);
 
-		static int messageCB(const char* path, const char* types, lo_arg** argv,
-							 int argc, lo_message msg, void* user_data);
+		static int messageCB(const char *path, const char *types, lo_arg **argv,
+							 int argc, lo_message msg, void *user_data);
 		
 		lo_server_thread m_serverThread; //< liblo server thread handle
 

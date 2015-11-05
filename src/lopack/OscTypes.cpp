@@ -61,7 +61,7 @@ double TimeTag::diff(const TimeTag& tag) const {
 
 // RECEIVED MESSAGE
 
-ReceivedMessage::ReceivedMessage(std::string path, std::string types, lo_arg** argv, unsigned int argc, lo_message msg) :
+ReceivedMessage::ReceivedMessage(std::string path, std::string types, lo_arg **argv, unsigned int argc, lo_message msg) :
 	 m_path(path), m_types(types), m_argv(argv), m_argc(argc), m_rawmsg(msg) {}
 
 const bool ReceivedMessage::checkPathAndTypes(std::string path, std::string types) const {
@@ -149,7 +149,7 @@ const MidiMessage ReceivedMessage::asMidiMessage(unsigned int at) const {
 	if(!isMidiMessage(at)) {
 		throw TypeException();
 	}
-	return MidiMessage((uint8_t*) arg(at)->m, true);	// rev byte order
+	return MidiMessage((uint8_t *)arg(at)->m, true);	// rev byte order
 }
 
 const Symbol ReceivedMessage::asSymbol(unsigned int at) const {
@@ -320,16 +320,16 @@ const bool ReceivedMessage::tryString(std::string *dest, unsigned int at) const 
 }
 
 const void ReceivedMessage::printArg(unsigned at) const {
-	lo_arg_pp((lo_type) typeTag(at), (lo_arg*) arg(at));
+	lo_arg_pp((lo_type) typeTag(at), (lo_arg *)arg(at));
 }
 
 const void ReceivedMessage::printAllArgs() {
 	for(unsigned int i = 0; i < m_argc; ++i) {
-		lo_arg_pp((lo_type) typeTag(i), (lo_arg*) m_argv[i]);
+		lo_arg_pp((lo_type) typeTag(i), (lo_arg *)m_argv[i]);
 	}
 }
 
-const lo_arg* ReceivedMessage::arg(unsigned int at) const {
+const lo_arg *ReceivedMessage::arg(unsigned int at) const {
 	if(at < m_argc) {
 		return m_argv[at];
 	}
