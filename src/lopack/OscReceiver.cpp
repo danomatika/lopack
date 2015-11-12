@@ -30,17 +30,17 @@ namespace osc {
 
 OscReceiver::OscReceiver(std::string rootAddress) :
 	m_oscRootAddress(rootAddress), m_serverThread(0), 
-	m_bIsRunning(false), m_bIgnoreMessages(false) {}
+	m_isRunning(false), m_ignoreMessages(false) {}
 
 OscReceiver::OscReceiver(unsigned int port, std::string rootAddress) :
 	m_oscRootAddress(rootAddress), m_serverThread(0),
-	m_bIsRunning(false), m_bIgnoreMessages(false) {
+	m_isRunning(false), m_ignoreMessages(false) {
 	setup(port);
 }
 
 OscReceiver::~OscReceiver() {
 	stop();
-	_objectList.clear();
+	m_objects.clear();
 }
 
 bool OscReceiver::setup(unsigned int port) {
@@ -70,7 +70,7 @@ void OscReceiver::start() {
 		return;
 	}
 	lo_server_thread_start(m_serverThread);
-	m_bIsRunning = true;
+	m_isRunning = true;
 }
 
 void OscReceiver::stop() {
@@ -78,8 +78,8 @@ void OscReceiver::stop() {
 		return;
 	}
 	lo_server_thread_stop(m_serverThread);
-	m_bIsRunning = false;
-	m_bIgnoreMessages = false; // reset ignore
+	m_isRunning = false;
+	m_ignoreMessages = false; // reset ignore
 }
 
 // MANUAL POLLING
@@ -89,7 +89,7 @@ int OscReceiver::handleMessages(int timeoutMS) {
 		LOG_ERROR << "OscReceiver: Cannot handle messages, address not set" << std::endl;
 		return 0;
 	}
-	if(m_bIsRunning) {
+	if(m_isRunning) {
 		LOG_WARN << "OscReceiver: You shouldn't need to handle messages manually "
 				 << "when the thread is already running" << std::endl;
 		return 0;
@@ -105,7 +105,7 @@ void OscReceiver::addOscObject(OscObject *object) {
 		LOG_WARN << "OscReceiver: Cannot add NULL object" << std::endl;
 		return;
 	}
-	_objectList.push_back(object);
+	m_objects.push_back(object);
 }
 
 void OscReceiver::removeOscObject(OscObject *object) {
@@ -115,9 +115,9 @@ void OscReceiver::removeOscObject(OscObject *object) {
 	}
 	// find object in list and remove it
 	std::vector<OscObject*>::iterator iter;
-	iter = find(_objectList.begin(), _objectList.end(), object);
-	if(iter != _objectList.end()) {
-		_objectList.erase(iter);
+	iter = find(m_objects.begin(), m_objects.end(), object);
+	if(iter != m_objects.end()) {
+		m_objects.erase(iter);
 	}
 }
 
@@ -132,20 +132,20 @@ unsigned int OscReceiver::getPort() {
 
 bool OscReceiver::processMessage(const ReceivedMessage& message, const MessageSource& source) {
 	// ignore any incoming messages?
-	if(m_bIgnoreMessages) {
+	if(m_ignoreMessages) {
 		return false;
 	}
 		
 	// call any attached objects
 	std::vector<OscObject*>::iterator iter;
-	for(iter = _objectList.begin(); iter != _objectList.end();) {
+	for(iter = m_objects.begin(); iter != m_objects.end();) {
 		if((*iter) != NULL) { // try to process message
 			if((*iter)->processOsc(message, source))
 				return true;
 			iter++; // increment iter
 		}
 		else { // bad object, so erase it
-			iter = _objectList.erase(iter);
+			iter = m_objects.erase(iter);
 			LOG_WARN << "OscReceiver: removed NULL object" <<std::endl;
 		}
 	}

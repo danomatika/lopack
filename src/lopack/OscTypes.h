@@ -295,8 +295,9 @@ class ReceivedMessage {
 class MessageSource {
 
 	public:
-		
-		/// constructor
+	
+		/// constructor:
+		/// address liblo address to wrap
 		MessageSource(lo_address address);
 		
 		const std::string getHostname() const; //< get the hostname

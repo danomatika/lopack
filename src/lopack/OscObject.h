@@ -37,19 +37,19 @@ class OscObject {
 
 		OscObject(std::string rootAddress="") : oscRootAddress(rootAddress) {}
 
-		/// \section Message Processing
+	/// \section Message Processing
 
 		/// process attached objects, then call processOscMessage
 		/// returns true if message handled
 		bool processOsc(const ReceivedMessage& message, const MessageSource& source);
 
-		/// \section Objects
+	/// \section Objects
 
 		/// attach/remove an OscObject to this one
 		void addOscObject(OscObject *object);
 		void removeOscObject(OscObject *object);
 
-		/// \section Util
+	/// \section Util
 
 		/// get/set the root address of this object
 		inline void setOscRootAddress(std::string rootAddress) {oscRootAddress = rootAddress;}
@@ -66,7 +66,7 @@ class OscObject {
 
 	private:
 
-		std::vector<OscObject*> _objectList; //< currently nested objects
+		std::vector<OscObject*> m_objects; //< currently nested objects
 };
 
 } // namespace

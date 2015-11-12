@@ -28,10 +28,10 @@
 namespace osc {
 
 OscSender::OscSender() : 
-	m_address(0), m_message(0), m_path(""), m_bMessageInProgress(false) {}
+	m_address(0), m_message(0), m_path(""), m_messageInProgress(false) {}
 
 OscSender::OscSender(std::string address, unsigned int port) :
-	m_address(0), m_message(0), m_path(""), m_bMessageInProgress(false) {
+	m_address(0), m_message(0), m_path(""), m_messageInProgress(false) {
 	setup(address, port);
 }
 
@@ -74,7 +74,7 @@ OscSender& OscSender::operator<<(const BeginMessage& var) {
 		throw MessageInProgressException();
 	}
 	m_message = lo_message_new();
-	m_bMessageInProgress = true;
+	m_messageInProgress = true;
 	m_path = var.addressPattern;
 	return *this;
 }
@@ -83,7 +83,7 @@ OscSender& OscSender::operator<<(const EndMessage& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	m_bMessageInProgress = false;
+	m_messageInProgress = false;
 	return *this;
 }
 		

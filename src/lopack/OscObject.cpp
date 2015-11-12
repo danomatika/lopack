@@ -29,16 +29,16 @@ namespace osc {
 
 bool OscObject::processOsc(const ReceivedMessage& message, const MessageSource& source) {
 	// call any attached objects
-	std::vector<OscObject*>::iterator objectIter;
-	for(objectIter = _objectList.begin(); objectIter != _objectList.end();) {
-		if((*objectIter) != NULL) { // try to process message
-			if((*objectIter)->processOsc(message, source)) {
+	std::vector<OscObject*>::iterator iter;
+	for(iter = m_objects.begin(); iter != m_objects.end();) {
+		if((*iter) != NULL) { // try to process message
+			if((*iter)->processOsc(message, source)) {
 				return true;
 			}
-			objectIter++; // increment iter
+			iter++; // increment iter
 		}
 		else { // bad object, so erase it
-			objectIter = _objectList.erase(objectIter);
+			iter = m_objects.erase(iter);
 			LOG_WARN << "OscObject: removed NULL object" << std::endl;
 		}
 	}
@@ -47,22 +47,22 @@ bool OscObject::processOsc(const ReceivedMessage& message, const MessageSource& 
 
 void OscObject::addOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscObject: Cannot add NULL object" << std::endl;
+		LOG_WARN << "OscObject: can't add NULL object" << std::endl;
 		return;
 	}
-	_objectList.push_back(object);
+	m_objects.push_back(object);
 }
 
 void OscObject::removeOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscObject: Cannot remove NULL object" << std::endl;
+		LOG_WARN << "OscObject: can't remove NULL object" << std::endl;
 		return;
 	}
 	// find object in list and remove it
 	std::vector<OscObject*>::iterator iter;
-	iter = find(_objectList.begin(), _objectList.end(), object);
-	if(iter != _objectList.end()) {
-		_objectList.erase(iter);
+	iter = find(m_objects.begin(), m_objects.end(), object);
+	if(iter != m_objects.end()) {
+		m_objects.erase(iter);
 	}
 }
 

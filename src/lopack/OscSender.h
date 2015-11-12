@@ -80,7 +80,7 @@ class OscSender {
 		std::string getAddr();
 		std::string getPort();
 		
-		/// \section Stream Access
+	/// \section Stream Access
 		
 		OscSender& operator<<(const BeginMessage& var);
 		OscSender& operator<<(const EndMessage& var);
@@ -105,7 +105,7 @@ class OscSender {
 		OscSender& operator<<(const Blob& var);
 		
 		/// is a message currently in progress?
-		inline bool isMessageInProgress() {return m_bMessageInProgress;}
+		inline bool isMessageInProgress() {return m_messageInProgress;}
 		
 		// print the contents of the current message, if there is one
 		void print();
@@ -117,7 +117,7 @@ class OscSender {
 
 		std::string m_path; //< temp osc address path
 		
-		bool m_bMessageInProgress; //< is a message currently being built?
+		bool m_messageInProgress; //< is a message currently being built?
 };
 
 } // namespace

@@ -59,7 +59,7 @@ class OscReceiver {
 		/// returns false if socket cannot be set up
 		bool setup(unsigned int port);
 
-		/// \section Thread Control
+	/// \section Thread Control
 
 		/// start the listening thread, opens connection
 		void start();
@@ -67,7 +67,7 @@ class OscReceiver {
 		/// stop the listening thread, closes connection
 		void stop();
 		
-		/// \section Manual Polling
+	/// \section Manual Polling
 		
 		/// manually check for incoming messages, nonblocking
 		/// timeoutMS is the number of ms to wait for a message, 0 = immediately
@@ -77,7 +77,7 @@ class OscReceiver {
 		/// while the thread is running
 		int handleMessages(int timeoutMS=0);
 
-		/// \section Objects
+	/// \section Objects
 
 		/// add an OscObject to send received messages to
 		void addOscObject(OscObject *object);
@@ -85,7 +85,7 @@ class OscReceiver {
 		/// remove an OscObject
 		void removeOscObject(OscObject *object);
 
-		/// \section Util
+	/// \section Util
 
 		/// is the thread running?
 		bool isListening() {return true;}
@@ -98,7 +98,7 @@ class OscReceiver {
 		inline std::string& getOscRootAddress()	{return m_oscRootAddress;}
 
 		// ignore incoming messages?
-		inline void ignoreMessages(bool yesno) {m_bIgnoreMessages = yesno;}
+		inline void ignoreMessages(bool yesno) {m_ignoreMessages = yesno;}
 
 	protected:
 
@@ -121,10 +121,10 @@ class OscReceiver {
 		
 		lo_server_thread m_serverThread; //< liblo server thread handle
 
-		bool m_bIsRunning; //< should the thread be running?
-		bool m_bIgnoreMessages; //< ignore incoming messages?
+		bool m_isRunning; //< should the thread be running?
+		bool m_ignoreMessages; //< ignore incoming messages?
 
-		std::vector<OscObject*> _objectList; //< osc objects to send messages to
+		std::vector<OscObject*> m_objects; //< osc objects to send messages to
 };
 
 } // namespace
