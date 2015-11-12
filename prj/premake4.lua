@@ -9,7 +9,7 @@ http://bitbucket.org/anders/lightweight/src/tip/premake4.lua
 ]]
 solution "lopack"
 	configurations { "Debug", "Release" }
-	objdir "../obj"
+	objdir "obj"
  
 -- lopack library
 project "lopack"
