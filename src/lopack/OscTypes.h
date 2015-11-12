@@ -107,6 +107,9 @@ struct TimeTag {
 	/// add the number of milliseconds to the current timestamp
 	void add(unsigned int ms);
 	
+	/// get the difference between this timetag and the current time in seconds
+	double diff() const;
+	
 	/// get the difference between this timetag and another in seconds
 	double diff(const TimeTag& tag) const;
 };

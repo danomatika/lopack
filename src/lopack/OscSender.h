@@ -79,8 +79,35 @@ class OscSender {
 		/// get the ip addr and port
 		std::string getAddr();
 		std::string getPort();
+	
+	/// \section Message Building
+	
+		/// set the target address
+		void beginMessage(std::string addressPattern);
+	
+		void addBool(bool var);
+		void addChar(char var);
+		void addNil();
+		void addInfinitum();
+	
+		void addInt32(int32_t var);
+		void addInt64(int64_t var);
+	
+		void addFloat(float var);
+		void addDouble(double var);
+	
+		void addString(char *var);
+		void addString(std::string var);
+		void addSymbol(const Symbol& var);
+	
+		void addMidiMessage(const MidiMessage& var);
+		void addTimeTag(const TimeTag& var);
+		void addBlob(const Blob& var);
+	
+		/// finish the message before calling send
+		void endMessage();
 		
-	/// \section Stream Access
+	/// \section Message Building via Stream Access
 		
 		OscSender& operator<<(const BeginMessage& var);
 		OscSender& operator<<(const EndMessage& var);
@@ -103,7 +130,9 @@ class OscSender {
 		OscSender& operator<<(const MidiMessage& var);
 		OscSender& operator<<(const TimeTag& var);
 		OscSender& operator<<(const Blob& var);
-		
+	
+	/// \section Util
+	
 		/// is a message currently in progress?
 		inline bool isMessageInProgress() {return m_messageInProgress;}
 		

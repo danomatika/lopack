@@ -67,27 +67,18 @@ std::string OscSender::getPort() {
 	return m_address ? (std::string) lo_address_get_port(m_address) : "";
 }
 
-// STREAM SENDING
+// MESSAGE BUILDING
 
-OscSender& OscSender::operator<<(const BeginMessage& var) {
+void OscSender::beginMessage(std::string addressPattern) {
 	if(isMessageInProgress()) {
 		throw MessageInProgressException();
 	}
 	m_message = lo_message_new();
 	m_messageInProgress = true;
-	m_path = var.addressPattern;
-	return *this;
+	m_path = addressPattern;
 }
-
-OscSender& OscSender::operator<<(const EndMessage& var) {
-	if(!isMessageInProgress()) {
-		throw MessageNotInProgressException();
-	}
-	m_messageInProgress = false;
-	return *this;
-}
-		
-OscSender& OscSender::operator<<(bool var) {
+	
+void OscSender::addBool(bool var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
@@ -97,114 +88,191 @@ OscSender& OscSender::operator<<(bool var) {
 	else {
 		lo_message_add_false(m_message);
 	}
-	return *this;
 }
 
-OscSender& OscSender::operator<<(const char var) {
+void OscSender::addChar(char var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_char(m_message, var);
-	return *this;	
 }
 
-OscSender& OscSender::operator<<(const Nil& var) {
+void OscSender::addNil() {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_nil(m_message);
-	return *this;	
 }
 
-OscSender& OscSender::operator<<(const Infinitum& var) {
+void OscSender::addInfinitum() {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_infinitum(m_message);
-	return *this;	
 }
 
-OscSender& OscSender::operator<<(const int32_t var) {
+void OscSender::addInt32(int32_t var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_int32(m_message, var);
-	return *this;	
 }
 
-OscSender& OscSender::operator<<(const int64_t var) {
+void OscSender::addInt64(int64_t var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_int64(m_message, var);
-	return *this;
 }
 
-OscSender& OscSender::operator<<(float var) {
+void OscSender::addFloat(float var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_float(m_message, var);
-	return *this;
 }
 
-OscSender& OscSender::operator<<(double var) {
+void OscSender::addDouble(double var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_double(m_message, var);
-	return *this;
 }
 
-OscSender& OscSender::operator<<(const char *var) {
+void OscSender::addString(char *var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_string(m_message, var);
-	return *this;
 }
 
-OscSender& OscSender::operator<<(const std::string var) {
+void OscSender::addString(std::string var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_string(m_message, var.c_str());
-	return *this;
 }
 
-OscSender& OscSender::operator<<(const Symbol& var) {
+void OscSender::addSymbol(const Symbol& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_symbol(m_message, var.value);
-	return *this;
 }
 
-OscSender& OscSender::operator<<(const MidiMessage& var) {
+void OscSender::addMidiMessage(const MidiMessage& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
-	lo_message_add_midi(m_message, (uint8_t *)var.bytes);	
-	return *this;
+	lo_message_add_midi(m_message, (uint8_t *)var.bytes);
 }
 
-OscSender& OscSender::operator<<(const TimeTag& var) {
+void OscSender::addTimeTag(const TimeTag& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_timetag(m_message, var.tag);
-	return *this;
 }
 
-OscSender& OscSender::operator<<(const Blob& var) {
+void OscSender::addBlob(const Blob& var) {
 	if(!isMessageInProgress()) {
 		throw MessageNotInProgressException();
 	}
 	lo_blob blob = lo_blob_new(var.size, (void *)var.data);
 	lo_message_add_blob(m_message, blob);
 	lo_blob_free(blob);
+}
+
+void OscSender::endMessage() {
+	if(!isMessageInProgress()) {
+		throw MessageNotInProgressException();
+	}
+	m_messageInProgress = false;
+}
+
+// MESSAGE BUILDING VIA STREAM SENDING
+
+OscSender& OscSender::operator<<(const BeginMessage& var) {
+	beginMessage(var.addressPattern);
 	return *this;
 }
+
+OscSender& OscSender::operator<<(const EndMessage& var) {
+	endMessage();
+	return *this;
+}
+		
+OscSender& OscSender::operator<<(bool var) {
+	addBool(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const char var) {
+	addChar(var);
+	return *this;	
+}
+
+OscSender& OscSender::operator<<(const Nil& var) {
+	addNil();
+	return *this;	
+}
+
+OscSender& OscSender::operator<<(const Infinitum& var) {
+	addInfinitum();
+	return *this;	
+}
+
+OscSender& OscSender::operator<<(const int32_t var) {
+	addInt32(var);
+	return *this;	
+}
+
+OscSender& OscSender::operator<<(const int64_t var) {
+	addInt64(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(float var) {
+	addFloat(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(double var) {
+	addDouble(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const char *var) {
+	addString(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const std::string var) {
+	addString(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const Symbol& var) {
+	addSymbol(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const MidiMessage& var) {
+	addMidiMessage(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const TimeTag& var) {
+	addTimeTag(var);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const Blob& var) {
+	addBlob(var);
+	return *this;
+}
+
+// UTIL
 
 void OscSender::print() {
 	if(m_message) {

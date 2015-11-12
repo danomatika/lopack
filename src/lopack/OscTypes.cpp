@@ -54,7 +54,13 @@ void TimeTag::add(unsigned int ms) {
 	tag.sec += ms / 1000; // seconds
 	tag.frac += ((ms%1000)*0.001) / 0.00000000023283064365; // 1/2^32nds of a second
 }
-	
+
+double TimeTag::diff() const {
+	lo_timetag now;
+	lo_timetag_now(&now);
+	return lo_timetag_diff(now, this->tag);
+}
+
 double TimeTag::diff(const TimeTag& tag) const {
 	return lo_timetag_diff(this->tag, tag.tag);
 }
