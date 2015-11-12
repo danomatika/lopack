@@ -7,3 +7,6 @@ ACLOCAL_AMFLAGS = -I m4
 
 # dirs to delve into
 SUBDIRS = src
+
+# dist files not covered by automake rules
+EXTRA_DIST = README.md

@@ -163,7 +163,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/config/ar-lib \
 	$(top_srcdir)/config/compile $(top_srcdir)/config/config.guess \
 	$(top_srcdir)/config/config.sub \
 	$(top_srcdir)/config/install-sh $(top_srcdir)/config/ltmain.sh \
-	$(top_srcdir)/config/missing COPYING config/ar-lib \
+	$(top_srcdir)/config/missing COPYING ChangeLog config/ar-lib \
 	config/compile config/config.guess config/config.sub \
 	config/depcomp config/install-sh config/ltmain.sh \
 	config/missing
@@ -345,6 +345,9 @@ ACLOCAL_AMFLAGS = -I m4
 
 # dirs to delve into
 SUBDIRS = src
+
+# dist files not covered by automake rules
+EXTRA_DIST = README.md
 all: all-recursive
 
 .SUFFIXES:
