@@ -29,14 +29,14 @@
 
 using namespace std;
 
-// test receiver implementation
+/// test receiver implementation
 class TestReceiver : public osc::OscReceiver {
 
 	public:
 		
-		TestReceiver() : osc::OscReceiver(), done(false) {}
+		TestReceiver() : done(false) {}
 		
-		// poll for messages until "/quit" is received
+		/// poll for messages until "/quit" is received
 		void poll() {
 			done = false;
 			while(!done) {
@@ -50,10 +50,11 @@ class TestReceiver : public osc::OscReceiver {
 			}
 		}
 		
-		bool done; //<if false, keep polling
+		bool done; //< if false, keep polling
 		
 	protected:
 
+		/// OscReceiver new message callback
 		bool process(const osc::ReceivedMessage &message, const osc::MessageSource &source) {
 			cout << "TestReceiver: received message " << message.address() << " "
 			     << message.types() << " from " << source.getUrl() << endl;

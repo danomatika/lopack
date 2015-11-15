@@ -29,42 +29,28 @@
 	#define SLEEP(seconds) usleep(seconds*1000000)
 #endif
 
-void testTimeTag();
-void testSender();
+// OscObject subclass which recieves messages automatically when added to
+// OscReceiver
+class Object : public osc::OscObject {
 
-int main(int argc, char *argv[]) {
-
-	cout << endl;
-	cout << "TIMETAG TEST" << endl;
-	testTimeTag();
-	cout << "DONE" << endl << endl;
-
-	TestReceiver receiver;
-	receiver.setup(9990);
-	cout << "receiver started: " << receiver.getUrl() << endl;
+	public:
 	
-	SLEEP(2);
+		// init with /object as the osc root address
+		Object() : osc::OscObject("/object") {}
 	
-	try {
-		cout << "RECEIVER TEST (NO THREAD)" << endl;
-		testSender();
-		SLEEP(1);
-		receiver.poll();
-		cout << "DONE" << endl << endl;
-
-		cout << "RECEIVER TEST (THREAD)" << endl;
-		receiver.start();
-		testSender();
-		SLEEP(1);
-		receiver.stop();
-		cout << "DONE" << endl << endl;
-	}
-	catch(osc::ReceiveException e) {
-		cout << "CAUGHT EXCEPTION: "<< e.what() << endl;
-	}
+	protected:
 	
-	return 0;
-}
+		// return true when the message was handled
+		bool processOscMessage(const osc::ReceivedMessage &message, const osc::MessageSource &source) {
+			if(message.checkAddressAndTypes(oscRootAddress, "ifs")) {
+				cout << "Object: received message " << message.address() << " "
+				     << message.types() << " from " << source.getUrl() << endl;
+				cout << "  " << message.asInt32(0) << " " << message.asFloat(1) << " " << message.asString(2) << endl;
+				return true;
+			}
+			return false;
+		}
+};
 
 void testTimeTag() {
 	osc::TimeTag tagA;
@@ -141,7 +127,48 @@ void testSender() {
 	sender << osc::EndBundle();
 	sender.send();
 	
+	// send message to be handled by Object class
+	sender << osc::BeginMessage("/object") << 123 << 456.78f << "foo bar" << osc::EndMessage();
+	sender.send();
+	
 	// send quit message
 	sender << osc::BeginMessage("/quit") << osc::EndMessage();
 	sender.send();
+}
+
+int main(int argc, char *argv[]) {
+
+	cout << endl;
+	cout << "TIMETAG TEST" << endl;
+	testTimeTag();
+	cout << "DONE" << endl << endl;
+
+	TestReceiver receiver;
+	receiver.setup(9990);
+	cout << "receiver started: " << receiver.getUrl() << endl;
+	
+	Object object;
+	receiver.addOscObject(&object);
+	
+	SLEEP(2);
+	
+	try {
+		cout << "RECEIVER TEST (NO THREAD)" << endl;
+		testSender();
+		SLEEP(1);
+		receiver.poll();
+		cout << "DONE" << endl << endl;
+
+		cout << "RECEIVER TEST (THREAD)" << endl;
+		receiver.start();
+		testSender();
+		SLEEP(1);
+		receiver.stop();
+		cout << "DONE" << endl << endl;
+	}
+	catch(osc::ReceiveException e) {
+		cout << "CAUGHT EXCEPTION: "<< e.what() << endl;
+	}
+	
+	return 0;
 }
