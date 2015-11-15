@@ -43,11 +43,11 @@ TimeTag::TimeTag(lo_timetag timetag) {
 	tag = tag;
 }
 
-bool TimeTag::operator==(const TimeTag& tag) const {
+bool TimeTag::operator==(const TimeTag &tag) const {
 	return (sec == tag.sec) && (frac == tag.frac);
 }
 
-double TimeTag::operator-(const TimeTag& tag) const {
+double TimeTag::operator-(const TimeTag &tag) const {
 	return lo_timetag_diff(this->tag, tag.tag);
 }
 
@@ -66,7 +66,7 @@ double TimeTag::diff() const {
 	return lo_timetag_diff(now, this->tag);
 }
 
-double TimeTag::diff(const TimeTag& tag) const {
+double TimeTag::diff(const TimeTag &tag) const {
 	return lo_timetag_diff(this->tag, tag.tag);
 }
 

@@ -41,7 +41,7 @@ class OscObject {
 
 		/// process attached objects, then call processOscMessage
 		/// returns true if message handled
-		bool processOsc(const ReceivedMessage& message, const MessageSource& source);
+		bool processOsc(const ReceivedMessage &message, const MessageSource &source);
 
 	/// \section Objects
 
@@ -59,7 +59,7 @@ class OscObject {
 	protected:
 
 		/// callback to implement, returns true if message handled
-		virtual bool processOscMessage(const ReceivedMessage& message, const MessageSource& source) {return false;}
+		virtual bool processOscMessage(const ReceivedMessage &message, const MessageSource &source) {return false;}
 
 		/// the root address of this object, aka something like "/root/test1/string2"
 		std::string oscRootAddress;

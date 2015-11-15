@@ -99,11 +99,11 @@ class OscSender {
 	
 		void addString(char *var);
 		void addString(std::string var);
-		void addSymbol(const Symbol& var);
+		void addSymbol(const Symbol &var);
 	
-		void addMidiMessage(const MidiMessage& var);
-		void addTimeTag(const TimeTag& var);
-		void addBlob(const Blob& var);
+		void addMidiMessage(const MidiMessage &var);
+		void addTimeTag(const TimeTag &var);
+		void addBlob(const Blob &var);
 	
 		/// finish the message before calling send
 		void endMessage();
@@ -112,19 +112,19 @@ class OscSender {
 	
 		/// begin a bundle, can be called within other bundles
 		void beginBundle();
-		void beginBundle(const TimeTag& tag); //< set the timestamp
+		void beginBundle(const TimeTag &tag); //< set the timestamp
 	
 		/// finish the bundle before calling send or beginning a new bundle
 		void endBundle();
 		
 	/// \section Message Building via Stream
 		
-		OscSender& operator<<(const BeginMessage& var);
-		OscSender& operator<<(const EndMessage& var);
+		OscSender& operator<<(const BeginMessage &var);
+		OscSender& operator<<(const EndMessage &var);
 		
 		OscSender& operator<<(const bool var);
 		OscSender& operator<<(const char var);
-		OscSender& operator<<(const Nil& var);
+		OscSender& operator<<(const Nil &var);
 		OscSender& operator<<(const Infinitum& var);
 		
 		OscSender& operator<<(const int32_t var);
@@ -135,16 +135,16 @@ class OscSender {
 		
 		OscSender& operator<<(const char *var);
 		OscSender& operator<<(const std::string var);
-		OscSender& operator<<(const Symbol& var);
+		OscSender& operator<<(const Symbol &var);
 		
-		OscSender& operator<<(const MidiMessage& var);
-		OscSender& operator<<(const TimeTag& var);
-		OscSender& operator<<(const Blob& var);
+		OscSender& operator<<(const MidiMessage &var);
+		OscSender& operator<<(const TimeTag &var);
+		OscSender& operator<<(const Blob &var);
 	
 	/// \section Bundle Building via Stream
 	
-		OscSender& operator<<(const BeginBundle& var);
-		OscSender& operator<<(const EndBundle& var);
+		OscSender& operator<<(const BeginBundle &var);
+		OscSender& operator<<(const EndBundle &var);
 	
 	/// \section Util
 	

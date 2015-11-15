@@ -54,7 +54,7 @@ class TestReceiver : public osc::OscReceiver {
 		
 	protected:
 
-		bool process(const osc::ReceivedMessage& message, const osc::MessageSource& source) {
+		bool process(const osc::ReceivedMessage &message, const osc::MessageSource &source) {
 			cout << "TestReceiver: received message " << message.address() << " "
 			     << message.types() << " from " << source.getUrl() << endl;
 

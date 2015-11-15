@@ -167,28 +167,28 @@ void OscSender::addString(std::string var) {
 	lo_message_add_string(m_message, var.c_str());
 }
 
-void OscSender::addSymbol(const Symbol& var) {
+void OscSender::addSymbol(const Symbol &var) {
 	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_symbol(m_message, var.value);
 }
 
-void OscSender::addMidiMessage(const MidiMessage& var) {
+void OscSender::addMidiMessage(const MidiMessage &var) {
 	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_midi(m_message, (uint8_t *)var.bytes);
 }
 
-void OscSender::addTimeTag(const TimeTag& var) {
+void OscSender::addTimeTag(const TimeTag &var) {
 	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_timetag(m_message, var.tag);
 }
 
-void OscSender::addBlob(const Blob& var) {
+void OscSender::addBlob(const Blob &var) {
 	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
@@ -229,7 +229,7 @@ void OscSender::beginBundle() {
 	m_bundleInProgress = true;
 }
 
-void OscSender::beginBundle(const TimeTag& tag) {
+void OscSender::beginBundle(const TimeTag &tag) {
 	if(m_messageInProgress) {
 		throw MessageInProgressException();
 	}
@@ -255,12 +255,12 @@ void OscSender::endBundle() {
 
 // MESSAGE BUILDING VIA STREAM
 
-OscSender& OscSender::operator<<(const BeginMessage& var) {
+OscSender& OscSender::operator<<(const BeginMessage &var) {
 	beginMessage(var.addressPattern);
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const EndMessage& var) {
+OscSender& OscSender::operator<<(const EndMessage &var) {
 	endMessage();
 	return *this;
 }
@@ -275,12 +275,12 @@ OscSender& OscSender::operator<<(const char var) {
 	return *this;	
 }
 
-OscSender& OscSender::operator<<(const Nil& var) {
+OscSender& OscSender::operator<<(const Nil &var) {
 	addNil();
 	return *this;	
 }
 
-OscSender& OscSender::operator<<(const Infinitum& var) {
+OscSender& OscSender::operator<<(const Infinitum &var) {
 	addInfinitum();
 	return *this;	
 }
@@ -315,34 +315,34 @@ OscSender& OscSender::operator<<(const std::string var) {
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const Symbol& var) {
+OscSender& OscSender::operator<<(const Symbol &var) {
 	addSymbol(var);
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const MidiMessage& var) {
+OscSender& OscSender::operator<<(const MidiMessage &var) {
 	addMidiMessage(var);
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const TimeTag& var) {
+OscSender& OscSender::operator<<(const TimeTag &var) {
 	addTimeTag(var);
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const Blob& var) {
+OscSender& OscSender::operator<<(const Blob &var) {
 	addBlob(var);
 	return *this;
 }
 
 // BUNDLE BUILDING VIA STREAM SENDING
 
-OscSender& OscSender::operator<<(const BeginBundle& var) {
+OscSender& OscSender::operator<<(const BeginBundle &var) {
 	beginBundle(var.timetag);
 	return *this;
 }
 
-OscSender& OscSender::operator<<(const EndBundle& var) {
+OscSender& OscSender::operator<<(const EndBundle &var) {
 	endBundle();
 	return *this;
 }

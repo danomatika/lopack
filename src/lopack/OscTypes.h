@@ -99,10 +99,10 @@ struct TimeTag {
 	explicit TimeTag(uint32_t sec_, uint32_t frac_) : sec(sec_), frac(frac_) {}
 	
 	/// comparison operator, returns true if the timestamps are equal
-	bool operator==(const TimeTag& tag) const;
+	bool operator==(const TimeTag &tag) const;
 
 	/// subtraction operator, returns difference bewteen timestamps in seconds
-	double operator-(const TimeTag& tag) const;
+	double operator-(const TimeTag &tag) const;
 	
 	/// set the current time (not immediate)
 	void now();
@@ -114,7 +114,7 @@ struct TimeTag {
 	double diff() const;
 	
 	/// get the difference between this timetag and another in seconds
-	double diff(const TimeTag& tag) const;
+	double diff(const TimeTag &tag) const;
 };
 
 /// standard C, NULL terminated, string. Used in systems which distinguish strings and symbols./

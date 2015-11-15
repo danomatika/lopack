@@ -147,7 +147,7 @@ const void OscReceiver::print() const {
 
 // PRIVATE
 
-bool OscReceiver::processMessage(const ReceivedMessage& message, const MessageSource& source) {
+bool OscReceiver::processMessage(const ReceivedMessage &message, const MessageSource &source) {
 	// ignore any incoming messages?
 	if(m_ignoreMessages) {
 		return false;

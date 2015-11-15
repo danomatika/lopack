@@ -96,7 +96,7 @@ class OscReceiver {
 
 		/// get/set the root address of this object
 		inline void setOscRootAddress(std::string rootAddress)	{m_oscRootAddress = rootAddress;}
-		inline std::string& getOscRootAddress()	{return m_oscRootAddress;}
+		inline std::string &getOscRootAddress()	{return m_oscRootAddress;}
 
 		/// ignore incoming messages while keeping port open (thread running)?
 		inline void ignoreMessages(bool yesno) {m_ignoreMessages = yesno;}
@@ -116,7 +116,7 @@ class OscReceiver {
 	protected:
 
 		/// callback, returns true if message handled
-		virtual bool process(const ReceivedMessage& message, const MessageSource& source) {return false;}
+		virtual bool process(const ReceivedMessage &message, const MessageSource &source) {return false;}
 
 		/// the root address of this object, aka something like "/root/test1/string2"
 		std::string m_oscRootAddress;
@@ -124,7 +124,7 @@ class OscReceiver {
 	private:
 
 		/// virtual callback from oscpack
-		bool processMessage(const ReceivedMessage& message, const MessageSource& source);
+		bool processMessage(const ReceivedMessage &message, const MessageSource &source);
 
 		// static liblo callbacks
 		static void errorCB(int num, const char *msg, const char *where);

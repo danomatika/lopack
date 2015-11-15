@@ -27,7 +27,7 @@
 
 namespace osc {
 
-bool OscObject::processOsc(const ReceivedMessage& message, const MessageSource& source) {
+bool OscObject::processOsc(const ReceivedMessage &message, const MessageSource &source) {
 	// call any attached objects
 	std::vector<OscObject*>::iterator iter;
 	for(iter = m_objects.begin(); iter != m_objects.end();) {
