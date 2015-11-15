@@ -42,7 +42,7 @@ PKG_CHECK_MODULES(LO, liblo >= 0.23,[],
 AC_MSG_CHECKING([whether to enable the debug build])
 AC_ARG_ENABLE([debug],
 	[AS_HELP_STRING([--enable-debug],
-		[enable debug build (def=no)])],
+		[enable debug build [default=no]])],
 	[enable_debug="$enableval"],
 	[enable_debug=no])
 AC_MSG_RESULT([$enable_debug])
