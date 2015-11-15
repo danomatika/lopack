@@ -71,8 +71,10 @@ class OscSender {
 		OscSender(std::string address, unsigned int port);
 		virtual ~OscSender();
 
-		/// setup the hostname/ip and port
-		void setup(std::string address, unsigned int port=8000);
+		/// setup the ip address/hostname and port
+		/// address can also be a multicast group
+		/// see http://tldp.org/HOWTO/Multicast-HOWTO-2.html
+		void setup(std::string address, unsigned int port);
 
 		/// send the current message/bundle(s)
 		void send();
@@ -154,13 +156,13 @@ class OscSender {
 		/// is a bundle currently in progress?
 		inline bool isBundleInProgress() {return m_bundleInProgress;}
 	
-		/// get the server host name
+		/// get the host name or multicast group
 		const std::string getHostname() const;
 
 		/// get port num
 		const std::string getPort() const;
 	
-		/// get the osc url of this server
+		/// get the host osc url (protocol, address, & port)
 		const std::string getUrl() const;
 	
 		// print the contents of the current message/bundle

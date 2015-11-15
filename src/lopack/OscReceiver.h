@@ -52,14 +52,22 @@ class OscReceiver {
 		OscReceiver(std::string rootAddress="");
 		virtual ~OscReceiver();
 
-		/// calls setup automatically
+		/// calls setup() automatically
 		OscReceiver(unsigned int port, std::string rootAddress="");
+	
+		/// calls setupMulticast() automatically
+		OscReceiver(std::string group, unsigned int port, std::string rootAddress="");
 
 		/// setup the udp socket using the given port
-		/// returns false if socket cannot be set up
+		/// returns true on success
 		bool setup(unsigned int port);
 	
-		///
+		/// setup the udp socket for a multicast group using the given port
+		/// see http://tldp.org/HOWTO/Multicast-HOWTO-2.html
+		/// returns true on success
+		bool setupMulticast(std::string group, unsigned int port);
+	
+		/// stop thread & release socket
 		void clear();
 
 	/// \section Thread Control
@@ -88,6 +96,9 @@ class OscReceiver {
 
 		/// remove an OscObject
 		void removeOscObject(OscObject *object);
+	
+		/// remove all OscObjects
+		void removeAllOscObjects();
 
 	/// \section Util
 
@@ -101,14 +112,17 @@ class OscReceiver {
 		/// ignore incoming messages while keeping port open (thread running)?
 		inline void ignoreMessages(bool yesno) {m_ignoreMessages = yesno;}
 	
-		/// get the server host name
+		/// get the server host name or multicast group if using multicast
 		const std::string getHostname() const;
 
 		/// get port num
 		const unsigned int getPort() const;
 	
-		/// get the osc url of this server
+		/// get the osc url of this server (protocol, address, & port)
 		const std::string getUrl() const;
+	
+		/// returns true if the server is using multicast
+		const bool isMulticast() const;
 	
 		/// print object info to std::cout
 		const void print() const;
@@ -132,6 +146,7 @@ class OscReceiver {
 							 int argc, lo_message msg, void *user_data);
 		
 		lo_server_thread m_serverThread; //< liblo server thread handle
+		bool m_isMulticast; //< is the server listening to a multicast group?
 
 		bool m_isRunning; //< should the thread be running?
 		bool m_ignoreMessages; //< ignore incoming messages?

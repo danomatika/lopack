@@ -29,13 +29,19 @@
 namespace osc {
 
 OscReceiver::OscReceiver(std::string rootAddress) :
-	m_oscRootAddress(rootAddress), m_serverThread(NULL),
+	m_oscRootAddress(rootAddress), m_serverThread(NULL), m_isMulticast(false),
 	m_isRunning(false), m_ignoreMessages(false) {}
 
 OscReceiver::OscReceiver(unsigned int port, std::string rootAddress) :
-	m_oscRootAddress(rootAddress), m_serverThread(NULL),
+	m_oscRootAddress(rootAddress), m_serverThread(NULL), m_isMulticast(false),
 	m_isRunning(false), m_ignoreMessages(false) {
 	setup(port);
+}
+
+OscReceiver::OscReceiver(std::string group, unsigned int port, std::string rootAddress) :
+	m_oscRootAddress(rootAddress), m_serverThread(NULL), m_isMulticast(false),
+	m_isRunning(false), m_ignoreMessages(false) {
+	setupMulticast(group, port);
 }
 
 OscReceiver::~OscReceiver() {
@@ -49,12 +55,30 @@ bool OscReceiver::setup(unsigned int port) {
 	}
 	std::stringstream stream;
 	stream << port;
-	m_serverThread = lo_server_thread_new(stream.str().c_str(), &errorCB);    
+	m_serverThread = lo_server_thread_new(stream.str().c_str(), &errorCB); 
 	if(!m_serverThread) {
 		LOG_ERROR << "OscReceiver: could not create server" << std::endl;
 		return false;
 	}
 	lo_server_thread_add_method(m_serverThread, NULL, NULL, &messageCB, this);
+	m_isMulticast = false;
+	return true;
+}
+
+bool OscReceiver::setupMulticast(std::string group, unsigned int port) {
+	if(m_serverThread) {
+		LOG_WARN << "OscReceiver: can't set multicast group & port while thread is running" << std::endl;
+		return false;
+	}
+	std::stringstream stream;
+	stream << port;
+	m_serverThread = lo_server_thread_new_multicast(group.c_str(), stream.str().c_str(), &errorCB);
+	if(!m_serverThread) {
+		LOG_ERROR << "OscReceiver: could not create server" << std::endl;
+		return false;
+	}
+	lo_server_thread_add_method(m_serverThread, NULL, NULL, &messageCB, this);
+	m_isMulticast = true;
 	return true;
 }
 
@@ -63,7 +87,7 @@ void OscReceiver::clear() {
 	if(m_serverThread) {
 		m_serverThread = NULL;
 	}
-	m_objects.clear();
+	m_isMulticast = false;
 }
 
 // THREAD CONTROL
@@ -125,6 +149,10 @@ void OscReceiver::removeOscObject(OscObject *object) {
 	}
 }
 
+void OscReceiver::removeAllOscObjects() {
+	m_objects.clear();
+}
+
 // UTIL
 
 const std::string OscReceiver::getHostname() const  {
@@ -137,6 +165,10 @@ const unsigned int OscReceiver::getPort() const {
 
 const std::string OscReceiver::getUrl() const {
 	return m_serverThread ? lo_server_get_url(lo_server_thread_get_server(m_serverThread)) : "";
+}
+
+const bool OscReceiver::isMulticast() const {
+	return m_isMulticast;
 }
 
 const void OscReceiver::print() const {
