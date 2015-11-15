@@ -1,3 +1,15 @@
+2015-11-15 Dan Wilcox <danomatika@gmail.com>
+
+	0.3.0
+
+	* added multicast support
+	* OscSender: added message building functions
+	* OscSender: added bundle sending; added print and info functions
+	* OscObject: added removeAllObjects
+	* added TimeTag diff() to get differnece from current time
+	* added OscObject to lptest
+	* make sure ChangeLog & README.md are included in automake dist
+
 2015-10-27 Dan Wilcox <danomatika@gmail.com>
 
 	0.2.1

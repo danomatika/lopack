@@ -17,6 +17,7 @@ Features include:
 * OscObject class for subclasses based message handling, nestable within address spaces
 * ReceivedMessage class with smart message parsing and argument introspection
 * support for all argument types used by liblo (and as defined by the official OSC spec)
+* support for sending & receiving multicast messages
 
 Documentation
 -------------
