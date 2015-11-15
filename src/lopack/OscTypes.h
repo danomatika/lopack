@@ -29,8 +29,8 @@
 ==============================================================================*/
 #pragma once
 
-#include <string>
 #include <lo/lo.h>
+#include <string>
 #include <math.h>
 
 namespace osc {
@@ -57,9 +57,9 @@ struct MidiMessage {
 	/// constructor
 	explicit MidiMessage() : value(0) {}
 	
-	/// constructor to set the byte values, set flip = true to reverse the byte order
-	explicit MidiMessage(uint8_t bytes_[4], bool flip=false) {
-		if(flip) {
+	/// constructor to set the byte values, set reverse = true to reverse the byte order
+	explicit MidiMessage(uint8_t bytes_[4], bool reverse=false) {
+		if(reverse) {
 			bytes[0] = bytes_[3];
 			bytes[1] = bytes_[2];
 			bytes[2] = bytes_[1];
@@ -91,6 +91,9 @@ struct TimeTag {
 	
 	/// constructor to set time ahead by a number of milliseconds
 	TimeTag(unsigned int ms);
+	
+	/// constructor to set time from liblo timetag
+	TimeTag(lo_timetag timetag);
 
 	/// constructor to set time
 	explicit TimeTag(uint32_t sec_, uint32_t frac_) : sec(sec_), frac(frac_) {}
@@ -171,9 +174,10 @@ struct EndMessage {
 	explicit EndMessage() {}
 };
 
-/// \section Message Parsing Exceptions
+/// \section Received Message
 
-/// bad type exception
+/// \class TypeException
+/// \brief bad type exception
 class TypeException : public std::runtime_error {
 	public:
 		TypeException(
@@ -181,7 +185,8 @@ class TypeException : public std::runtime_error {
 			: std::runtime_error(w) {}
 };
 
-/// bad argument index exception
+/// \class ArgException
+/// \brief bad argument index exception
 class ArgException : public std::runtime_error {
 	public:
 		ArgException(
@@ -189,43 +194,40 @@ class ArgException : public std::runtime_error {
 			: std::runtime_error(w) {}
 };
 
-/// \section Received Message
-
-/// \class RecievedMessage
-/// \brief a received osc message with built in message parsing
+/// \class ReceivedMessage
+/// \brief an osc message with built in message parsing
 class ReceivedMessage {
 
 	public:
-		
-		/// constructor:
-		/// path  osc address the message was sent to
-		/// types a string of types for the message arguments
-		/// argv  an array of liblo arguments
-		/// argc  the number of arguments
-		/// msg   the liblo message
-		ReceivedMessage(std::string path, std::string types, lo_arg **argv, unsigned int argc, lo_message msg);
 	
-		/// returns true if the message matches the given path and argument type string
-		const bool checkPathAndTypes(std::string path, std::string types) const;
+		/// constructor:
+		/// osc address pattern 
+		/// message the liblo message
+		/// note: performs a *shallow copy* of the underlying liblo message
+		///       which is reference counted
+		ReceivedMessage(std::string addressPattern, lo_message message);
+	
+	/// \section Info
+	
+		/// returns true if the message matches the given address and argument type string
+		const bool checkAddressAndTypes(std::string addressPattern, std::string types) const;
 		
-		/// get the message path
-		inline const std::string path() const {return m_path;}
+		/// get the message address pattern
+		const std::string address() const;
 		
 		/// get the argument type string
-		inline const std::string types() const {return m_types;}
+		const std::string types() const;
 		
-		/// get the raw liblo message
-		inline const lo_message rawMessage() const {return m_rawmsg;}
-		
-		/// get the raw liblo argument at a given index
-		/// throws an exception on bad index
-		const lo_arg *arg(unsigned int at) const;
-		
-		/// get the number of arguments in the message
-		inline const unsigned int numArgs() const {return m_argc;}
-		
-		/// get thje type tag of a given argument index
+		/// get the type tag character of a given argument index
 		const char typeTag(unsigned int at) const;
+	
+		/// get the number of arguments in the message
+		const unsigned int numArgs() const;
+	
+		/// get the message's time tag when received
+		const TimeTag getTimeTag() const;
+	
+	/// \section Read Arguments
 		
 		/// check if an argument at a given index is of a certain type
 		/// throws an exception on bad index
@@ -275,23 +277,30 @@ class ReceivedMessage {
 		const bool tryNumber(float *dest, unsigned int at) const;
 		const bool tryNumber(double *dest, unsigned int at) const;
 		const bool tryString(std::string *dest, unsigned int at) const; // includes Symbol
-		
+	
+	/// \section Util
+	
+		/// get the raw liblo argument at a given index
+		/// throws an exception on bad index
+		const lo_arg *arg(unsigned int at) const;
+	
+		/// pretty print the message to std:cout on a single line
+		const void print() const;
+	
 		/// pretty print an argument at a given index to std::cout
 		const void printArg(unsigned at) const;
 		
 		/// pretty print all arguments in the message to std::cout
-		const void printAllArgs();
+		const void printAllArgs() const;
+	
+		/// get the underlying liblo message
+		inline const lo_message message() const {return m_message;}
 		
 	private:
 	
-		const std::string  m_path;   //< osc message path
-		const std::string  m_types;  //< argument type string
-		lo_arg           **m_argv;   //< liblo argument list
-		const unsigned int m_argc;   //< number of arguments
-		lo_message         m_rawmsg; //< liblo message
+		std::string m_addressPattern; //< osc message address pattern
+		lo_message  m_message; //< liblo message
 };
-
-/// \section Message Source
 
 /// \class MessageSource
 /// \brief a class containing the host address of a message sender
@@ -306,6 +315,9 @@ class MessageSource {
 		const std::string getHostname() const; //< get the hostname
 		const std::string getPort() const;     //< get the port
 		const std::string getUrl() const;      //< get the url of the host
+	
+		/// print to std::cout
+		const void print() const;
 	
 	private:
 		

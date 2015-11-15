@@ -22,6 +22,7 @@
 ==============================================================================*/
 #include "OscTypes.h"
 
+#include <iostream>
 #include <exception>
 #include <lo/lo.h>
 
@@ -36,6 +37,10 @@ TimeTag::TimeTag() {
 TimeTag::TimeTag(unsigned int ms) {
 	now();
 	add(ms);
+}
+
+TimeTag::TimeTag(lo_timetag timetag) {
+	tag = tag;
 }
 
 bool TimeTag::operator==(const TimeTag& tag) const {
@@ -67,15 +72,33 @@ double TimeTag::diff(const TimeTag& tag) const {
 
 // RECEIVED MESSAGE
 
-ReceivedMessage::ReceivedMessage(std::string path, std::string types, lo_arg **argv, unsigned int argc, lo_message msg) :
-	 m_path(path), m_types(types), m_argv(argv), m_argc(argc), m_rawmsg(msg) {}
+ReceivedMessage::ReceivedMessage(std::string addressPattern, lo_message message) :
+	m_addressPattern(addressPattern), m_message(message) {
+	lo_message_incref(m_message); // increment reference count
+}
 
-const bool ReceivedMessage::checkPathAndTypes(std::string path, std::string types) const {
-	return (path == m_path && types == m_types);
+const bool ReceivedMessage::checkAddressAndTypes(std::string address, std::string types) const {
+	return (address == m_addressPattern && types == this->types());
+}
+
+const std::string ReceivedMessage::address() const {
+	return m_addressPattern;
+}
+
+const std::string ReceivedMessage::types() const {
+	return lo_message_get_types(m_message);
 }
 
 const char ReceivedMessage::typeTag(unsigned int at) const {
-	return (at < m_argc) ? m_types[at] : '*';
+	return (at < numArgs()) ? types()[at] : '*';
+}
+
+const unsigned int ReceivedMessage::numArgs() const {
+	return lo_message_get_argc(m_message);
+}
+
+const TimeTag ReceivedMessage::getTimeTag() const {
+	return TimeTag(lo_message_get_timestamp(m_message));
 }
 
 const bool ReceivedMessage::isBool(unsigned int at) const {return typeTag(at) == 'T' || typeTag(at) == 'F';}
@@ -98,15 +121,11 @@ const bool ReceivedMessage::isMidiMessage(unsigned int at) const {return typeTag
 const bool ReceivedMessage::isTimeTag(unsigned int at) const {return typeTag(at) == 't';}
 const bool ReceivedMessage::isBlob(unsigned int at) const {return typeTag(at) == 'b';}
 
-
 const bool ReceivedMessage::asBool(unsigned int at) const {
 	if(!isBool(at)) {
 		throw TypeException();
 	}	
-	if(typeTag(at) == 'T') {
-		return true;
-	}
-	return false; // typeTag == 'F'
+	return typeTag(at) == 'T'; // false: typeTag == 'F'
 }
 
 const unsigned char ReceivedMessage::asChar(unsigned int at) const {
@@ -155,7 +174,7 @@ const MidiMessage ReceivedMessage::asMidiMessage(unsigned int at) const {
 	if(!isMidiMessage(at)) {
 		throw TypeException();
 	}
-	return MidiMessage((uint8_t *)arg(at)->m, true);	// rev byte order
+	return MidiMessage((uint8_t *)arg(at)->m, true); // rev byte order
 }
 
 const Symbol ReceivedMessage::asSymbol(unsigned int at) const {
@@ -325,21 +344,29 @@ const bool ReceivedMessage::tryString(std::string *dest, unsigned int at) const 
 	return false;
 }
 
+const lo_arg* ReceivedMessage::arg(unsigned int at) const {
+	if(at < numArgs()) {
+		lo_arg **argv = lo_message_get_argv(m_message);
+		return argv[at];
+	}
+	throw ArgException(); // shouldn't be here
+}
+
+const void ReceivedMessage::print() const {
+	std::cout << m_addressPattern << " ";
+	lo_message_pp(m_message);
+}
+
 const void ReceivedMessage::printArg(unsigned at) const {
 	lo_arg_pp((lo_type) typeTag(at), (lo_arg *)arg(at));
 }
 
-const void ReceivedMessage::printAllArgs() {
-	for(unsigned int i = 0; i < m_argc; ++i) {
-		lo_arg_pp((lo_type) typeTag(i), (lo_arg *)m_argv[i]);
+const void ReceivedMessage::printAllArgs() const {
+	int argc = lo_message_get_argc(m_message);
+	lo_arg **argv = lo_message_get_argv(m_message);
+	for(unsigned int i = 0; i < argc; ++i) {
+		lo_arg_pp((lo_type) typeTag(i), (lo_arg *)argv[i]);
 	}
-}
-
-const lo_arg *ReceivedMessage::arg(unsigned int at) const {
-	if(at < m_argc) {
-		return m_argv[at];
-	}
-	throw ArgException(); // shouldn't be here
 }
 
 // MESSAGE SOURCE
@@ -349,5 +376,9 @@ MessageSource::MessageSource(lo_address address) : m_address(address) {}
 const std::string MessageSource::getHostname() const {return lo_address_get_hostname(m_address);}
 const std::string MessageSource::getPort() const {return lo_address_get_port(m_address);}
 const std::string MessageSource::getUrl() const {return	lo_address_get_url(m_address);}
+
+const void MessageSource::print() const {
+	std::cout << getHostname() << " " << getPort() << std::endl;
+}
 
 } // namespace

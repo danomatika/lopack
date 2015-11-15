@@ -58,6 +58,9 @@ class OscReceiver {
 		/// setup the udp socket using the given port
 		/// returns false if socket cannot be set up
 		bool setup(unsigned int port);
+	
+		///
+		void clear();
 
 	/// \section Thread Control
 
@@ -71,7 +74,8 @@ class OscReceiver {
 		
 		/// manually check for incoming messages, nonblocking
 		/// timeoutMS is the number of ms to wait for a message, 0 = immediately
-		/// number of bytes received
+		///
+		/// returns number of bytes received
 		///
 		/// note: the address must be set using setup(), this cannot be called
 		/// while the thread is running
@@ -90,15 +94,24 @@ class OscReceiver {
 		/// is the thread running?
 		bool isListening() {return true;}
 
-		/// get port num
-		unsigned int getPort();
-
 		/// get/set the root address of this object
 		inline void setOscRootAddress(std::string rootAddress)	{m_oscRootAddress = rootAddress;}
 		inline std::string& getOscRootAddress()	{return m_oscRootAddress;}
 
-		// ignore incoming messages?
+		/// ignore incoming messages while keeping port open (thread running)?
 		inline void ignoreMessages(bool yesno) {m_ignoreMessages = yesno;}
+	
+		/// get the server host name
+		const std::string getHostname() const;
+
+		/// get port num
+		const unsigned int getPort() const;
+	
+		/// get the osc url of this server
+		const std::string getUrl() const;
+	
+		/// print object info to std::cout
+		const void print() const;
 
 	protected:
 
@@ -115,7 +128,6 @@ class OscReceiver {
 
 		// static liblo callbacks
 		static void errorCB(int num, const char *msg, const char *where);
-
 		static int messageCB(const char *path, const char *types, lo_arg **argv,
 							 int argc, lo_message msg, void *user_data);
 		

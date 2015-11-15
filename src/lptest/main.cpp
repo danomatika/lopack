@@ -22,6 +22,13 @@
 ==============================================================================*/
 #include "TestReceiver.h"
 
+// sleep in seconds
+#ifdef WIN32
+	#define SLEEP(seconds) Sleep(seconds)
+#else
+	#define SLEEP(seconds) usleep(seconds*1000000)
+#endif
+
 void testTimeTag();
 void testSender();
 
@@ -34,39 +41,46 @@ int main(int argc, char *argv[]) {
 
 	TestReceiver receiver;
 	receiver.setup(9990);
+	cout << "receiver started: " << receiver.getUrl() << endl;
 	
-	usleep(2000000); // 2 seconds
+	SLEEP(2);
 	
-	cout << "RECEIVER TEST (NO THREAD)" << endl;
-	testSender();
-	receiver.poll();
-	cout << "DONE" << endl << endl;
+	try {
+		cout << "RECEIVER TEST (NO THREAD)" << endl;
+		testSender();
+		SLEEP(1);
+		receiver.poll();
+		cout << "DONE" << endl << endl;
 
-	cout << "RECEIVER TEST (THREAD)" << endl;
-	receiver.start();
-	testSender();
-	usleep(1000000); // 1 second
-	receiver.stop();
-	cout << "DONE" << endl << endl;
-
+		cout << "RECEIVER TEST (THREAD)" << endl;
+		receiver.start();
+		testSender();
+		SLEEP(1);
+		receiver.stop();
+		cout << "DONE" << endl << endl;
+	}
+	catch(osc::ReceiveException e) {
+		cout << "CAUGHT EXCEPTION: "<< e.what() << endl;
+	}
+	
 	return 0;
 }
 
 void testTimeTag() {
-	TimeTag tagA;
+	osc::TimeTag tagA;
 	cout << "tagA is " << tagA.sec << " " << tagA.frac << " (now)"<< endl;
 
-	cout << "sleeping 20 milliseconds ..." << endl;
-	usleep(20000);
+	cout << "sleeping ~20 milliseconds ..." << endl;
+	SLEEP(0.02);
 
-	TimeTag tagB;
+	osc::TimeTag tagB;
 	cout << "tagB is " << tagB.sec << " " << tagB.frac << " (now)" << endl;
 
 	// check difference (usleep is not so accurate, so difference will be ~ 5 usecs)
 	cout << "tagB-tagA = " << tagB-tagA << "s" << endl;
 
 	tagB.now();
-	TimeTag tagC(25); // timestamp ahead 25 ms
+	osc::TimeTag tagC(25); // timestamp ahead 25 ms
 	cout << "tagC is " << tagC.sec << " " << tagC.frac << endl;
 
 	// check difference, should be now - now+25ms = 25ms or 0.025s
@@ -74,13 +88,14 @@ void testTimeTag() {
 }
 
 void testSender() {
-	OscSender sender;
-	
+
+	osc::OscSender sender;
 	sender.setup("127.0.0.1", 9990);
+	cout << "sending to " << sender.getUrl() << endl;
 	
 	// send a quick message
 	sender << osc::BeginMessage("/test1")
-		   << (bool) 1 << 40.0f << (float) 1024.3434 << Nil() << (std::string) "string one" << "string two"
+		   << (bool) 1 << 40.0f << (float) 1024.3434 << osc::Nil() << (std::string) "string one" << "string two"
 		   << osc::EndMessage();
 	sender.send();
 	
@@ -92,27 +107,38 @@ void testSender() {
 	m.bytes[3] = 0x60;
 	string blobData = "this is some blob data";
 	sender << osc::BeginMessage("/test2")
-		   << m << Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1))
+		   << m << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1))
 		   << osc::EndMessage();
 	sender.send();
 	
 	// send a message with all types to be parsed on server
 	sender << osc::BeginMessage("/test3")
-		<< true                 // bool true
-		<< false                // bool false
-		<< 'c'                  // char
-		<< Nil()                // nil
-		<< Infinitum()          // infinitum
-		<< (int32_t) 100        // int32
-		<< (int64_t) 200        // int32
-		<< (float) 123.45       // float
-		<< (double) 678.90      // double
-		<< "a string"           // string
-		<< Symbol("a symbol")   // symbol (NULL-terminated C-string)
-		<< m                    // midi message
-		<< TimeTag()            // time tag (right now)
-		<< Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1)) // binary blob data
+		<< true                    // bool true
+		<< false                   // bool false
+		<< 'c'                     // char
+		<< osc::Nil()              // nil
+		<< osc::Infinitum()        // infinitum
+		<< (int32_t) 100           // int32
+		<< (int64_t) 200           // int32
+		<< (float) 123.45          // float
+		<< (double) 678.90         // double
+		<< "a string"              // string
+		<< osc::Symbol("a symbol") // symbol (NULL-terminated C-string)
+		<< m                       // midi message
+		<< osc::TimeTag()          // time tag (right now)
+		<< osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1)) // binary blob data
 		<< osc::EndMessage();
+	sender.send();
+	
+	// send multiple messages nested within bundles
+	sender << osc::BeginBundle();
+	sender << osc::BeginMessage("/test4")
+		<< false << 100 << 200.f << "kraaa"
+		<< osc::EndMessage()
+		<< osc::BeginBundle(osc::TimeTag(10)) // 10 ms in the future
+			<< osc::BeginMessage("/test5") << "foo" << "bar" << osc::EndMessage()
+		<< osc::EndBundle();
+	sender << osc::EndBundle();
 	sender.send();
 	
 	// send quit message

@@ -28,10 +28,12 @@
 namespace osc {
 
 OscSender::OscSender() : 
-	m_address(0), m_message(0), m_path(""), m_messageInProgress(false) {}
+	m_address(NULL), m_message(NULL), m_addressPattern(""),
+	m_messageInProgress(false), m_bundleInProgress(false) {}
 
 OscSender::OscSender(std::string address, unsigned int port) :
-	m_address(0), m_message(0), m_path(""), m_messageInProgress(false) {
+	m_address(NULL), m_message(NULL), m_addressPattern(""),
+	m_messageInProgress(false), m_bundleInProgress(false) {
 	setup(address, port);
 }
 
@@ -39,15 +41,7 @@ OscSender::~OscSender() {
 	if(m_address) {
 		lo_address_free(m_address);
 	}
-}
-
-void OscSender::send() {
-	if(!m_address || !m_message || isMessageInProgress()) {
-		throw SendException();
-	}
-	lo_send_message(m_address, m_path.c_str(), m_message);
-	lo_message_free(m_message);
-	m_path = "";
+	clear();
 }
 
 void OscSender::setup(std::string address, unsigned int port) {
@@ -59,27 +53,47 @@ void OscSender::setup(std::string address, unsigned int port) {
 	m_address = lo_address_new(address.c_str(), stream.str().c_str());
 }
 
-std::string OscSender::getAddr() {
-	return m_address ? (std::string) lo_address_get_hostname(m_address) : "";
+void OscSender::send() {
+	if(!m_address || m_bundleInProgress || m_messageInProgress) {
+		throw SendException();
+	}
+	if(m_bundles.size() > 0) {
+		lo_send_bundle(m_address, m_bundles.front());
+	}
+	else {
+		if(!m_message) {
+			throw SendException();
+		}
+		lo_send_message(m_address, m_addressPattern.c_str(), m_message);
+	}
+	clear();
 }
 
-std::string OscSender::getPort() {
-	return m_address ? (std::string) lo_address_get_port(m_address) : "";
+void OscSender::clear() {
+	if(m_bundles.size() > 0) {
+		lo_bundle_free_recursive(m_bundles.front());
+		m_bundles.clear();
+	}
+	else if(m_message) {
+		lo_message_free(m_message);
+	}
+	m_addressPattern = "";
+	m_message = NULL;
 }
 
 // MESSAGE BUILDING
 
 void OscSender::beginMessage(std::string addressPattern) {
-	if(isMessageInProgress()) {
+	if(m_messageInProgress) {
 		throw MessageInProgressException();
 	}
 	m_message = lo_message_new();
 	m_messageInProgress = true;
-	m_path = addressPattern;
+	m_addressPattern = addressPattern;
 }
 	
 void OscSender::addBool(bool var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	if(var) {
@@ -91,91 +105,91 @@ void OscSender::addBool(bool var) {
 }
 
 void OscSender::addChar(char var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_char(m_message, var);
 }
 
 void OscSender::addNil() {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_nil(m_message);
 }
 
 void OscSender::addInfinitum() {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_infinitum(m_message);
 }
 
 void OscSender::addInt32(int32_t var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_int32(m_message, var);
 }
 
 void OscSender::addInt64(int64_t var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_int64(m_message, var);
 }
 
 void OscSender::addFloat(float var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_float(m_message, var);
 }
 
 void OscSender::addDouble(double var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_double(m_message, var);
 }
 
 void OscSender::addString(char *var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_string(m_message, var);
 }
 
 void OscSender::addString(std::string var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_string(m_message, var.c_str());
 }
 
 void OscSender::addSymbol(const Symbol& var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_symbol(m_message, var.value);
 }
 
 void OscSender::addMidiMessage(const MidiMessage& var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_midi(m_message, (uint8_t *)var.bytes);
 }
 
 void OscSender::addTimeTag(const TimeTag& var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_message_add_timetag(m_message, var.tag);
 }
 
 void OscSender::addBlob(const Blob& var) {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
 	}
 	lo_blob blob = lo_blob_new(var.size, (void *)var.data);
@@ -184,13 +198,62 @@ void OscSender::addBlob(const Blob& var) {
 }
 
 void OscSender::endMessage() {
-	if(!isMessageInProgress()) {
+	if(!m_messageInProgress) {
 		throw MessageNotInProgressException();
+	}
+	if(m_bundleInProgress) { // add message at current bundle depth
+		// make a deep copy of the address pattern since liblo is using
+		// a pointer internally and m_addressPattern may change by the time
+		// we send the bundle
+		char *addressPattern = new char[m_addressPattern.size()+1];
+		std::copy(m_addressPattern.begin(), m_addressPattern.end(), addressPattern);
+		addressPattern[m_addressPattern.size()] = '\0'; // null terminator
+		lo_bundle_add_message(m_bundles.back(), addressPattern, m_message);
+		m_message = NULL;
+		m_addressPattern = "";
 	}
 	m_messageInProgress = false;
 }
 
-// MESSAGE BUILDING VIA STREAM SENDING
+// BUNDLE BUILDING
+
+void OscSender::beginBundle() {
+	if(m_bundleInProgress) {
+		throw MessageInProgressException();
+	}
+	lo_bundle b = lo_bundle_new(LO_TT_IMMEDIATE);
+	if(m_bundles.size() > 0) { // increase bundle depth
+		lo_bundle_add_bundle(m_bundles.back(), b);
+	}
+	m_bundles.push_back(b);
+	m_bundleInProgress = true;
+}
+
+void OscSender::beginBundle(const TimeTag& tag) {
+	if(m_messageInProgress) {
+		throw MessageInProgressException();
+	}
+	lo_bundle b = lo_bundle_new(tag.tag);
+	if(m_bundles.size() > 0) { // increase bundle depth
+		lo_bundle_add_bundle(m_bundles.back(), b);
+	}
+	m_bundles.push_back(b);
+	m_bundleInProgress = true;
+}
+
+void OscSender::endBundle() {
+	if(!m_bundleInProgress) {
+		throw BundleNotInProgressException();
+	}
+	if(m_bundles.size() > 1) { // don't pop top bundle
+		m_bundles.pop_back();
+	}
+	else {
+		m_bundleInProgress = false;
+	}
+}
+
+// MESSAGE BUILDING VIA STREAM
 
 OscSender& OscSender::operator<<(const BeginMessage& var) {
 	beginMessage(var.addressPattern);
@@ -272,9 +335,36 @@ OscSender& OscSender::operator<<(const Blob& var) {
 	return *this;
 }
 
+// BUNDLE BUILDING VIA STREAM SENDING
+
+OscSender& OscSender::operator<<(const BeginBundle& var) {
+	beginBundle(var.timetag);
+	return *this;
+}
+
+OscSender& OscSender::operator<<(const EndBundle& var) {
+	endBundle();
+	return *this;
+}
+
 // UTIL
 
+const std::string OscSender::getHostname() const  {
+	return m_address ? lo_address_get_hostname(m_address) : "";
+}
+
+const std::string OscSender::getPort() const {
+	return m_address ? lo_address_get_port(m_address) : 0;
+}
+
+const std::string OscSender::getUrl() const {
+	return m_address ? lo_address_get_url(m_address) : "";
+}
+
 void OscSender::print() {
+	if(m_bundles.size() > 0) {
+		lo_bundle_pp(m_bundles.back());
+	}
 	if(m_message) {
 		lo_message_pp(m_message);
 	}

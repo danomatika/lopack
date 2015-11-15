@@ -22,22 +22,24 @@
 ==============================================================================*/
 #include <lopack/lopack.h>
 #include <iostream>
-#include <unistd.h>
+
+#ifndef WIN32
+	#include <unistd.h>
+#endif
 
 using namespace std;
-using namespace osc;
 
-/// test receiver implementation
-class TestReceiver : public OscReceiver {
+// test receiver implementation
+class TestReceiver : public osc::OscReceiver {
 
 	public:
 		
-		TestReceiver() : OscReceiver(), bDone(false) {}
+		TestReceiver() : osc::OscReceiver(), done(false) {}
 		
 		// poll for messages until "/quit" is received
 		void poll() {
-			bDone = false;
-			while(!bDone) {
+			done = false;
+			while(!done) {
 				int num = handleMessages(0);
 				if(num > 0) {
 					cout << "TestReceiver: received " << num << " bytes" << endl;
@@ -48,45 +50,45 @@ class TestReceiver : public OscReceiver {
 			}
 		}
 		
-		bool bDone; //< if false, keep polling
+		bool done; //<if false, keep polling
 		
 	protected:
 
-		bool process(const ReceivedMessage& message, const MessageSource& source) {
-			cout << "TestReceiver: received message " << message.path() << " " << message.types() << endl;
+		bool process(const osc::ReceivedMessage& message, const osc::MessageSource& source) {
+			cout << "TestReceiver: received message " << message.address() << " "
+			     << message.types() << " from " << source.getUrl() << endl;
 
-			/// print test message
-			if(message.checkPathAndTypes("/test3", "TFcNIihfdsSmtb")) {
-				cout << "/test3 parsing all mesage types" << " " << message.typeTag(0) << endl
-					 << " bool T: " << message.asBool(0) << endl
-					 << " bool F: " << message.asBool(1) << endl
-					 << " char: '" << message.asChar(2) << "'" << endl
-					 << " nil" << endl       // message arg 3
-					 << " infinitum" << endl // message arg 4
-					 << " int32: " << message.asInt32(5) << endl
-					 << " int64: " << message.asInt64(6) << endl
-					 << " float: " << message.asFloat(7) << endl
-					 << " double: " << message.asDouble(8) << endl
-					 << " string: \"" << message.asString(9) << '"' << endl
-					 << " symbol: \"" << message.asSymbol(10) << '"' << endl
-					 << " midi: " << hex << message.asMidiMessage(11) << dec << endl
-					 << " timetag: " << message.asTimeTag(12).sec << " " << message.asTimeTag(12).frac << endl
-					 << " blob: \"" << std::string((char *) message.asBlob(13).data) << '"' << endl;
+			// exit on /quit message
+			if(message.address() == "/quit") {
+				done = true;
 				return true;
 			}
-			
-			/// print arguments
-			for(unsigned int i = 0; i < message.numArgs(); ++i) {
-				cout << "arg " << i << " '" << message.typeTag(i) << "' ";
-				message.printArg(i);
-				cout << endl;
+
+			// print test message
+			if(message.checkAddressAndTypes("/test3", "TFcNIihfdsSmtb")) {
+				cout << "/test3 parsing all message types" << " " << message.typeTag(0) << endl
+					 << "  bool T: " << message.asBool(0) << endl
+					 << "  bool F: " << message.asBool(1) << endl
+					 << "  char: '" << message.asChar(2) << "'" << endl
+					 << "  nil" << endl       // message arg 3
+					 << "  infinitum" << endl // message arg 4
+					 << "  int32: " << message.asInt32(5) << endl
+					 << "  int64: " << message.asInt64(6) << endl
+					 << "  float: " << message.asFloat(7) << endl
+					 << "  double: " << message.asDouble(8) << endl
+					 << "  string: \"" << message.asString(9) << '"' << endl
+					 << "  symbol: \"" << message.asSymbol(10) << '"' << endl
+					 << "  midi: " << hex << message.asMidiMessage(11) << dec << endl
+					 << "  timetag: " << message.asTimeTag(12).sec << " " << message.asTimeTag(12).frac << endl
+					 << "  blob: \"" << std::string((char *) message.asBlob(13).data) << '"' << endl;
 			}
-			
-			/// exit on /quit message
-			if(message.path() == "/quit") {
-				bDone = true;
+			else { // print arguments manually
+				for(unsigned int i = 0; i < message.numArgs(); ++i) {
+					cout << "  arg " << i << " '" << message.typeTag(i) << "' ";
+					message.printArg(i);
+					cout << endl;
+				}
 			}
- 
 			return true;
 		}
 };

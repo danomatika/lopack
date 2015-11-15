@@ -29,44 +29,48 @@
 namespace osc {
 
 OscReceiver::OscReceiver(std::string rootAddress) :
-	m_oscRootAddress(rootAddress), m_serverThread(0), 
+	m_oscRootAddress(rootAddress), m_serverThread(NULL),
 	m_isRunning(false), m_ignoreMessages(false) {}
 
 OscReceiver::OscReceiver(unsigned int port, std::string rootAddress) :
-	m_oscRootAddress(rootAddress), m_serverThread(0),
+	m_oscRootAddress(rootAddress), m_serverThread(NULL),
 	m_isRunning(false), m_ignoreMessages(false) {
 	setup(port);
 }
 
 OscReceiver::~OscReceiver() {
-	stop();
-	m_objects.clear();
+	clear();
 }
 
 bool OscReceiver::setup(unsigned int port) {
 	if(m_serverThread) {
-		LOG_WARN << "OscReceiver: Cannot set port while thread is running" << std::endl;
+		LOG_WARN << "OscReceiver: can't set port while thread is running" << std::endl;
 		return false;
 	}
-
 	std::stringstream stream;
 	stream << port;
 	m_serverThread = lo_server_thread_new(stream.str().c_str(), &errorCB);    
 	if(!m_serverThread) {
-		LOG_ERROR << "OscReceiver: Could not create server" << std::endl;
+		LOG_ERROR << "OscReceiver: could not create server" << std::endl;
 		return false;
 	}
-
 	lo_server_thread_add_method(m_serverThread, NULL, NULL, &messageCB, this);
-
 	return true;
+}
+
+void OscReceiver::clear() {
+	stop();
+	if(m_serverThread) {
+		m_serverThread = NULL;
+	}
+	m_objects.clear();
 }
 
 // THREAD CONTROL
 
 void OscReceiver::start() {
 	if(!m_serverThread) {
-		LOG_ERROR << "OscReceiver: Cannot start thread, address not set" << std::endl;
+		LOG_ERROR << "OscReceiver: can't start thread, address not set" << std::endl;
 		return;
 	}
 	lo_server_thread_start(m_serverThread);
@@ -86,11 +90,11 @@ void OscReceiver::stop() {
 
 int OscReceiver::handleMessages(int timeoutMS) {
 	if(!m_serverThread) {
-		LOG_ERROR << "OscReceiver: Cannot handle messages, address not set" << std::endl;
+		LOG_ERROR << "OscReceiver: can't handle messages, address not set" << std::endl;
 		return 0;
 	}
 	if(m_isRunning) {
-		LOG_WARN << "OscReceiver: You shouldn't need to handle messages manually "
+		LOG_WARN << "OscReceiver: you don't need to handle messages manually "
 				 << "when the thread is already running" << std::endl;
 		return 0;
 	}
@@ -102,7 +106,7 @@ int OscReceiver::handleMessages(int timeoutMS) {
 
 void OscReceiver::addOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscReceiver: Cannot add NULL object" << std::endl;
+		LOG_WARN << "OscReceiver: can't add NULL object" << std::endl;
 		return;
 	}
 	m_objects.push_back(object);
@@ -110,7 +114,7 @@ void OscReceiver::addOscObject(OscObject *object) {
 
 void OscReceiver::removeOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscReceiver: Cannot remove NULL object" << std::endl;
+		LOG_WARN << "OscReceiver: can't remove NULL object" << std::endl;
 		return;
 	}
 	// find object in list and remove it
@@ -123,10 +127,23 @@ void OscReceiver::removeOscObject(OscObject *object) {
 
 // UTIL
 
-unsigned int OscReceiver::getPort() {
+const std::string OscReceiver::getHostname() const  {
+	return m_serverThread ? lo_url_get_hostname(lo_server_get_url(lo_server_thread_get_server(m_serverThread))) : "";
+}
+
+const unsigned int OscReceiver::getPort() const {
 	return m_serverThread ? (unsigned int) lo_server_get_port(lo_server_thread_get_server(m_serverThread)) : 0;
 }
 
+const std::string OscReceiver::getUrl() const {
+	return m_serverThread ? lo_server_get_url(lo_server_thread_get_server(m_serverThread)) : "";
+}
+
+const void OscReceiver::print() const {
+	if(m_serverThread) {
+		std::cout << getUrl() << std::endl;
+	}
+}
 
 // PRIVATE
 
@@ -154,7 +171,6 @@ bool OscReceiver::processMessage(const ReceivedMessage& message, const MessageSo
 	if(process(message, source)) {
 		return true;
 	}
-
 	return false;
 }
 
@@ -171,7 +187,7 @@ void OscReceiver::errorCB(int num, const char *msg, const char *where) {
 int OscReceiver::messageCB(const char *path, const char *types, lo_arg **argv,
 						   int argc, lo_message msg, void *user_data) {
 	OscReceiver *receiver = (OscReceiver *)user_data;
-	return receiver->processMessage(ReceivedMessage((std::string) path, (std::string) types, argv, argc, msg),
+	return receiver->processMessage(ReceivedMessage(path, msg),
 	                                MessageSource(lo_message_get_source(msg)));
 }
 
