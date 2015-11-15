@@ -66,4 +66,8 @@ void OscObject::removeOscObject(OscObject *object) {
 	}
 }
 
+void OscObject::removeAllOscObjects() {
+	m_objects.clear();
+}
+
 } // namespace

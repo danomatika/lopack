@@ -48,6 +48,7 @@ class OscObject {
 		/// attach/remove an OscObject to this one
 		void addOscObject(OscObject *object);
 		void removeOscObject(OscObject *object);
+		void removeAllOscObjects();
 
 	/// \section Util
 
