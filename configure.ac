@@ -49,10 +49,10 @@ AC_MSG_RESULT([$enable_debug])
 
 if test x"$enable_debug" = x"yes"; then
 	AC_DEFINE([DEBUG], [], [Debug Mode])
-	CPPFLAGS="$DEBUG_CPPFLAGS"
+	CPPFLAGS="$DEBUG_CPPFLAGS $CPPFLAGS"
 else
 	AC_DEFINE([NDEBUG], [], [Release Mode])
-	CPPFLAGS="$RELEASE_CPPFLAGS"
+	CPPFLAGS="$RELEASE_CPPFLAGS $CPPFLAGS"
 fi
 
 #########################################

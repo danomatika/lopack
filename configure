@@ -16259,12 +16259,12 @@ if test x"$enable_debug" = x"yes"; then
 
 $as_echo "#define DEBUG /**/" >>confdefs.h
 
-	CPPFLAGS="$DEBUG_CPPFLAGS"
+	CPPFLAGS="$DEBUG_CPPFLAGS $CPPFLAGS"
 else
 
 $as_echo "#define NDEBUG /**/" >>confdefs.h
 
-	CPPFLAGS="$RELEASE_CPPFLAGS"
+	CPPFLAGS="$RELEASE_CPPFLAGS $CPPFLAGS"
 fi
 
 #########################################
