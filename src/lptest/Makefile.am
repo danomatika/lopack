@@ -7,7 +7,7 @@ noinst_PROGRAMS = lptest
 lptest_SOURCES = main.cpp TestReceiver.h
 
 # include paths
-lptest_CPPFLAGS = $(CXXFLAGS) $(LO_CFLAGS) -I$(top_srcdir)/src
+lptest_CPPFLAGS = $(LO_CFLAGS) -I$(top_srcdir)/src
 
 # libs to link, set static to statically link local libtool lib
 lptest_LDFLAGS = $(LO_LIBS) -static

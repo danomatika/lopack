@@ -9,8 +9,8 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 #########################################
 ##### Build Options #####
 
-DEBUG_CXXFLAGS="-g -Wall -Werror -Wno-uninitialized -O0 -fvisibility=hidden"
-RELEASE_CXXFLAGS="-g -O2"
+DEBUG_CPPFLAGS="-g -Wall -Werror -Wno-uninitialized -O0 -fvisibility=hidden"
+RELEASE_CPPFLAGS="-g -O2"
 
 #########################################
 ##### Check for programs/libs #####
@@ -31,7 +31,7 @@ AC_LANG_CPLUSPLUS
 AC_HEADER_STDC
 	
 # check for headers & libs
-PKG_CHECK_MODULES(LO, liblo >= 0.23,[],
+PKG_CHECK_MODULES(LO, liblo >= 0.23, [],
 	AC_MSG_ERROR([lo library >= 0.23 not found]))
 
 #########################################
@@ -48,11 +48,11 @@ AC_ARG_ENABLE([debug],
 AC_MSG_RESULT([$enable_debug])
 
 if test x"$enable_debug" = x"yes"; then
-	AC_DEFINE([DEBUG],[],[Debug Mode])
-	CXXFLAGS="$DEBUG_CXXFLAGS"
+	AC_DEFINE([DEBUG], [], [Debug Mode])
+	CPPFLAGS="$DEBUG_CPPFLAGS"
 else
-	AC_DEFINE([NDEBUG],[],[Release Mode])
-	CXXFLAGS="$RELEASE_CXXFLAGS"
+	AC_DEFINE([NDEBUG], [], [Release Mode])
+	CPPFLAGS="$RELEASE_CPPFLAGS"
 fi
 
 #########################################
@@ -82,7 +82,7 @@ AC_MSG_RESULT([
 
 	Source directory:     $srcdir
 	Installation prefix:  $prefix
-	C++ compiler:         $CXX $CXXFLAGS
+	C++ compiler:         $CXX $CPPFLAGS
 	Static lib:           $enable_static
 	Shared lib:           $enable_shared
 	Debug build:          $enable_debug

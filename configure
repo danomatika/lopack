@@ -2931,8 +2931,8 @@ fi
 #########################################
 ##### Build Options #####
 
-DEBUG_CXXFLAGS="-g -Wall -Werror -Wno-uninitialized -O0 -fvisibility=hidden"
-RELEASE_CXXFLAGS="-g -O2"
+DEBUG_CPPFLAGS="-g -Wall -Werror -Wno-uninitialized -O0 -fvisibility=hidden"
+RELEASE_CPPFLAGS="-g -O2"
 
 #########################################
 ##### Check for programs/libs #####
@@ -16259,12 +16259,12 @@ if test x"$enable_debug" = x"yes"; then
 
 $as_echo "#define DEBUG /**/" >>confdefs.h
 
-	CXXFLAGS="$DEBUG_CXXFLAGS"
+	CPPFLAGS="$DEBUG_CPPFLAGS"
 else
 
 $as_echo "#define NDEBUG /**/" >>confdefs.h
 
-	CXXFLAGS="$RELEASE_CXXFLAGS"
+	CPPFLAGS="$RELEASE_CPPFLAGS"
 fi
 
 #########################################
@@ -18991,7 +18991,7 @@ fi
 
 	Source directory:     $srcdir
 	Installation prefix:  $prefix
-	C++ compiler:         $CXX $CXXFLAGS
+	C++ compiler:         $CXX $CPPFLAGS
 	Static lib:           $enable_static
 	Shared lib:           $enable_shared
 	Debug build:          $enable_debug
@@ -19001,7 +19001,7 @@ $as_echo "
 
 	Source directory:     $srcdir
 	Installation prefix:  $prefix
-	C++ compiler:         $CXX $CXXFLAGS
+	C++ compiler:         $CXX $CPPFLAGS
 	Static lib:           $enable_static
 	Shared lib:           $enable_shared
 	Debug build:          $enable_debug
