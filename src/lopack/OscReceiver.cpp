@@ -50,7 +50,7 @@ OscReceiver::~OscReceiver() {
 
 bool OscReceiver::setup(unsigned int port) {
 	if(m_serverThread) {
-		LOG_WARN << "OscReceiver: can't set port while thread is running" << std::endl;
+		LOG_WARN << "OscReceiver: cannot set port while thread is running" << std::endl;
 		return false;
 	}
 	std::stringstream stream;
@@ -67,7 +67,7 @@ bool OscReceiver::setup(unsigned int port) {
 
 bool OscReceiver::setupMulticast(std::string group, unsigned int port) {
 	if(m_serverThread) {
-		LOG_WARN << "OscReceiver: can't set multicast group & port while thread is running" << std::endl;
+		LOG_WARN << "OscReceiver: cannot set multicast group & port while thread is running" << std::endl;
 		return false;
 	}
 	std::stringstream stream;
@@ -94,7 +94,7 @@ void OscReceiver::clear() {
 
 void OscReceiver::start() {
 	if(!m_serverThread) {
-		LOG_ERROR << "OscReceiver: can't start thread, address not set" << std::endl;
+		LOG_ERROR << "OscReceiver: cannot start thread, address not set" << std::endl;
 		return;
 	}
 	lo_server_thread_start(m_serverThread);
@@ -114,7 +114,7 @@ void OscReceiver::stop() {
 
 int OscReceiver::handleMessages(int timeoutMS) {
 	if(!m_serverThread) {
-		LOG_ERROR << "OscReceiver: can't handle messages, address not set" << std::endl;
+		LOG_ERROR << "OscReceiver: cannot handle messages, address not set" << std::endl;
 		return 0;
 	}
 	if(m_isRunning) {
@@ -130,7 +130,7 @@ int OscReceiver::handleMessages(int timeoutMS) {
 
 void OscReceiver::addOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscReceiver: can't add NULL object" << std::endl;
+		LOG_WARN << "OscReceiver: cannot add NULL object" << std::endl;
 		return;
 	}
 	m_objects.push_back(object);
@@ -138,7 +138,7 @@ void OscReceiver::addOscObject(OscObject *object) {
 
 void OscReceiver::removeOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscReceiver: can't remove NULL object" << std::endl;
+		LOG_WARN << "OscReceiver: cannot remove NULL object" << std::endl;
 		return;
 	}
 	// find object in list and remove it

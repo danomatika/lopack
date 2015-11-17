@@ -47,7 +47,7 @@ bool OscObject::processOsc(const ReceivedMessage &message, const MessageSource &
 
 void OscObject::addOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscObject: can't add NULL object" << std::endl;
+		LOG_WARN << "OscObject: cannot add NULL object" << std::endl;
 		return;
 	}
 	m_objects.push_back(object);
@@ -55,7 +55,7 @@ void OscObject::addOscObject(OscObject *object) {
 
 void OscObject::removeOscObject(OscObject *object) {
 	if(object == NULL) {
-		LOG_WARN << "OscObject: can't remove NULL object" << std::endl;
+		LOG_WARN << "OscObject: cannot remove NULL object" << std::endl;
 		return;
 	}
 	// find object in list and remove it
