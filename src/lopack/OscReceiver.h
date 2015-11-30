@@ -143,7 +143,7 @@ class OscReceiver {
 		// static liblo callbacks
 		static void errorCB(int num, const char *msg, const char *where);
 		static int messageCB(const char *path, const char *types, lo_arg **argv,
-							 int argc, lo_message msg, void *user_data);
+		                     int argc, lo_message msg, void *user_data);
 		
 		lo_server_thread m_serverThread; //< liblo server thread handle
 		bool m_isMulticast; //< is the server listening to a multicast group?

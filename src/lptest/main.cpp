@@ -81,8 +81,8 @@ void testSender() {
 	
 	// send a quick message
 	sender << osc::BeginMessage("/test1")
-		   << (bool) 1 << 40.0f << (float) 1024.3434 << osc::Nil() << (std::string) "string one" << "string two"
-		   << osc::EndMessage();
+	       << (bool) 1 << 40.0f << (float) 1024.3434 << osc::Nil() << (std::string) "string one" << "string two"
+	       << osc::EndMessage();
 	sender.send();
 	
 	// send a midi message and a blob (binary data)
@@ -93,37 +93,37 @@ void testSender() {
 	m.bytes[3] = 0x60;
 	string blobData = "this is some blob data";
 	sender << osc::BeginMessage("/test2")
-		   << m << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1))
-		   << osc::EndMessage();
+	       << m << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1))
+	       << osc::EndMessage();
 	sender.send();
 	
 	// send a message with all types to be parsed on server
 	sender << osc::BeginMessage("/test3")
-		<< true                    // bool true
-		<< false                   // bool false
-		<< 'c'                     // char
-		<< osc::Nil()              // nil
-		<< osc::Infinitum()        // infinitum
-		<< (int32_t) 100           // int32
-		<< (int64_t) 200           // int32
-		<< (float) 123.45          // float
-		<< (double) 678.90         // double
-		<< "a string"              // string
-		<< osc::Symbol("a symbol") // symbol (NULL-terminated C-string)
-		<< m                       // midi message
-		<< osc::TimeTag()          // time tag (right now)
-		<< osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1)) // binary blob data
-		<< osc::EndMessage();
+	       << true                    // bool true
+	       << false                   // bool false
+	       << 'c'                     // char
+	       << osc::Nil()              // nil
+	       << osc::Infinitum()        // infinitum
+	       << (int32_t) 100           // int32
+	       << (int64_t) 200           // int32
+	       << (float) 123.45          // float
+	       << (double) 678.90         // double
+	       << "a string"              // string
+	       << osc::Symbol("a symbol") // symbol (NULL-terminated C-string)
+	       << m                       // midi message
+	       << osc::TimeTag()          // time tag (right now)
+	       << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1)) // binary blob data
+	       << osc::EndMessage();
 	sender.send();
 	
 	// send multiple messages nested within bundles
 	sender << osc::BeginBundle();
 	sender << osc::BeginMessage("/test4")
-		<< false << 100 << 200.f << "kraaa"
-		<< osc::EndMessage()
-		<< osc::BeginBundle(osc::TimeTag(10)) // 10 ms in the future
-			<< osc::BeginMessage("/test5") << "foo" << "bar" << osc::EndMessage()
-		<< osc::EndBundle();
+	       << false << 100 << 200.f << "kraaa"
+	       << osc::EndMessage()
+	       << osc::BeginBundle(osc::TimeTag(10)) // 10 ms in the future
+	           << osc::BeginMessage("/test5") << "foo" << "bar" << osc::EndMessage()
+	       << osc::EndBundle();
 	sender << osc::EndBundle();
 	sender.send();
 	

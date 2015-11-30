@@ -68,20 +68,20 @@ class TestReceiver : public osc::OscReceiver {
 			// print test message
 			if(message.checkAddressAndTypes("/test3", "TFcNIihfdsSmtb")) {
 				cout << "/test3 parsing all message types" << " " << message.typeTag(0) << endl
-					 << "  bool T: " << message.asBool(0) << endl
-					 << "  bool F: " << message.asBool(1) << endl
-					 << "  char: '" << message.asChar(2) << "'" << endl
-					 << "  nil" << endl       // message arg 3
-					 << "  infinitum" << endl // message arg 4
-					 << "  int32: " << message.asInt32(5) << endl
-					 << "  int64: " << message.asInt64(6) << endl
-					 << "  float: " << message.asFloat(7) << endl
-					 << "  double: " << message.asDouble(8) << endl
-					 << "  string: \"" << message.asString(9) << '"' << endl
-					 << "  symbol: \"" << message.asSymbol(10) << '"' << endl
-					 << "  midi: " << hex << message.asMidiMessage(11) << dec << endl
-					 << "  timetag: " << message.asTimeTag(12).sec << " " << message.asTimeTag(12).frac << endl
-					 << "  blob: \"" << std::string((char *) message.asBlob(13).data) << '"' << endl;
+				     << "  bool T: " << message.asBool(0) << endl
+				     << "  bool F: " << message.asBool(1) << endl
+				     << "  char: '" << message.asChar(2) << "'" << endl
+				     << "  nil" << endl       // message arg 3
+				     << "  infinitum" << endl // message arg 4
+				     << "  int32: " << message.asInt32(5) << endl
+				     << "  int64: " << message.asInt64(6) << endl
+				     << "  float: " << message.asFloat(7) << endl
+				     << "  double: " << message.asDouble(8) << endl
+				     << "  string: \"" << message.asString(9) << '"' << endl
+				     << "  symbol: \"" << message.asSymbol(10) << '"' << endl
+				     << "  midi: " << hex << message.asMidiMessage(11) << dec << endl
+				     << "  timetag: " << message.asTimeTag(12).sec << " " << message.asTimeTag(12).frac << endl
+				     << "  blob: \"" << std::string((char *) message.asBlob(13).data) << '"' << endl;
 			}
 			else { // print arguments manually
 				for(unsigned int i = 0; i < message.numArgs(); ++i) {

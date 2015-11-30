@@ -119,7 +119,7 @@ int OscReceiver::handleMessages(int timeoutMS) {
 	}
 	if(m_isRunning) {
 		LOG_WARN << "OscReceiver: you don't need to handle messages manually "
-				 << "when the thread is already running" << std::endl;
+		         << "when the thread is already running" << std::endl;
 		return 0;
 	}
 	lo_server server = lo_server_thread_get_server(m_serverThread);
@@ -217,7 +217,7 @@ void OscReceiver::errorCB(int num, const char *msg, const char *where) {
 }
 
 int OscReceiver::messageCB(const char *path, const char *types, lo_arg **argv,
-						   int argc, lo_message msg, void *user_data) {
+                           int argc, lo_message msg, void *user_data) {
 	OscReceiver *receiver = (OscReceiver *)user_data;
 	return receiver->processMessage(ReceivedMessage(path, msg),
 	                                MessageSource(lo_message_get_source(msg)));
