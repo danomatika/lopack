@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# clean autotools files, use this n addition to make distclean
+# clean autotools files, use this in addition to make distclean
 #
 
 rm -rf autom4te.cache config dist m4
