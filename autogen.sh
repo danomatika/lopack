@@ -4,4 +4,4 @@
 #
 
 mkdir -p config m4
-autoreconf --install --force --verbose
+autoreconf --install --force
