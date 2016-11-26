@@ -1,24 +1,39 @@
-
-# folders
-prj/obj
+# binaries
+src/lptest/lptest
 
 # autotools files
 autom4te.cache
-.deps
-.libs
+INSTALL
 Makefile
-libtool
+Makefile.in
+aclocal.m4
+configure
+config
 config.log
 config.status
+libtool
 src/config.h
 src/stamp-h1
+.dirstamp
+dist
+m4
 
 # build
 *.o
-*.lo
 *.a
+
+# libtool
+.deps
+.libs
+libtool
+*.lo
 *.la
-src/lptest/lptest
+
+# premake
+prj/obj
+
+# distribution tarballs
+lopack-*.tar.gz
 
 # OSX
 .DS_Store

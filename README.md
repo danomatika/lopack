@@ -27,6 +27,8 @@ See the headers in `src/lopack` and the example in `src/lptest` for more info.
 Building & Installing
 ---------------------
 
+Download a release tarball from <http://docs.danomatika.com/releases/lopack/>. Otherwise, if cloning this repo, you will need to run `autogen.sh` to create the configure script.
+
 You will need liblo installed before building. On Mac OSX, you can use [Homebrew](http://brew.sh) with:
 
     brew install liblo

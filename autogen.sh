@@ -1,5 +1,7 @@
 #! /bin/bash
+#
+# generate autotools files
+#
 
-automake --add-missing
-autoreconf -i
-
+mkdir -p config m4
+autoreconf --install --force --verbose
