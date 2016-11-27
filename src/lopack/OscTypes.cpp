@@ -364,7 +364,7 @@ const void ReceivedMessage::printArg(unsigned at) const {
 const void ReceivedMessage::printAllArgs() const {
 	int argc = lo_message_get_argc(m_message);
 	lo_arg **argv = lo_message_get_argv(m_message);
-	for(unsigned int i = 0; i < argc; ++i) {
+	for(int i = 0; i < argc; ++i) {
 		lo_arg_pp((lo_type) typeTag(i), (lo_arg *)argv[i]);
 	}
 }
