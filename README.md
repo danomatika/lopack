@@ -29,7 +29,7 @@ Building & Installing
 
 Download a release tarball from <http://docs.danomatika.com/releases/lopack/>. Otherwise, if cloning this repo, you will need to run `autogen.sh` to create the configure script.
 
-You will need liblo installed before building. On Mac OSX, you can use [Homebrew](http://brew.sh) with:
+You will need liblo installed before building. On macOS, you can use [Homebrew](http://brew.sh) with:
 
     brew install liblo
 
@@ -54,9 +54,7 @@ Install via:
 Developing
 ----------
 
-A Premake4 script and IDE files can be found in the prj folder. Premake4 can generate the IDE files from a given lua script. Download Premake4 from <http://industriousone.com/premake>.
-
-Make sure the externals are built by calling the `prj/setupbuild` script which runs configure and calls make in the externals dir.
+A Premake4 script and IDE files can be found in the prj folder. Premake4 can generate IDE files from a given lua script. Download Premake4 from <http://industriousone.com/premake>.
 
 You can enable a debug build using:
 

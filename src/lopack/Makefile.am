@@ -19,7 +19,7 @@ liblopack_la_SOURCES = Log.h \
                        OscTypes.cpp
 
 # include paths
-AM_CPPFLAGS = $(LO_CFLAGS)
+AM_CXXFLAGS = $(LO_CFLAGS)
 
 # libs to link
 AM_LDFLAGS = $(LO_LIBS)

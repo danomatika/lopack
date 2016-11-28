@@ -21,6 +21,7 @@ m4
 # build
 *.o
 *.a
+*.dSYM
 
 # libtool
 .deps
