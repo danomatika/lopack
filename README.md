@@ -27,11 +27,21 @@ See the headers in `src/lopack` and the example in `src/lptest` for more info.
 Building & Installing
 ---------------------
 
-Download a release tarball from <http://docs.danomatika.com/releases/lopack/>. Otherwise, if cloning this repo, you will need to run `autogen.sh` to create the configure script.
+Download a release tarball from <http://docs.danomatika.com/releases/lopack/>.
+
+Otherwise, if cloning this repo, you will also need to run `autogen.sh` to create the configure script:
+
+    git clone https://github.com/danomatika/lopack.git
+    cd lopack
+    ./autogen.sh
 
 You will need liblo installed before building. On macOS, you can use [Homebrew](http://brew.sh) with:
 
     brew install liblo
+
+On Ubuntu/Debian, you would do the following:
+
+    sudo apt-get install liblo-dev
 
 This is an automake project, so build the lib & test with:
 
@@ -49,7 +59,7 @@ or
 
 Install via:
 
-    make install
+    sudo make install
 
 Developing
 ----------

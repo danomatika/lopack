@@ -1,3 +1,12 @@
+2016-11-28 Dan Wilcox <danomatika@gmail.com>
+
+	0.3.1
+
+	* fixed unsigned int comparison warnings
+	* added autoclean.sh script
+	* updated configure to use CXXFLAGS and respect default settings for debug build
+	* removed generated autotools files
+
 2015-11-15 Dan Wilcox <danomatika@gmail.com>
 
 	0.3.0
