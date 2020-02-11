@@ -7,11 +7,16 @@ autom4te.cache
 .deps
 .libs
 Makefile
-libtool
+Makefile.in
+aclocal.m4
+configure
+config
 config.log
 config.status
+libtool
 src/config.h
 src/stamp-h1
+
 
 # build
 *.o
