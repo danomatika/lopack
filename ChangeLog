@@ -1,3 +1,11 @@
+2020-02-11 Dan Wilcox <danomatika@gmail.com>
+
+	0.3.1
+
+	* updated autogen.sh for better MinGW support
+	* removed autotools temp files
+	* small formatting updates
+
 2015-11-15 Dan Wilcox <danomatika@gmail.com>
 
 	0.3.0
