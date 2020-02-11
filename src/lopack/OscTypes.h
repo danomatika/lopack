@@ -32,6 +32,7 @@
 #include <lo/lo.h>
 #include <string>
 #include <math.h>
+#include <stdexcept>
 
 namespace osc {
 

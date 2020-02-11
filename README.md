@@ -3,7 +3,7 @@ lopack
 
 an oscpack-inspired C++ wrapper for the liblo OSC library
 
-Copyright (c) [Dan Wilcox](http://danomatika.com) 2009, 2015
+Copyright (c) [Dan Wilcox](http://danomatika.com) 2009, 2015, 2020
 
 Description
 -----------
@@ -27,9 +27,30 @@ See the headers in `src/lopack` and the example in `src/lptest` for more info.
 Building & Installing
 ---------------------
 
-You will need liblo installed before building. On Mac OSX, you can use [Homebrew](http://brew.sh) with:
+Download a release tarball from <http://docs.danomatika.com/releases/lopack/>.
+
+Otherwise, if cloning this repo, you will also need to run `autogen.sh` to create the configure script:
+
+    git clone https://github.com/danomatika/lopack.git
+    cd lopack
+    ./autogen.sh
+
+You will need liblo installed before building.
+
+On macOS, you can use [Homebrew](http://brew.sh) with:
 
     brew install liblo
+
+On Ubuntu/Debian, you would do the following:
+
+    sudo apt-get install liblo-dev
+
+On Windows, it is recommended to use [Msys2](https://www.msys2.org). Install the build tool chain (make, gcc or clang, pkgconfig, autconf, automake, libtool). Msys2 does not have a package for liblo, so you need to download the source from https://github.com/radarsat1/liblo/releases then build & install it manually:
+
+    cd liblo-0.30
+    ./configure --disable-debug --disable-dependency-tracking --disable-tests --disable-network-tests --disable-tools --disable-examples
+    make
+    make install
 
 This is an automake project, so build the lib & test with:
 
@@ -47,14 +68,12 @@ or
 
 Install via:
 
-    make install
+    sudo make install
 
 Developing
 ----------
 
-A Premake4 script and IDE files can be found in the prj folder. Premake4 can generate the IDE files from a given lua script. Download Premake4 from <http://industriousone.com/premake>.
-
-Make sure the externals are built by calling the `prj/setupbuild` script which runs configure and calls make in the externals dir.
+A Premake4 script and IDE files can be found in the prj folder. Premake4 can generate IDE files from a given lua script. Download Premake4 from <http://industriousone.com/premake>.
 
 You can enable a debug build using:
 

@@ -1,10 +1,25 @@
 2020-02-11 Dan Wilcox <danomatika@gmail.com>
 
+    0.3.2
+
+    * updated autogen.sh for better MinGW support
+    * small formatting updates
+
+2020-02-11 Dan Wilcox <danomatika@gmail.com>
+
+    0.3.2
+
+    * updated autogen.sh for better MinGW support
+    * small formatting updates
+
+2016-11-28 Dan Wilcox <danomatika@gmail.com>
+
 	0.3.1
 
-	* updated autogen.sh for better MinGW support
-	* removed autotools temp files
-	* small formatting updates
+	* fixed unsigned int comparison warnings
+	* added autoclean.sh script
+	* updated configure to use CXXFLAGS and respect default settings for debug build
+	* removed generated autotools files
 
 2015-11-15 Dan Wilcox <danomatika@gmail.com>
 

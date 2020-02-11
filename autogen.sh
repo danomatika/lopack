@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+# generate autotools files
+#
+
 
 PATH=/sw/bin:$PATH
 
