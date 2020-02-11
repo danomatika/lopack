@@ -3,7 +3,6 @@
 # generate autotools files
 #
 
-
 PATH=/sw/bin:$PATH
 
 PWD=${0%/*}
