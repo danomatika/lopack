@@ -1,16 +1,15 @@
 #########################################
 ##### Prelude #####
 
-AC_INIT([lopack], [0.3.1], [danomatika@gmail.com])
+AC_INIT([lopack], [0.3.2], [danomatika@gmail.com])
 AC_CONFIG_SRCDIR([src/lopack/lopack.h])
 AC_CONFIG_AUX_DIR([./config])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([foreign])
 
 #########################################
-##### Build Options #####
+##### Build settings #####
 
-DEBUG_CPPFLAGS="-g -Wall -Werror -Wno-uninitialized -O0 -fvisibility=hidden"
-RELEASE_CPPFLAGS="-g -O2"
+DEBUG_CXXFLAGS="-O0 -Wall -Werror -Wno-uninitialized -fvisibility=hidden"
 
 #########################################
 ##### Check for programs/libs #####
@@ -35,7 +34,7 @@ PKG_CHECK_MODULES(LO, liblo >= 0.23, [],
 	AC_MSG_ERROR([lo library >= 0.23 not found]))
 
 #########################################
-##### Options #####
+##### Build options #####
 
 # debug build switch
 # from http://www.bioinf.uni-freiburg.de/~mmann/HowTo/automake.html#debug
@@ -49,17 +48,10 @@ AC_MSG_RESULT([$enable_debug])
 
 if test x"$enable_debug" = x"yes"; then
 	AC_DEFINE([DEBUG], [], [Debug Mode])
-	CPPFLAGS="$DEBUG_CPPFLAGS $CPPFLAGS"
+	CXXFLAGS="$CXXFLAGS $DEBUG_CXXFLAGS"
 else
 	AC_DEFINE([NDEBUG], [], [Release Mode])
-	CPPFLAGS="$RELEASE_CPPFLAGS $CPPFLAGS"
 fi
-
-#########################################
-##### Externals #####
-
-# externals with configure scripts
-AC_CONFIG_SUBDIRS([])
 
 #########################################
 ##### Output files #####
@@ -82,7 +74,7 @@ AC_MSG_RESULT([
 
 	Source directory:     $srcdir
 	Installation prefix:  $prefix
-	C++ compiler:         $CXX $CPPFLAGS
+	C++ compiler:         $CXX $CXXFLAGS $LDFLAGS
 	Static lib:           $enable_static
 	Shared lib:           $enable_shared
 	Debug build:          $enable_debug
