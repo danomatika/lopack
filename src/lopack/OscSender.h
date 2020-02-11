@@ -114,7 +114,7 @@ class OscSender {
 	
 		/// begin a bundle, can be called within other bundles
 		void beginBundle();
-		void beginBundle(const TimeTag &tag); //< set the timestamp
+		void beginBundle(const TimeTag &tag); ///< set the timestamp
 	
 		/// finish the bundle before calling send or beginning a new bundle
 		void endBundle();
@@ -170,14 +170,14 @@ class OscSender {
 
 	private:
 		
-		lo_address	m_address; //< host address to send to
-		lo_message	m_message; //< temp message object
-		std::vector<lo_bundle> m_bundles; //< temp bundle object stack
+		lo_address	m_address; ///< host address to send to
+		lo_message	m_message; ///< temp message object
+		std::vector<lo_bundle> m_bundles; ///< temp bundle object stack
 
-		std::string m_addressPattern; //< temp osc address pattern
+		std::string m_addressPattern; ///< temp osc address pattern
 		
-		bool m_messageInProgress; //< is a message currently being built?
-		bool m_bundleInProgress;  //< is a bundle currently being built?
+		bool m_messageInProgress; ///< is a message currently being built?
+		bool m_bundleInProgress;  ///< is a bundle currently being built?
 };
 
 } // namespace

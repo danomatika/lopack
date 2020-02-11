@@ -26,7 +26,7 @@
 #ifdef WIN32
 	#define SLEEP(seconds) Sleep(seconds)
 #else
-	#define SLEEP(seconds) usleep(seconds*1000000)
+	#define SLEEP(seconds) usleep(seconds * 1000000)
 #endif
 
 // OscObject subclass which recieves messages automatically when added to
@@ -81,7 +81,8 @@ void testSender() {
 	
 	// send a quick message
 	sender << osc::BeginMessage("/test1")
-	       << (bool) 1 << 40.0f << (float) 1024.3434 << osc::Nil() << (std::string) "string one" << "string two"
+	       << (bool) 1 << 40.0f << (float) 1024.3434 << osc::Nil()
+	       << (std::string) "string one" << "string two"
 	       << osc::EndMessage();
 	sender.send();
 	
@@ -93,7 +94,7 @@ void testSender() {
 	m.bytes[3] = 0x60;
 	string blobData = "this is some blob data";
 	sender << osc::BeginMessage("/test2")
-	       << m << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1))
+	       << m << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length() + 1))
 	       << osc::EndMessage();
 	sender.send();
 	
@@ -112,7 +113,7 @@ void testSender() {
 	       << osc::Symbol("a symbol") // symbol (NULL-terminated C-string)
 	       << m                       // midi message
 	       << osc::TimeTag()          // time tag (right now)
-	       << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length()+1)) // binary blob data
+	       << osc::Blob(blobData.c_str(), sizeof(char)*(blobData.length() + 1)) // binary blob data
 	       << osc::EndMessage();
 	sender.send();
 	

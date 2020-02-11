@@ -142,7 +142,7 @@ void OscReceiver::removeOscObject(OscObject *object) {
 		return;
 	}
 	// find object in list and remove it
-	std::vector<OscObject*>::iterator iter;
+	std::vector<OscObject *>::iterator iter;
 	iter = find(m_objects.begin(), m_objects.end(), object);
 	if(iter != m_objects.end()) {
 		m_objects.erase(iter);
@@ -186,7 +186,7 @@ bool OscReceiver::processMessage(const ReceivedMessage &message, const MessageSo
 	}
 		
 	// call any attached objects
-	std::vector<OscObject*>::iterator iter;
+	std::vector<OscObject *>::iterator iter;
 	for(iter = m_objects.begin(); iter != m_objects.end();) {
 		if((*iter) != NULL) { // try to process message
 			if((*iter)->processOsc(message, source))

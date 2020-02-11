@@ -50,8 +50,8 @@ struct Infinitum {
 /// a 4 byte MIDI packet
 struct MidiMessage {
 	union {
-		uint8_t bytes[4]; //< 4 midi bytes
-		uint32_t value; //< midi bytes as an int32
+		uint8_t bytes[4]; ///< 4 midi bytes
+		uint32_t value; //</ midi bytes as an int32
 	};
 	
 	/// constructor
@@ -73,17 +73,17 @@ struct MidiMessage {
 		}
 	}
 
-	operator uint32_t() const {return value;} //< operator to grab the values implicitly
+	operator uint32_t() const {return value;} ///< operator to grab the values implicitly
 };
 
 /// an OSC TimeTag value
 struct TimeTag {
 	union {
 		struct {
-			uint32_t sec;  //< the number of seconds since Jan 1 1900 UTC
-			uint32_t frac; //< the fractions of a second offset from above, in 1/2^32nds of a second    
+			uint32_t sec;  ///< the number of seconds since Jan 1 1900 UTC
+			uint32_t frac; ///< the fractions of a second offset from above, in 1/2^32nds of a second
 		};
-		lo_timetag tag; //< the liblo timetag structure (holds the same data)
+		lo_timetag tag; ///< the liblo timetag structure (holds the same data)
 	};
 
 	/// constructor, sets immediate time (now)
@@ -119,7 +119,7 @@ struct TimeTag {
 
 /// standard C, NULL terminated, string. Used in systems which distinguish strings and symbols./
 struct Symbol {
-	const char *value; //< the C-string
+	const char *value; ///< the C-string
 
 	/// constructor
 	explicit Symbol() : value(NULL) {}
@@ -128,13 +128,13 @@ struct Symbol {
 	explicit Symbol(const char *value_) : value(value_) {}
 	explicit Symbol(const std::string value_) : value(value_.c_str()) {}
 
-	operator const char*() const {return value;} //< operator to grab the string implicitly
+	operator const char*() const {return value;} ///< operator to grab the string implicitly
 };
 
 /// a binary area of memory
 struct Blob {
-	const void *data; //< pointer to the data
-	uint32_t size;    //< size of the data
+	const void *data; ///< pointer to the data
+	uint32_t size;    ///< size of the data
 	
 	/// constructor
 	explicit Blob() : data(NULL), size(0) {}
@@ -148,7 +148,7 @@ struct Blob {
 /// start a message bundle
 struct BeginBundle {
 
-	TimeTag timetag; //< the timetag of this bundle
+	TimeTag timetag; ///< the timetag of this bundle
 	
 	/// use immediate time tag
 	explicit BeginBundle() : timetag() {}
@@ -163,7 +163,7 @@ struct EndBundle {};
 /// start a message
 struct BeginMessage {
 
-	const std::string addressPattern; //< the message address
+	const std::string addressPattern; ///< the message address
 
 	/// set the message target address
 	explicit BeginMessage(const std::string addressPattern_) : addressPattern(addressPattern_) {}
@@ -236,14 +236,14 @@ class ReceivedMessage {
 		const bool isNil(unsigned int at) const;
 		const bool isInfinitum(unsigned int at) const;
 		
-		const bool isInt(unsigned int at) const; //< either int32 or int64
+		const bool isInt(unsigned int at) const; ///< either int32 or int64
 		const bool isInt32(unsigned int at) const;
 		const bool isInt64(unsigned int at) const;
 		
 		const bool isFloat(unsigned int at) const;
 		const bool isDouble(unsigned int at) const;
 		
-		const bool isText(unsigned int at) const; //< either string or symbol
+		const bool isText(unsigned int at) const; ///< either string or symbol
 		const bool isString(unsigned int at) const;
 		const bool isSymbol(unsigned int at) const;
 		
@@ -298,8 +298,8 @@ class ReceivedMessage {
 		
 	private:
 	
-		std::string m_addressPattern; //< osc message address pattern
-		lo_message  m_message; //< liblo message
+		std::string m_addressPattern; ///< osc message address pattern
+		lo_message  m_message; ///< liblo message
 };
 
 /// \class MessageSource
@@ -312,16 +312,16 @@ class MessageSource {
 		/// address liblo address to wrap
 		MessageSource(lo_address address);
 		
-		const std::string getHostname() const; //< get the hostname
-		const std::string getPort() const;     //< get the port
-		const std::string getUrl() const;      //< get the url of the host
+		const std::string getHostname() const; ///< get the hostname
+		const std::string getPort() const;     ///< get the port
+		const std::string getUrl() const;      ///< get the url of the host
 	
 		/// print to std::cout
 		const void print() const;
 	
 	private:
 		
-		lo_address m_address; //< liblo host address
+		lo_address m_address; ///< liblo host address
 };
 
 } // namespace

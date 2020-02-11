@@ -67,7 +67,7 @@ class OscObject {
 
 	private:
 
-		std::vector<OscObject*> m_objects; //< currently nested objects
+		std::vector<OscObject *> m_objects; ///< currently nested objects
 };
 
 } // namespace

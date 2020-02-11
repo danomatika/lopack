@@ -56,7 +56,8 @@ class TestReceiver : public osc::OscReceiver {
 
 		/// OscReceiver new message callback
 		bool process(const osc::ReceivedMessage &message, const osc::MessageSource &source) {
-			cout << "TestReceiver: received message " << message.address() << " "
+			cout << "TestReceiver: received message " << message.address()
+			     << (message.types().length() > 0 ? " " + message.types() : "")
 			     << message.types() << " from " << source.getUrl() << endl;
 
 			// exit on /quit message

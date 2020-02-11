@@ -59,7 +59,7 @@ void OscObject::removeOscObject(OscObject *object) {
 		return;
 	}
 	// find object in list and remove it
-	std::vector<OscObject*>::iterator iter;
+	std::vector<OscObject *>::iterator iter;
 	iter = find(m_objects.begin(), m_objects.end(), object);
 	if(iter != m_objects.end()) {
 		m_objects.erase(iter);

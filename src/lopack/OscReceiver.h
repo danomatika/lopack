@@ -145,13 +145,13 @@ class OscReceiver {
 		static int messageCB(const char *path, const char *types, lo_arg **argv,
 		                     int argc, lo_message msg, void *user_data);
 		
-		lo_server_thread m_serverThread; //< liblo server thread handle
-		bool m_isMulticast; //< is the server listening to a multicast group?
+		lo_server_thread m_serverThread; ///< liblo server thread handle
+		bool m_isMulticast; ///< is the server listening to a multicast group?
 
-		bool m_isRunning; //< should the thread be running?
-		bool m_ignoreMessages; //< ignore incoming messages?
+		bool m_isRunning; ///< should the thread be running?
+		bool m_ignoreMessages; ///< ignore incoming messages?
 
-		std::vector<OscObject*> m_objects; //< osc objects to send messages to
+		std::vector<OscObject *> m_objects; ///< osc objects to send messages to
 };
 
 } // namespace
