@@ -1,3 +1,10 @@
+2021-08-19 Dan Wilcox <danomatika@gmail.com>
+
+	0.3.3
+
+	* updated configure.ac for autoconf 2.7.0+
+	* removed src/config.h.in from repo
+
 2020-02-11 Dan Wilcox <danomatika@gmail.com>
 
 	0.3.2
